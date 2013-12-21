@@ -6,20 +6,23 @@
 int main()
 {
 
-	criarSocket();
+	//criarSocket();
 		
 	Game g1=Game();
 	g1.createBoard();
 		
 	while(1)
 	{
-		char* recebido = leMensagem();
+		char recebido[300];
+
+		fgets(recebido, sizeof(recebido), stdin);
 		vector<int> valoresRecebidos = divideStringEmInt(recebido);
 		
 		string aEnviar = g1.executaOperacao(valoresRecebidos);
 		//g1.displayBoard();
 
-		enviaMensagem(aEnviar.c_str());
+		cout<<aEnviar<<endl;
+		//enviaMensagem(aEnviar.c_str());
 		cout << "Enviou '" << aEnviar << "'"<< endl;
 		
 		aEnviar.clear();

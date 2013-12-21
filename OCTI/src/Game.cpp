@@ -31,9 +31,27 @@ string Game::executaOperacao(vector<int> valoresRecebidos){
 	switch(operacao)
 	{
 	case 1: 
+
+
 		player = valoresRecebidos[1]/10;
+		
 		pod = valoresRecebidos[1]%10;
-		dir = valoresRecebidos[2]+"";	
+		
+		d = valoresRecebidos[2];	
+
+		switch(d)
+		{
+		case 1: dir="s";break;
+		case 2:dir="se";break;
+		case 3:dir="e";break;
+		case 4:dir="ne";break;
+		case 5:dir="n";break;
+		case 6:dir="no";break;
+		case 7:dir="o";break;
+		case 8:dir="so";break;
+		}
+
+		
 		addprong(player,pod,dir);
 		//possible switch
 		break;
