@@ -146,7 +146,7 @@ bool Game::movepod(int player, int podnumber, string dir)
 					{
 						Pod * aux = gameBoard->getJogador2PodAt(i);
 						//Position pos=processaComer(gameBoard,aux,dir);
-						processaDir(aux,dir);
+						processaDir(aux,dir,player);
 						//Testa comer
 
 						return true;
@@ -171,7 +171,7 @@ bool Game::movepod(int player, int podnumber, string dir)
 						//Position pos=processaComer(gameBoard,aux,dir);
 
 
-						processaDir(aux,dir);
+						processaDir(aux,dir,player);
 						
 						//Testa comer
 						return true;
@@ -887,4 +887,45 @@ string Game::checkandAdd(int player, int id)
 Board* Game::getBoard()
 {
 	return gameBoard;
+}
+
+
+void processaDir(Pod* aux,string dir,int player)
+{
+	if((dir=="n" && player==2) || (dir=="s" && player==1))
+	{
+		aux->decX();
+	}
+	else if((dir=="s" && player==2) ||(dir=="n" && player==1) )
+	{
+		aux->incX();
+	}
+	else if((dir=="e" && player ==2) || (dir=="o" && player==1))
+	{
+		aux->incY();
+	}
+	else if((dir=="o" && player==2) || (dir=="e" && player==1))
+	{
+		aux->decY();
+	}
+	else if((dir=="ne" && player ==2)|| (dir=="so" && player==1))
+	{
+		aux->decX();
+		aux->incY();
+	}
+	else if((dir=="no" && player ==2)|| (dir=="se" && player==1))
+	{
+		aux->decX();
+		aux->decY();
+	}
+	else if((dir=="se" && player ==2)|| (dir=="no" && player==1))
+	{
+		aux->incX();
+		aux->incY();
+	}
+	else if((dir=="so" && player ==2)|| (dir=="ne" && player==1))
+	{
+		aux->incX();
+		aux->decY();
+	}
 }

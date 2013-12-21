@@ -1,44 +1,6 @@
 #include "utils.h"
 
-void processaDir(Pod* aux,string dir)
-{
-	if(dir=="n")
-	{
-		aux->decX();
-	}
-	else if(dir=="s")
-	{
-		aux->incX();
-	}
-	else if(dir=="e")
-	{
-		aux->incY();
-	}
-	else if(dir=="o")
-	{
-		aux->decY();
-	}
-	else if(dir=="ne")
-	{
-		aux->decX();
-		aux->incY();
-	}
-	else if(dir=="no")
-	{
-		aux->decX();
-		aux->decY();
-	}
-	else if(dir=="se")
-	{
-		aux->incX();
-		aux->incY();
-	}
-	else if(dir=="so")
-	{
-		aux->incX();
-		aux->decY();
-	}
-}
+
 
 Position processaComer(Board* board,Pod* aux, string dir)
 {

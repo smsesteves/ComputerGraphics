@@ -22,6 +22,7 @@ public:
 	bool movepod(int player, int pod, string dir);
 	bool addpod(int player, int idpod, int idcasa);
 
+	void processaDir(Pod* aux, string dir, int player);
 
 	string checkMovimentos(int player, int id);
 	string checkProngs(int player, string dir);

@@ -14,7 +14,7 @@ struct Position
 	int incy;
 };
 
-void processaDir(Pod* aux, string dir);
+
 Position processaComer(Board* board, Pod* aux, string dir);
 
 string criastring(vector<int> resultados);
