@@ -287,26 +287,203 @@ string Game::checkMovimentos(int player,int id)
 					}
 					else if(aux->getDirsAt(j)->getDir()=="e")
 					{
+						if(aux->getY()>=2)
+						{
+							int size2=gameBoard->getJogador1Size();
+							int size3=gameBoard->getJogador2Size();
+
+
+							//Pecas do 1
+							bool encontra=false;
+							for(int z=0;z<size2;z++)
+							{
+								if(gameBoard->getJogador1PodAt(z)->getY()==aux->getY()-1)
+								{
+									encontra=true;
+								}
+							}
+							//Pecas do 2
+							for(int z=0;z<size3;z++)
+							{
+								if(gameBoard->getJogador2PodAt(z)->getY()==aux->getY()-1)
+								{
+									encontra=true;
+								}
+							}
+
+							if(!encontra)
+							{
+								resultados.push_back(100+((aux->getY()-1)*10)+aux->getY());
+							}	
+						}
 
 					}
 					else if(aux->getDirsAt(j)->getDir()=="o")
 					{
+						if(aux->getY()<=6)
+						{
+							int size2=gameBoard->getJogador1Size();
+							int size3=gameBoard->getJogador2Size();
+
+
+							//Pecas do 1
+							bool encontra=false;
+							for(int z=0;z<size2;z++)
+							{
+								if(gameBoard->getJogador1PodAt(z)->getY()==aux->getY()+1)
+								{
+									encontra=true;
+								}
+							}
+							//Pecas do 2
+							for(int z=0;z<size3;z++)
+							{
+								if(gameBoard->getJogador2PodAt(z)->getY()==aux->getY()+1)
+								{
+									encontra=true;
+								}
+							}
+
+							if(!encontra)
+							{
+								resultados.push_back(100+((aux->getY()+1)*10)+aux->getY());
+							}	
+						}	
 
 					}
 					else if(aux->getDirsAt(j)->getDir()=="ne")
 					{
+						if(aux->getX()<=6 && aux->getY()>=2)
+						{
+							int size2=gameBoard->getJogador1Size();
+							int size3=gameBoard->getJogador2Size();
+
+
+							//Pecas do 1
+							bool encontra=false;
+							for(int z=0;z<size2;z++)
+							{
+								if(gameBoard->getJogador1PodAt(z)->getX()==aux->getX()+1 && gameBoard->getJogador1PodAt(z)->getY()==aux->getY()-1)
+								{
+									encontra=true;
+								}
+							}
+							//Pecas do 2
+							for(int z=0;z<size3;z++)
+							{
+								if(gameBoard->getJogador2PodAt(z)->getX()==aux->getX()+1 && gameBoard->getJogador2PodAt(z)->getY()==aux->getY()-1)
+								{
+									encontra=true;
+								}
+							}
+
+							if(!encontra)
+							{
+								resultados.push_back(100+((aux->getX()+1)*10)+(aux->getY()-1));
+							}
+						}
 
 					}
 					else if(aux->getDirsAt(j)->getDir()=="no")
 					{
+						if(aux->getX()<=6 && aux->getY()<=6)
+						{
+							int size2=gameBoard->getJogador1Size();
+							int size3=gameBoard->getJogador2Size();
+
+
+							//Pecas do 1
+							bool encontra=false;
+							for(int z=0;z<size2;z++)
+							{
+								if(gameBoard->getJogador1PodAt(z)->getX()==aux->getX()+1 && gameBoard->getJogador1PodAt(z)->getY()==aux->getY()+1)
+								{
+									encontra=true;
+								}
+							}
+							//Pecas do 2
+							for(int z=0;z<size3;z++)
+							{
+								if(gameBoard->getJogador2PodAt(z)->getX()==aux->getX()+1 && gameBoard->getJogador2PodAt(z)->getY()==aux->getY()+1)
+								{
+									encontra=true;
+								}
+							}
+
+							if(!encontra)
+							{
+								resultados.push_back(100+((aux->getX()+1)*10)+(aux->getY()+1));
+							}
+						}
 
 					}
 					else if(aux->getDirsAt(j)->getDir()=="se")
 					{
+						if(aux->getX()>=2 && aux->getY()>=2)
+						{
+							int size2=gameBoard->getJogador1Size();
+							int size3=gameBoard->getJogador2Size();
+
+
+							//Pecas do 1
+							bool encontra=false;
+							for(int z=0;z<size2;z++)
+							{
+								if(gameBoard->getJogador1PodAt(z)->getX()==aux->getX()-1 && gameBoard->getJogador1PodAt(z)->getY()==aux->getY()-1)
+								{
+									encontra=true;
+								}
+							}
+							//Pecas do 2
+							for(int z=0;z<size3;z++)
+							{
+								if(gameBoard->getJogador2PodAt(z)->getX()==aux->getX()-1 && gameBoard->getJogador2PodAt(z)->getY()==aux->getY()-1)
+								{
+									encontra=true;
+								}
+							}
+
+							if(!encontra)
+							{
+								resultados.push_back(100+((aux->getX()-1)*10)+(aux->getY()-1));
+							}	
+						}
+
 
 					}
 					else if(aux->getDirsAt(j)->getDir()=="so")
 					{
+						if(aux->getX()>=2 && aux->getY()<=6)
+						{
+							int size2=gameBoard->getJogador1Size();
+							int size3=gameBoard->getJogador2Size();
+
+
+							//Pecas do 1
+							bool encontra=false;
+							for(int z=0;z<size2;z++)
+							{
+								if(gameBoard->getJogador1PodAt(z)->getX()==aux->getX()-1 && gameBoard->getJogador1PodAt(z)->getY()==aux->getY()+1)
+								{
+									encontra=true;
+								}
+							}
+							//Pecas do 2
+							for(int z=0;z<size3;z++)
+							{
+								if(gameBoard->getJogador2PodAt(z)->getX()==aux->getX()-1 && gameBoard->getJogador2PodAt(z)->getY()==aux->getY()+1)
+								{
+									encontra=true;
+								}
+							}
+
+							if(!encontra)
+							{
+								resultados.push_back(100+((aux->getX()-1)*10)+(aux->getY()+1));
+							}	
+						}
+
+
 
 					}
 				}
@@ -386,45 +563,220 @@ string Game::checkMovimentos(int player,int id)
 
 							if(!encontra)
 							{
-								resultados.push_back(100+((aux->getX()-1)*10)+aux->getY());
+								resultados.push_back(100+((aux->getX()+1)*10)+aux->getY());
 							}	
 						}
 					}
 					else if(aux->getDirsAt(j)->getDir()=="e")
 					{
+						if(aux->getY()<=6)
+						{
+							int size2=gameBoard->getJogador1Size();
+							int size3=gameBoard->getJogador2Size();
+
+
+							//Pecas do 1
+							bool encontra=false;
+							for(int z=0;z<size2;z++)
+							{
+								if(gameBoard->getJogador1PodAt(z)->getY()==aux->getY()+1)
+								{
+									encontra=true;
+								}
+							}
+							//Pecas do 2
+							for(int z=0;z<size3;z++)
+							{
+								if(gameBoard->getJogador2PodAt(z)->getY()==aux->getY()+1)
+								{
+									encontra=true;
+								}
+							}
+
+							if(!encontra)
+							{
+								resultados.push_back(100+((aux->getY()+1)*10)+aux->getY());
+							}	
+						}
 
 					}
 					else if(aux->getDirsAt(j)->getDir()=="o")
 					{
+						if(aux->getY()>=2)
+						{
+							int size2=gameBoard->getJogador1Size();
+							int size3=gameBoard->getJogador2Size();
+
+
+							//Pecas do 1
+							bool encontra=false;
+							for(int z=0;z<size2;z++)
+							{
+								if(gameBoard->getJogador1PodAt(z)->getY()==aux->getY()-1)
+								{
+									encontra=true;
+								}
+							}
+							//Pecas do 2
+							for(int z=0;z<size3;z++)
+							{
+								if(gameBoard->getJogador2PodAt(z)->getY()==aux->getY()-1)
+								{
+									encontra=true;
+								}
+							}
+
+							if(!encontra)
+							{
+								resultados.push_back(100+((aux->getY()-1)*10)+aux->getY());
+							}	
+						}
 
 					}
 					else if(aux->getDirsAt(j)->getDir()=="ne")
 					{
 
+						if(aux->getX()>=2 && aux->getY()<=6)
+						{
+							int size2=gameBoard->getJogador1Size();
+							int size3=gameBoard->getJogador2Size();
+
+
+							//Pecas do 1
+							bool encontra=false;
+							for(int z=0;z<size2;z++)
+							{
+								if(gameBoard->getJogador1PodAt(z)->getX()==aux->getX()-1 && gameBoard->getJogador1PodAt(z)->getY()==aux->getY()+1)
+								{
+									encontra=true;
+								}
+							}
+							//Pecas do 2
+							for(int z=0;z<size3;z++)
+							{
+								if(gameBoard->getJogador2PodAt(z)->getX()==aux->getX()-1 && gameBoard->getJogador2PodAt(z)->getY()==aux->getY()+1)
+								{
+									encontra=true;
+								}
+							}
+
+							if(!encontra)
+							{
+								resultados.push_back(100+((aux->getX()-1)*10)+(aux->getY()+1));
+							}	
+						}
+
+
 					}
 					else if(aux->getDirsAt(j)->getDir()=="no")
 					{
+						if(aux->getX()>=2 && aux->getY()>=2)
+						{
+							int size2=gameBoard->getJogador1Size();
+							int size3=gameBoard->getJogador2Size();
+
+
+							//Pecas do 1
+							bool encontra=false;
+							for(int z=0;z<size2;z++)
+							{
+								if(gameBoard->getJogador1PodAt(z)->getX()==aux->getX()-1 && gameBoard->getJogador1PodAt(z)->getY()==aux->getY()-1)
+								{
+									encontra=true;
+								}
+							}
+							//Pecas do 2
+							for(int z=0;z<size3;z++)
+							{
+								if(gameBoard->getJogador2PodAt(z)->getX()==aux->getX()-1 && gameBoard->getJogador2PodAt(z)->getY()==aux->getY()-1)
+								{
+									encontra=true;
+								}
+							}
+
+							if(!encontra)
+							{
+								resultados.push_back(100+((aux->getX()-1)*10)+(aux->getY()-1));
+							}	
+						}
 
 					}
 					else if(aux->getDirsAt(j)->getDir()=="se")
 					{
+						if(aux->getX()<=6 && aux->getY()<=6)
+						{
+							int size2=gameBoard->getJogador1Size();
+							int size3=gameBoard->getJogador2Size();
+
+
+							//Pecas do 1
+							bool encontra=false;
+							for(int z=0;z<size2;z++)
+							{
+								if(gameBoard->getJogador1PodAt(z)->getX()==aux->getX()+1 && gameBoard->getJogador1PodAt(z)->getY()==aux->getY()+1)
+								{
+									encontra=true;
+								}
+							}
+							//Pecas do 2
+							for(int z=0;z<size3;z++)
+							{
+								if(gameBoard->getJogador2PodAt(z)->getX()==aux->getX()+1 && gameBoard->getJogador2PodAt(z)->getY()==aux->getY()+1)
+								{
+									encontra=true;
+								}
+							}
+
+							if(!encontra)
+							{
+								resultados.push_back(100+((aux->getX()+1)*10)+(aux->getY()+1));
+							}
+						}
 
 					}
 					else if(aux->getDirsAt(j)->getDir()=="so")
 					{
+						if(aux->getX()<=6 && aux->getY()>=2)
+						{
+							int size2=gameBoard->getJogador1Size();
+							int size3=gameBoard->getJogador2Size();
+
+
+							//Pecas do 1
+							bool encontra=false;
+							for(int z=0;z<size2;z++)
+							{
+								if(gameBoard->getJogador1PodAt(z)->getX()==aux->getX()+1 && gameBoard->getJogador1PodAt(z)->getY()==aux->getY()-1)
+								{
+									encontra=true;
+								}
+							}
+							//Pecas do 2
+							for(int z=0;z<size3;z++)
+							{
+								if(gameBoard->getJogador2PodAt(z)->getX()==aux->getX()+1 && gameBoard->getJogador2PodAt(z)->getY()==aux->getY()-1)
+								{
+									encontra=true;
+								}
+							}
+
+							if(!encontra)
+							{
+								resultados.push_back(100+((aux->getX()+1)*10)+(aux->getY()-1));
+							}
+						}
 
 					}
 				}
 
 			}
 
-		}
-
-
-			
+		}	
 	}
-	return criastring(resultados);
-
+	if(resultados.size()>0)
+		return criastring(resultados);
+	else
+		return "-1";
 }
 
 string Game::checkProngs(int player, string dir)
