@@ -25,18 +25,18 @@ public:
 
 
 	// Logical
+	string getDir(int dir);
 	bool getEnded();
 	void createBoard();
 	void displayBoard();
 	void menu(int player);
-	//void menuaddpod(int player);
-	//void menuaddprong(int player);
-	//void menumovepod(int player);
+
+	bool addprong(int player, int pod, string dir);
+
 	void displayWin(int player){};
 	void play(int op,int player);
-	bool checkaddprong(int player, char pod, char dir);
-	bool checkmovepod(int player, char pod, string dir);
-	bool checkaddpod(int player, char idpod, string idcasa);
+
+
 };
 
 #endif

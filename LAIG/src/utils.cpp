@@ -16,6 +16,11 @@ float radiustodegrees(float angle)
 vector<int> divideStringEmInt(char* mensagem){
 	vector<int> res;
 
+	if(mensagem == "-1"){
+		res.clear();
+		return res;
+	}
+
 	int posi = 0;
 	int posf = 0;
 	int i = 0;
@@ -43,4 +48,12 @@ vector<int> divideStringEmInt(char* mensagem){
 	}
 
 	return res;
+}
+
+string intToString(int idpicado){
+	char id[10];
+	itoa(idpicado,id,10);
+	string s(id);
+
+	return s;
 }

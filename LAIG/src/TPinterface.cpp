@@ -107,8 +107,13 @@ void TPinterface::processHits(GLint hits, GLuint buffer[])
 
 
 void TPinterface::clickHandler(GLuint* selected, GLint nselected){
-		cout << endl << "Turno Atual: " << octi->turn << endl;
+		cout << endl << "ClickHandler: " << octi->turn << endl;
 		GLint idpicado;
+		cout << "LAST PICK : " << octi->idLastPick << endl;
+		cout << "IDS RECEIVED : " << endl;
+		for(int i = 0; i < octi->idsReceived.size(); i++){
+			cout << "[" << i << "] " << octi->idsReceived[i] << endl;
+		}
 
 		for (int i=0; i<nselected; i++){
 			//printf("%d ",selected[i]);
@@ -118,167 +123,240 @@ void TPinterface::clickHandler(GLuint* selected, GLint nselected){
 		
 
 		char id[256];
-		// Utilizador Selecciona Peca do Jogador 1
+		// ****************************************
+		// UTILIZADOR CLICOU EM PECA DO JOGADOR 1
+		// ****************************************
 		if(idpicado > 10 && idpicado < 18){
+			// TURNO ERRADO
 			if(octi->turn == 2){
-				cout << "----------------------------------"<< endl;
-				cout << "Turno Invalido. A des-seleccionar\n";
-				cout << "--------------------------------"<< endl;
-
+				cout << "Turno Errado. Turno atual e 1\n";
 				octi->pickedAnything = false;
-				octi->idLastPick = 0;
+				octi->idLastPick = -1;
 			}
+			// JA TEM SELCCIONADO UMA DIRECAO - ADICIONAR PRONG
 			else if(octi->pickedAnything && octi->idLastPick > 210 && octi->idLastPick < 218){
-				cout << "-----------------"<< endl;
-				cout << "Adicionar Prong: a " << idpicado << endl;
-				cout << "-----------------"<< endl;
+				string mensagem;
+				mensagem = "1 " + intToString(idpicado);
+				int dir = octi->idLastPick % 10;
+				mensagem += " ";
+				mensagem += intToString(dir);
+				sendMessage(mensagem.c_str());
+				cout << "[ADD_PRONG] '" << mensagem << "'" << endl;
+
+				readMessage();
+				cout << "[ADD_PRONG] A logica nao respondeu nada\n";
+
+				octi->unhighlightId(octi->idLastPick); // Unlight do PRONG
+				for(int i = 0; i < octi->idsReceived.size(); i++){
+					octi->unhighlightId(octi->idsReceived[i]);
+				}
 
 				octi->pickedAnything = false;
-				octi->idLastPick = 0;
-				octi->turn = 2;
+				octi->idLastPick = -1;
+				octi->turn = 2; // muda de turno
+				cout << "----------------- Fim do Turno de 1 -------------------" << endl;
 			}
-			else{
-				cout << "-----------------"<< endl;
-				cout << "Peca Jogador 1:\n ";
-				itoa(idpicado,id,10);
-				string s(id);
-				string mensagem = "10 " + s;
-				cout << "A Enviar '" << mensagem << "'\n";
-
+			// MOSTRA PARA ONDE SE PODE MOVER - NAO TEM NADA PICADO OU TEM OUTRA PECA PICADA
+			else if(octi->pickedAnything == false || (octi->pickedAnything == true && octi->idLastPick > 10 && octi->idLastPick < 18)){
 				octi->pickedAnything = true;
+				octi->unhighlightId(octi->idLastPick);
+				for(int i = 0; i < octi->idsReceived.size(); i++){
+					octi->unhighlightId(octi->idsReceived[i]);
+				}
 				octi->idLastPick = idpicado;
+				octi->highlightId(idpicado); // highlight da peca que pickou
 
+				string mensagem = "10 ";
+				mensagem += to_string(idpicado);
+				mensagem += " ";
+				cout << "[MOVE POD] Enviou '" << mensagem << "'\n";
 				sendMessage(mensagem.c_str());
 
 				char* resposta = readMessage();
-				cout << "Logica respondeu\n" << resposta << endl;
-				cout << "-----------------"<< endl;
-			}
-		}
-		// Utilizador Selecciona Peca do Jogador 2
-		if(idpicado > 20 && idpicado < 28){
-			if(octi->turn == 1){
-				octi->pickedAnything = false;
-				octi->idLastPick = 0;
-				cout << "-----------------"<< endl;
-				cout << "Turno Invalido. A des-seleccionar\n";
-				cout << "-----------------"<< endl;
-			}
-			else if(octi->pickedAnything && octi->idLastPick > 220 && octi->idLastPick < 228){
-				cout << "-----------------"<< endl;
-				cout << "Adicionar Prong: a " << idpicado << endl;
-				cout << "-----------------"<< endl;
-
-				octi->pickedAnything = false;
-				octi->idLastPick = 0;
-				octi->turn = 1;
-			}
-			else{
-				cout << "-----------------"<< endl;
-				cout << "Peca Jogador 2:\n ";
-				itoa(idpicado,id,10);
-				string s(id);
-				string mensagem = "10 " + s;
-				cout << "A Enviar '" << mensagem << "'\n";
-
-				octi->pickedAnything = true;
-				octi->idLastPick = idpicado;
-
-				sendMessage(mensagem.c_str());
-
-				char* resposta = readMessage();
-				cout << "Logica respondeu\n" << resposta << endl;
-				cout << "-----------------"<< endl;
-			}
-		}
-		// Jogador escolhe adicionar PRONG (clicar no octogono à esquerda)
-		// idLastPick fica com id da direcao
-		// pickedAnything passa a True
-		if(idpicado > 210 && idpicado < 218){
-			if(octi->pickedAnything){
-				octi->pickedAnything = false;
-				octi->idLastPick = 0;
-				cout << "---------------------------------"<< endl;
-				cout << "Click Invalido. A des-seleccionar\n";
-				cout << "---------------------------------"<< endl;
-			}
-			else if(octi->turn == 2){
-				octi->pickedAnything = false;
-				octi->idLastPick = 0;
-				cout << "---------------------------------"<< endl;
-				cout << "Nao pode clicar no Oct do adversario\n";
-				cout << "---------------------------------"<< endl;
-			}
-			else{
-				cout << "-----------------"<< endl;
-				cout << "Adicionar Pod:\n";
-				itoa(idpicado%10,id,10);
-				string s(id);
-				string mensagem = "11 " +  to_string(octi->turn);
-				mensagem += " " + s;
-				cout << "A Enviar '" << mensagem << "'" << endl;
-
-				octi->pickedAnything = true;
-				octi->idLastPick = idpicado;
-
-				sendMessage(mensagem.c_str());
-
-				char* resposta = readMessage();
-				cout << "Logica respondeu '" << resposta << "'" << endl;
+				cout << "[MOVE POD] Logica respondeu '" << resposta << "'" << endl;
 
 				octi->idsReceived = divideStringEmInt(resposta);
 
 				for(int i = 0; i < octi->idsReceived.size(); i++){
-					cout << octi->idsReceived[i] << endl;
 					octi->highlightId(octi->idsReceived[i]);
 				}
-
-				
-				cout << "-----------------"<< endl;
 			}
+			
 		}
+		// Fim do Handler do clique na PECA 1
 
 
-		if(idpicado > 220 && idpicado < 228){
-			if(octi->pickedAnything){
+
+
+
+		// ****************************************
+		// UTILIZADOR CLICOU EM PECA DO JOGADOR 2
+		// ****************************************
+		if(idpicado > 20 && idpicado < 28){
+			// TURNO ERRADO
+			if(octi->turn == 1){
 				octi->pickedAnything = false;
-				octi->idLastPick = 0;
-				cout << "---------------------------------"<< endl;
-				cout << "Click Invalido. A des-seleccionar\n";
-				cout << "---------------------------------"<< endl;
+				octi->idLastPick = -1;
+				cout << "Turno Invalido. Turno atual e 2\n";
 			}
-			else if(octi->turn == 1){
-				octi->pickedAnything = false;
-				octi->idLastPick = 0;
-				cout << "---------------------------------"<< endl;
-				cout << "Nao pode clicar no Oct do adversario\n";
-				cout << "---------------------------------"<< endl;
-			}
-			else{
-				cout << "-----------------"<< endl;
-				cout << "Adicionar Prong:\n";
-				itoa(idpicado%10,id,10);
-				string s(id);
-				string mensagem = "11 " +  to_string(octi->turn);
-				mensagem += " " + s;
-				cout << "A Enviar '" << mensagem << "'" << endl;
+			// JA TEM SELCCIONADO UMA DIRECAO - ADICIONAR PRONG
+			else if(octi->pickedAnything && octi->idLastPick > 220 && octi->idLastPick < 228){
+				string mensagem;
+				mensagem = "1 " + intToString(idpicado);
+				int dir = octi->idLastPick % 10;
+				mensagem += " ";
+				mensagem += intToString(dir);
+				sendMessage(mensagem.c_str());
+				cout << "[ADD_PRONG] '" << mensagem << "'" << endl;
 
+				readMessage();
+				cout << "[ADD_PRONG] A logica nao respondeu nada\n";
+
+				octi->unhighlightId(octi->idLastPick); // Unlight do PRONG
+				for(int i = 0; i < octi->idsReceived.size(); i++){
+					octi->unhighlightId(octi->idsReceived[i]);
+				}
+
+				octi->pickedAnything = false;
+				octi->idLastPick = -1;
+				octi->turn = 1; // muda de turno
+				cout << "----------------- Fim do Turno de 2 -------------------" << endl;
+
+			}
+			// MOSTRA PARA ONDE SE PODE MOVER - NAO TEM NADA PICADO OU TEM OUTRA PECA PICADA
+			else if(octi->pickedAnything == false || (octi->pickedAnything == true && octi->idLastPick > 20 && octi->idLastPick < 28)){
 				octi->pickedAnything = true;
+				octi->unhighlightId(octi->idLastPick);
+				for(int i = 0; i < octi->idsReceived.size(); i++){
+					octi->unhighlightId(octi->idsReceived[i]);
+				}
 				octi->idLastPick = idpicado;
+				octi->highlightId(idpicado); // highlight da peca que pickou
 
+				string mensagem = "10 ";
+				mensagem += to_string(idpicado);
+				mensagem += " ";
+				cout << "[MOVE POD] Enviou '" << mensagem << "'\n";
 				sendMessage(mensagem.c_str());
 
 				char* resposta = readMessage();
-				cout << "Logica respondeu '" << resposta << "'" << endl;
-				cout << "-----------------"<< endl;
+				cout << "[MOVE POD] Logica respondeu '" << resposta << "'" << endl;
+
+				octi->idsReceived = divideStringEmInt(resposta);
+
+				for(int i = 0; i < octi->idsReceived.size(); i++){
+					octi->highlightId(octi->idsReceived[i]);
+				}
 			}
 		}
 
+
+		// ****************************************
+		// UTILIZADOR CLICOU PRONGS JOGADOR 1
+		// ****************************************
+		if(idpicado > 210 && idpicado < 218){
+			// TURNO ERRADO
+			if(octi->turn == 2){
+				octi->pickedAnything = false;
+				octi->idLastPick = -1;
+				cout << "Nao pode clicar no Oct do adversario. Turno atual e 1\n";
+			}
+			// HIGHLIGHT DOS PODS POSSIVEIS - TEM OUTRO PRONG SELCCIONADO OU NAO TEM NADA SELECCIONADO
+			else if(octi->pickedAnything == false || 
+							(octi->pickedAnything && octi->idLastPick > 210 && octi->idLastPick < 218) ||
+							(octi->pickedAnything && octi->idLastPick > 10 && octi->idLastPick < 18)){
+				
+				// Unhighlight do que ja estava
+				if(octi->pickedAnything){
+					octi->unhighlightId(octi->idLastPick);
+					for(int i = 0; i < octi->idsReceived.size(); i++){
+						octi->unhighlightId(octi->idsReceived[i]);
+					}
+				}
+
+				// Highlight do Prong seleccionado
+				octi->pickedAnything = true;
+				octi->idLastPick = idpicado;
+				octi->highlightId(idpicado); 
+
+				// Envia mensagem para saber que pods pode meter highlight
+				string mensagem = "11 ";
+				mensagem += to_string(octi->turn);
+				mensagem += " " + to_string(idpicado%10);
+				cout << "[CHECK_ADD_PRONG] Enviou '" << mensagem << "'" << endl;
+				sendMessage(mensagem.c_str());
+
+				char* resposta = readMessage();
+				cout << "[CHECK_ADD_PRONG] Resposta '" << resposta << "'" << endl;
+
+				// Highlight dos ids que recebeu
+				octi->idsReceived = divideStringEmInt(resposta);
+				for(int i = 0; i < octi->idsReceived.size(); i++){
+					cout << octi->idsReceived[i] << endl;
+					octi->highlightId(octi->idsReceived[i]);
+				}
+			}
+		}
+
+		// ****************************************
+		// UTILIZADOR CLICOU PRONGS JOGADOR 2
+		// ****************************************
+		if(idpicado > 220 && idpicado < 228){
+			// TURNO ERRADO
+			if(octi->turn == 1){
+				octi->pickedAnything = false;
+				octi->idLastPick = -1;
+				cout << "Nao pode clicar no Oct do adversario. Turno atual e 2\n";
+			}
+			// HIGHLIGHT DOS PODS POSSIVEIS - TEM OUTRO PRONG SELCCIONADO OU NAO TEM NADA SELECCIONADO
+			else if(octi->pickedAnything == false ||
+							(octi->pickedAnything && octi->idLastPick > 220 && octi->idLastPick < 228) ||
+							(octi->pickedAnything && octi->idLastPick > 20 && octi->idLastPick < 28)){
+				
+				// Unhighlight do que ja estava
+				if(octi->pickedAnything){
+					octi->unhighlightId(octi->idLastPick);
+					for(int i = 0; i < octi->idsReceived.size(); i++){
+						octi->unhighlightId(octi->idsReceived[i]);
+					}
+				}
+
+				// Highlight do Prong seleccionado
+				octi->pickedAnything = true;
+				octi->idLastPick = idpicado;
+				octi->highlightId(idpicado); 
+
+				// Envia mensagem para saber que pods pode meter highlight
+				string mensagem = "11 ";
+				mensagem += to_string(octi->turn);
+				mensagem += " " + to_string(idpicado%10);
+				cout << "[CHECK_ADD_PRONG] Enviou '" << mensagem << "'" << endl;
+				sendMessage(mensagem.c_str());
+
+				char* resposta = readMessage();
+				cout << "[CHECK_ADD_PRONG] Resposta '" << resposta << "'" << endl;
+
+				// Highlight dos ids que recebeu
+				octi->idsReceived = divideStringEmInt(resposta);
+				for(int i = 0; i < octi->idsReceived.size(); i++){
+					cout << octi->idsReceived[i] << endl;
+					octi->highlightId(octi->idsReceived[i]);
+				}
+			}
+		}
+
+
+		// ****************************************
+		// UTILIZADOR CLICOU EM CELULA
+		// ****************************************
+		
+		/*
 		if(octi->pickedAnything == false){
 			for(int i = 0; i < octi->idsReceived.size(); i++){
 				octi->unhighlightId(octi->idsReceived[i]);
 			}
 		}
+		*/
 }
 
 void TPinterface::initGUI()

@@ -177,7 +177,6 @@
 				<scale factor="4 1 4"/>
 				<rotate axis="y" angle="180"/>
 			</transforms>
-			<appearanceref id="appPecaVermelha"/>
 			<children>
 				<noderef id="tr_pick1"/>
 				<noderef id="tr_pick2"/>
@@ -196,7 +195,6 @@
 				<translate to="0.25 0 9"/>
 				<scale factor="4 1 4"/>
 			</transforms>
-			<appearanceref id="appPecaAzul"/>
 			<children>
 				<noderef id="tr_pick_a_1"/>
 				<noderef id="tr_pick_a_2"/>
@@ -211,6 +209,7 @@
 			<node id="tr_pick_a_1" pickingid="211">
 				<transforms>
 				</transforms>
+				<appearanceref id="appPecaAzul"/>
 				<children>
 					<noderef id="trianguloBase"/>
 				</children>
@@ -220,6 +219,7 @@
 				<transforms>
 					<rotate axis="y" angle="45"/>
 				</transforms>
+				<appearanceref id="appPecaAzul"/>
 				<children>
 					<noderef id="trianguloBase"/>
 				</children>
@@ -229,6 +229,7 @@
 				<transforms>
 					<rotate axis="y" angle="90"/>
 				</transforms>
+				<appearanceref id="appPecaAzul"/>
 				<children>
 					<noderef id="trianguloBase"/>
 				</children>
@@ -238,6 +239,7 @@
 				<transforms>
 					<rotate axis="y" angle="135"/>
 				</transforms>
+				<appearanceref id="appPecaAzul"/>
 				<children>
 					<noderef id="trianguloBase"/>
 				</children>
@@ -247,6 +249,7 @@
 				<transforms>
 					<rotate axis="y" angle="180"/>
 				</transforms>
+				<appearanceref id="appPecaAzul"/>
 				<children>
 					<noderef id="trianguloBase"/>
 				</children>
@@ -256,6 +259,7 @@
 				<transforms>
 					<rotate axis="y" angle="225"/>
 				</transforms>
+				<appearanceref id="appPecaAzul"/>
 				<children>
 					<noderef id="trianguloBase"/>
 				</children>
@@ -265,6 +269,7 @@
 				<transforms>
 					<rotate axis="y" angle="270"/>
 				</transforms>
+				<appearanceref id="appPecaAzul"/>
 				<children>
 					<noderef id="trianguloBase"/>
 				</children>
@@ -274,6 +279,7 @@
 				<transforms>
 					<rotate axis="y" angle="315"/>
 				</transforms>
+				<appearanceref id="appPecaAzul"/>
 				<children>
 					<noderef id="trianguloBase"/>
 				</children>
@@ -282,6 +288,7 @@
 			<node id="tr_pick1" pickingid="221">
 				<transforms>
 				</transforms>
+				<appearanceref id="appPecaVermelha"/>
 				<children>
 					<noderef id="trianguloBase"/>
 				</children>
@@ -291,6 +298,7 @@
 				<transforms>
 					<rotate axis="y" angle="45"/>
 				</transforms>
+				<appearanceref id="appPecaVermelha"/>
 				<children>
 					<noderef id="trianguloBase"/>
 				</children>
@@ -300,6 +308,7 @@
 				<transforms>
 					<rotate axis="y" angle="90"/>
 				</transforms>
+				<appearanceref id="appPecaVermelha"/>
 				<children>
 					<noderef id="trianguloBase"/>
 				</children>
@@ -309,6 +318,7 @@
 				<transforms>
 					<rotate axis="y" angle="135"/>
 				</transforms>
+				<appearanceref id="appPecaVermelha"/>
 				<children>
 					<noderef id="trianguloBase"/>
 				</children>
@@ -318,6 +328,7 @@
 				<transforms>
 					<rotate axis="y" angle="180"/>
 				</transforms>
+				<appearanceref id="appPecaVermelha"/>
 				<children>
 					<noderef id="trianguloBase"/>
 				</children>
@@ -327,6 +338,7 @@
 				<transforms>
 					<rotate axis="y" angle="225"/>
 				</transforms>
+				<appearanceref id="appPecaVermelha"/>
 				<children>
 					<noderef id="trianguloBase"/>
 				</children>
@@ -336,6 +348,7 @@
 				<transforms>
 					<rotate axis="y" angle="270"/>
 				</transforms>
+				<appearanceref id="appPecaVermelha"/>
 				<children>
 					<noderef id="trianguloBase"/>
 				</children>
@@ -345,6 +358,7 @@
 				<transforms>
 					<rotate axis="y" angle="315"/>
 				</transforms>
+				<appearanceref id="appPecaVermelha"/>
 				<children>
 					<noderef id="trianguloBase"/>
 				</children>
@@ -439,7 +453,6 @@
 				<!-- <scale factor="2 1 2"/> <!-- MAIOR AQUI -->
 				<!-- <translate to="0 1 0"/> -->
 			</transforms>
-			<appearanceref id="appNormal" />
 			<children>
 				<noderef id="celulainicial"/>
 
@@ -847,6 +860,7 @@
 			<transforms>
 				<translate to="4.5 0 -4.5"/>
 			</transforms>
+			<appearanceref id="appNormal" />
 			<children>
 				<noderef id="celulainicial"/>
 			</children>
@@ -856,6 +870,7 @@
 			<transforms>
 				<translate to="4.5 0 -3.0"/>
 			</transforms>
+			<appearanceref id="appNormal" />
 			<children>
 				<noderef id="celulainicial"/>
 			</children>
@@ -865,6 +880,7 @@
 			<transforms>
 				<translate to="4.5 0 -1.5"/>
 			</transforms>
+			<appearanceref id="appNormal" />
 			<children>
 				<noderef id="celulainicial"/>
 			</children>
@@ -874,6 +890,7 @@
 			<transforms>
 				<translate to="4.5 0 0"/>
 			</transforms>
+			<appearanceref id="appNormal" />
 			<children>
 				<noderef id="celulainicial"/>
 			</children>
@@ -883,6 +900,7 @@
 			<transforms>
 				<translate to="4.5 0 1.5"/>
 			</transforms>
+			<appearanceref id="appNormal" />
 			<children>
 				<noderef id="celulainicial"/>
 			</children>
@@ -892,6 +910,7 @@
 			<transforms>
 				<translate to="4.5 0 3.0"/>
 			</transforms>
+			<appearanceref id="appNormal" />
 			<children>
 				<noderef id="celulainicial"/>
 			</children>
@@ -901,6 +920,7 @@
 			<transforms>
 				<translate to="4.5 0 4.5"/>
 			</transforms>
+			<appearanceref id="appNormal" />
 			<children>
 				<noderef id="celulainicial"/>
 			</children>
@@ -914,6 +934,7 @@
 			<transforms>
 				<translate to="3.0 0 -4.5"/>
 			</transforms>
+			<appearanceref id="appNormal" />
 			<children>
 				<noderef id="celulainicial"/>
 			</children>
@@ -933,6 +954,7 @@
 			<transforms>
 				<translate to="3.0 0 -1.5"/>
 			</transforms>
+			<appearanceref id="appNormal" />
 			<children>
 				<noderef id="celulainicial"/>
 			</children>
@@ -952,6 +974,7 @@
 			<transforms>
 				<translate to="3.0 0 1.5"/>
 			</transforms>
+			<appearanceref id="appNormal" />
 			<children>
 				<noderef id="celulainicial"/>
 			</children>
@@ -971,6 +994,7 @@
 			<transforms>
 				<translate to="3.0 0 4.5"/>
 			</transforms>
+			<appearanceref id="appNormal" />
 			<children>
 				<noderef id="celulainicial"/>
 			</children>
@@ -985,6 +1009,7 @@
 			<transforms>
 				<translate to="1.5 0 -4.5"/>
 			</transforms>
+			<appearanceref id="appNormal" />
 			<children>
 				<noderef id="celulainicial"/>
 			</children>
@@ -994,6 +1019,7 @@
 			<transforms>
 				<translate to="1.5 0 -3.0"/>
 			</transforms>
+			<appearanceref id="appNormal" />
 			<children>
 				<noderef id="celulainicial"/>
 			</children>
@@ -1003,6 +1029,7 @@
 			<transforms>
 				<translate to="1.5 0 -1.5"/>
 			</transforms>
+			<appearanceref id="appNormal" />
 			<children>
 				<noderef id="celulainicial"/>
 			</children>
@@ -1012,6 +1039,7 @@
 			<transforms>
 				<translate to="1.5 0 0"/>
 			</transforms>
+			<appearanceref id="appNormal" />
 			<children>
 				<noderef id="celulainicial"/>
 			</children>
@@ -1021,6 +1049,7 @@
 			<transforms>
 				<translate to="1.5 0 1.5"/>
 			</transforms>
+			<appearanceref id="appNormal" />
 			<children>
 				<noderef id="celulainicial"/>
 			</children>
@@ -1030,6 +1059,7 @@
 			<transforms>
 				<translate to="1.5 0 3.0"/>
 			</transforms>
+			<appearanceref id="appNormal" />
 			<children>
 				<noderef id="celulainicial"/>
 			</children>
@@ -1039,6 +1069,7 @@
 			<transforms>
 				<translate to="1.5 0 4.5"/>
 			</transforms>
+			<appearanceref id="appNormal" />
 			<children>
 				<noderef id="celulainicial"/>
 			</children>
@@ -1052,6 +1083,7 @@
 			<transforms>
 				<translate to="0 0 -4.5"/>
 			</transforms>
+			<appearanceref id="appNormal" />
 			<children>
 				<noderef id="celulainicial"/>
 			</children>
@@ -1061,6 +1093,7 @@
 			<transforms>
 				<translate to="0 0 -3.0"/>
 			</transforms>
+			<appearanceref id="appNormal" />
 			<children>
 				<noderef id="celulainicial"/>
 			</children>
@@ -1070,6 +1103,7 @@
 			<transforms>
 				<translate to="0 0 -1.5"/>
 			</transforms>
+			<appearanceref id="appNormal" />
 			<children>
 				<noderef id="celulainicial"/>
 			</children>
@@ -1078,6 +1112,7 @@
 		<node id="celula44" pickingid="144">
 			<transforms>
 			</transforms>
+			<appearanceref id="appNormal" />
 			<children>
 				<noderef id="celulainicial"/>
 			</children>
@@ -1087,6 +1122,7 @@
 			<transforms>
 				<translate to="0 0 1.5"/>
 			</transforms>
+			<appearanceref id="appNormal" />
 			<children>
 				<noderef id="celulainicial"/>
 			</children>
@@ -1096,6 +1132,7 @@
 			<transforms>
 				<translate to="0 0 3.0"/>
 			</transforms>
+			<appearanceref id="appNormal" />
 			<children>
 				<noderef id="celulainicial"/>
 			</children>
@@ -1105,6 +1142,7 @@
 			<transforms>
 				<translate to="0 0 4.5"/>
 			</transforms>
+			<appearanceref id="appNormal" />
 			<children>
 				<noderef id="celulainicial"/>
 			</children>
@@ -1118,6 +1156,7 @@
 			<transforms>
 				<translate to="-1.5 0 -4.5"/>
 			</transforms>
+			<appearanceref id="appNormal" />
 			<children>
 				<noderef id="celulainicial"/>
 			</children>
@@ -1127,6 +1166,7 @@
 			<transforms>
 				<translate to="-1.5 0 -3.0"/>
 			</transforms>
+			<appearanceref id="appNormal" />
 			<children>
 				<noderef id="celulainicial"/>
 			</children>
@@ -1136,6 +1176,7 @@
 			<transforms>
 				<translate to="-1.5 0 -1.5"/>
 			</transforms>
+			<appearanceref id="appNormal" />
 			<children>
 				<noderef id="celulainicial"/>
 			</children>
@@ -1145,6 +1186,7 @@
 			<transforms>
 				<translate to="-1.5 0 0"/>
 			</transforms>
+			<appearanceref id="appNormal" />
 			<children>
 				<noderef id="celulainicial"/>
 			</children>
@@ -1154,6 +1196,7 @@
 			<transforms>
 				<translate to="-1.5 0 1.5"/>
 			</transforms>
+			<appearanceref id="appNormal" />
 			<children>
 				<noderef id="celulainicial"/>
 			</children>
@@ -1163,6 +1206,7 @@
 			<transforms>
 				<translate to="-1.5 0 3.0"/>
 			</transforms>
+			<appearanceref id="appNormal" />
 			<children>
 				<noderef id="celulainicial"/>
 			</children>
@@ -1172,6 +1216,7 @@
 			<transforms>
 				<translate to="-1.5 0 4.5"/>
 			</transforms>
+			<appearanceref id="appNormal" />
 			<children>
 				<noderef id="celulainicial"/>
 			</children>
@@ -1185,6 +1230,7 @@
 			<transforms>
 				<translate to="-3.0 0 -4.5"/>
 			</transforms>
+			<appearanceref id="appNormal" />
 			<children>
 				<noderef id="celulainicial"/>
 			</children>
@@ -1204,6 +1250,7 @@
 			<transforms>
 				<translate to="-3.0 0 -1.5"/>
 			</transforms>
+			<appearanceref id="appNormal" />
 			<children>
 				<noderef id="celulainicial"/>
 			</children>
@@ -1223,6 +1270,7 @@
 			<transforms>
 				<translate to="-3.0 0 1.5"/>
 			</transforms>
+			<appearanceref id="appNormal" />
 			<children>
 				<noderef id="celulainicial"/>
 			</children>
@@ -1242,6 +1290,7 @@
 			<transforms>
 				<translate to="-3.0 0 4.5"/>
 			</transforms>
+			<appearanceref id="appNormal" />
 			<children>
 				<noderef id="celulainicial"/>
 			</children>
@@ -1255,6 +1304,7 @@
 			<transforms>
 				<translate to="-4.5 0 -4.5"/>
 			</transforms>
+			<appearanceref id="appNormal" />
 			<children>
 				<noderef id="celulainicial"/>
 			</children>
@@ -1264,6 +1314,7 @@
 			<transforms>
 				<translate to="-4.5 0 -3.0"/>
 			</transforms>
+			<appearanceref id="appNormal" />
 			<children>
 				<noderef id="celulainicial"/>
 			</children>
@@ -1273,6 +1324,7 @@
 			<transforms>
 				<translate to="-4.5 0 -1.5"/>
 			</transforms>
+			<appearanceref id="appNormal" />
 			<children>
 				<noderef id="celulainicial"/>
 			</children>
@@ -1282,6 +1334,7 @@
 			<transforms>
 				<translate to="-4.5 0 0"/>
 			</transforms>
+			<appearanceref id="appNormal" />
 			<children>
 				<noderef id="celulainicial"/>
 			</children>
@@ -1291,6 +1344,7 @@
 			<transforms>
 				<translate to="-4.5 0 1.5"/>
 			</transforms>
+			<appearanceref id="appNormal" />
 			<children>
 				<noderef id="celulainicial"/>
 			</children>
@@ -1300,6 +1354,7 @@
 			<transforms>
 				<translate to="-4.5 0 3.0"/>
 			</transforms>
+			<appearanceref id="appNormal" />
 			<children>
 				<noderef id="celulainicial"/>
 			</children>
@@ -1309,6 +1364,7 @@
 			<transforms>
 				<translate to="-4.5 0 4.5"/>
 			</transforms>
+			<appearanceref id="appNormal" />
 			<children>
 				<noderef id="celulainicial"/>
 			</children>

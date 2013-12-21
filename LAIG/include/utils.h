@@ -14,4 +14,6 @@ float radiustodegrees(float angle);
 
 vector<int> divideStringEmInt(char* mensagem);
 
+string intToString(int i);
+
 #endif
