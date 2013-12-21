@@ -135,26 +135,38 @@ void TPinterface::clickHandler(GLuint* selected, GLint nselected){
 			}
 			// JA TEM SELCCIONADO UMA DIRECAO - ADICIONAR PRONG
 			else if(octi->pickedAnything && octi->idLastPick > 210 && octi->idLastPick < 218){
-				string mensagem;
-				mensagem = "1 " + intToString(idpicado);
-				int dir = octi->idLastPick % 10;
-				mensagem += " ";
-				mensagem += intToString(dir);
-				sendMessage(mensagem.c_str());
-				cout << "[ADD_PRONG] '" << mensagem << "'" << endl;
-
-				readMessage();
-				cout << "[ADD_PRONG] A logica nao respondeu nada\n";
-
-				octi->unhighlightId(octi->idLastPick); // Unlight do PRONG
+				bool valid = false;
 				for(int i = 0; i < octi->idsReceived.size(); i++){
-					octi->unhighlightId(octi->idsReceived[i]);
-				}
+					if (idpicado == octi->idsReceived[i]){
+						valid = true;
+					}
 
-				octi->pickedAnything = false;
-				octi->idLastPick = -1;
-				octi->turn = 2; // muda de turno
-				cout << "----------------- Fim do Turno de 1 -------------------" << endl;
+				}
+				if(valid){
+					string mensagem;
+					mensagem = "1 " + intToString(idpicado);
+					int dir = octi->idLastPick % 10;
+					mensagem += " ";
+					mensagem += intToString(dir);
+					sendMessage(mensagem.c_str());
+					cout << "[ADD_PRONG] '" << mensagem << "'" << endl;
+
+					readMessage();
+					cout << "[ADD_PRONG] A logica nao respondeu nada\n";
+					octi->addprong(1,idpicado,octi->getDir(dir));
+					octi->unhighlightId(octi->idLastPick); // Unlight do PRONG
+					for(int i = 0; i < octi->idsReceived.size(); i++){
+						octi->unhighlightId(octi->idsReceived[i]);
+					}
+
+					octi->pickedAnything = false;
+					octi->idLastPick = -1;
+					octi->turn = 2; // muda de turno
+					cout << "----------------- Fim do Turno de 1 -------------------" << endl;
+				}
+				else{
+					out << "Click num POD possivel\n";
+				}
 			}
 			// MOSTRA PARA ONDE SE PODE MOVER - NAO TEM NADA PICADO OU TEM OUTRA PECA PICADA
 			else if(octi->pickedAnything == false || (octi->pickedAnything == true && octi->idLastPick > 10 && octi->idLastPick < 18)){
@@ -201,26 +213,40 @@ void TPinterface::clickHandler(GLuint* selected, GLint nselected){
 			}
 			// JA TEM SELCCIONADO UMA DIRECAO - ADICIONAR PRONG
 			else if(octi->pickedAnything && octi->idLastPick > 220 && octi->idLastPick < 228){
-				string mensagem;
-				mensagem = "1 " + intToString(idpicado);
-				int dir = octi->idLastPick % 10;
-				mensagem += " ";
-				mensagem += intToString(dir);
-				sendMessage(mensagem.c_str());
-				cout << "[ADD_PRONG] '" << mensagem << "'" << endl;
-
-				readMessage();
-				cout << "[ADD_PRONG] A logica nao respondeu nada\n";
-
-				octi->unhighlightId(octi->idLastPick); // Unlight do PRONG
+				bool valid = false;
 				for(int i = 0; i < octi->idsReceived.size(); i++){
-					octi->unhighlightId(octi->idsReceived[i]);
-				}
+					if (idpicado == octi->idsReceived[i]){
+						valid = true;
+					}
 
-				octi->pickedAnything = false;
-				octi->idLastPick = -1;
-				octi->turn = 1; // muda de turno
-				cout << "----------------- Fim do Turno de 2 -------------------" << endl;
+				}
+				if(valid){
+					string mensagem;
+					mensagem = "1 " + intToString(idpicado);
+					int dir = octi->idLastPick % 10;
+					mensagem += " ";
+					mensagem += intToString(dir);
+					sendMessage(mensagem.c_str());
+					cout << "[ADD_PRONG] '" << mensagem << "'" << endl;
+
+					readMessage();
+					cout << "[ADD_PRONG] A logica nao respondeu nada\n";
+
+					octi->addprong(2,idpicado,octi->getDir(dir));
+
+					octi->unhighlightId(octi->idLastPick); // Unlight do PRONG
+					for(int i = 0; i < octi->idsReceived.size(); i++){
+						octi->unhighlightId(octi->idsReceived[i]);
+					}
+
+					octi->pickedAnything = false;
+					octi->idLastPick = -1;
+					octi->turn = 1; // muda de turno
+					cout << "----------------- Fim do Turno de 2 -------------------" << endl;
+				}
+				else{
+					cout << "Click num POD possivel\n";
+				}
 
 			}
 			// MOSTRA PARA ONDE SE PODE MOVER - NAO TEM NADA PICADO OU TEM OUTRA PECA PICADA
@@ -349,14 +375,11 @@ void TPinterface::clickHandler(GLuint* selected, GLint nselected){
 		// ****************************************
 		// UTILIZADOR CLICOU EM CELULA
 		// ****************************************
-		
-		/*
-		if(octi->pickedAnything == false){
-			for(int i = 0; i < octi->idsReceived.size(); i++){
-				octi->unhighlightId(octi->idsReceived[i]);
-			}
+		if(idpicado > 110 && idpicado < 178){
+			
+			cout << "[CELULA HANDLER] Cliclou em celula]"<<endl;
+
 		}
-		*/
 }
 
 void TPinterface::initGUI()
