@@ -4,9 +4,15 @@
 
 	<globals background="0.5 0.5 0.5 1" drawmode="fill" shading="flat" cullface="none" cullorder="CCW" />
 
-	<cameras initial="cam1" >
+	<cameras initial="camMenu" >
 		<perspective id="cam1" near="0" far="1000" angle="90" pos="0 20 0" target="0 0 0" /> 
+		<perspective id="camMenu" near="0" far="100" angle="90" pos="50 20 0" target="50 0 0" /> 
+
+		
+
 		<ortho id="cam2" near="0" far="1000" left="10.0" right="10.0" top="10.0" bottom="10.0" />
+
+		<perspective id="camRegras" near="0" far="100" angle="90" pos="100 20 0" target="100 0 0" /> 
 	</cameras>
 
 	<lighting doublesided="false" local="true" enabled="true" ambient="0.5 0.5 0.5 1" > 
@@ -49,9 +55,45 @@
 		<texture id="copo" file="textures/copo.png"/>
 		<texture id="tampaCaixa" file="textures/tampaCaixa.png"/>
 		<texture id="selected" file= "textures/orange.png"/>
+		<texture id="copo" file="textures/copo.png"/>
+		<texture id="cbble_red" file="textures/cbble_peca_vermelha.jpg"/>
+		<texture id="cbble_blue" file="textures/cbble_peca_azul.jpg"/>
+		<texture id="menu" file="textures/menuInicial.jpg" />
+		<texture id="regras" file="textures/menu_regras.jpg" />
+		<texture id="vidal" file="textures/rmv.jpg" />
 	</textures>
 
 	<appearances>
+		<appearance id="appMotivadora"
+			emissive="1 1 1 1"
+			ambient="1 1 1 1"
+			diffuse="1 1 1 1"
+			specular="1 1 1 1"
+			shininess="1"
+			textureref="vidal"
+			texlength_s="1"
+			texlength_t="1"
+        />
+		<appearance id="appMenu"
+			emissive="1 1 1 1"
+			ambient="1 1 1 1"
+			diffuse="1 1 1 1"
+			specular="1 1 1 1"
+			shininess="1"
+			textureref="menu"
+			texlength_s="1"
+			texlength_t="1"
+        />
+        <appearance id="appMenuRegras"
+			emissive="1 1 1 1"
+			ambient="1 1 1 1"
+			diffuse="1 1 1 1"
+			specular="1 1 1 1"
+			shininess="1"
+			textureref="regras"
+			texlength_s="1"
+			texlength_t="1"
+        />
 		<appearance id="appNormal"
 			emissive="1 1 1 1"
 			ambient="1 1 1 1"
@@ -112,6 +154,26 @@
 			texlength_s="2"
 			texlength_t="2"
         />
+        <appearance id="cbble_appPecaVermelha"
+			emissive="1 1 1 1"
+			ambient="1 1 1 1"
+			diffuse="1 1 1 1"
+			specular="1 1 1 1"
+			shininess="1"
+			textureref="cbble_red"
+			texlength_s="2"
+			texlength_t="2"
+        />
+        <appearance id="cbble_appPecaAzul"
+			emissive="1 1 1 1"
+			ambient="1 1 1 1"
+			diffuse="1 1 1 1"
+			specular="1 1 1 1"
+			shininess="1"
+			textureref="cbble_blue"
+			texlength_s="2"
+			texlength_t="2"
+        />
         <appearance id="appCopo"
 			emissive="1 1 1 1"
 			ambient="1 1 1 1"
@@ -140,10 +202,109 @@
 			<transforms>
 			</transforms>
 			<children>
+				<noderef id="menus"/>
 				<noderef id="tabuleiro"/>
 				<noderef id="pods"/>
 				<noderef id="prongs"/>
 				<!-- <noderef id="chao"/> -->
+			</children>
+		</node>
+
+		<node id="menus">
+			<transforms>
+			</transforms>
+			<children>
+				<noderef id="menuInicial"/>
+				<noderef id="menuRegras"/>
+				<noderef id="menuInicial_opcao1"/>
+				<noderef id="menuInicial_opcao2"/>
+				<noderef id="menuInicial_opcao3"/>
+				<noderef id="menuInicial_opcao4"/>
+			</children>
+		</node>
+
+		<node id="menuInicial_opcao1" pickingid="501">
+			<transforms>
+				<translate to="0 -1 0"/>
+				<translate to="4.2 0 8"/>
+				<translate to="50 0 0"/>
+				<scale factor="1.5 1 5"/>
+				<rotate axis="y" angle="-90"/>
+				<rotate axis="x" angle="-90"/>
+			</transforms>
+			<appearanceref id="appMotivadora"/>
+			<children>
+				<rectangle xy1="-0.75 -0.75" xy2="0.75 0.75" />
+			</children>
+		</node>
+
+		<node id="menuInicial_opcao2" pickingid="502">
+			<transforms>
+				<translate to="0 -1 0"/>
+				<translate to="1.4 0 8"/>
+				<translate to="50 0 0"/>
+				<scale factor="1.5 1 5"/>
+				<rotate axis="y" angle="-90"/>
+				<rotate axis="x" angle="-90"/>
+			</transforms>
+			<appearanceref id="appMotivadora"/>
+			<children>
+				<rectangle xy1="-0.75 -0.75" xy2="0.75 0.75" />
+			</children>
+		</node>
+		<node id="menuInicial_opcao3" pickingid="503">
+			<transforms>
+				<translate to="0 -1 0"/>
+				<translate to="-1.4 0 8"/>
+				<translate to="50 0 0"/>
+				<scale factor="1.5 1 5"/>
+				<rotate axis="y" angle="-90"/>
+				<rotate axis="x" angle="-90"/>
+			</transforms>
+			<appearanceref id="appMotivadora"/>
+			<children>
+				<rectangle xy1="-0.75 -0.75" xy2="0.75 0.75" />
+			</children>
+		</node>
+		<node id="menuInicial_opcao4" pickingid="504">
+			<transforms>
+				<translate to="0 -1 0"/>
+				<translate to="-4.2 0 8"/>
+				<translate to="50 0 0"/>
+				<scale factor="1.5 1 5"/>
+				<rotate axis="y" angle="-90"/>
+				<rotate axis="x" angle="-90"/>
+			</transforms>
+			<appearanceref id="appMotivadora"/>
+			<children>
+				<rectangle xy1="-0.75 -0.75" xy2="0.75 0.75" />
+			</children>
+		</node>
+
+
+		<node id="menuInicial">
+			<transforms>		
+				<translate to="50 0 0"/>
+				<scale factor="10 1 20"/>
+				<rotate axis="y" angle="-90"/>
+				<rotate axis="x" angle="-90"/>
+			</transforms>
+			<appearanceref id="appMenu"/>
+			<children>
+				<rectangle xy1="-0.75 -0.75" xy2="0.75 0.75" />
+			</children>
+		</node>
+
+		<node id="menuRegras">
+			<transforms>		
+				<translate to="100 0 0"/>
+				<scale factor="10 1 20"/>
+				<rotate axis="y" angle="-90"/>
+				<rotate axis="x" angle="-90"/>
+			</transforms>
+			<appearanceref id="appMenuRegras"/>
+			<children>
+				<rectangle xy1="-0.75 -0.75" xy2="0.75 0.75" />
 			</children>
 		</node>
 

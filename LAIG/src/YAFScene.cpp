@@ -123,8 +123,9 @@ void YAFScene::draw(string node,vector<Appearance*> &appstack)
 
 	for(unsigned int i=0;i<children.size();i++)
 	{
-		if(graph[node]->getPicking() != -1){
-			glPushName(graph[node]->getPicking());
+		
+		if(graph[children[i]]->getPicking() != -1){
+			glPushName(graph[children[i]]->getPicking());
 			draw(graph[children[i]]->getId(),appstack);
 			glPopName();
 		}

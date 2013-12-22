@@ -18,7 +18,11 @@ int main(int argc, char* argv[]) {
 	Game* octi = new Game();
 
     try {
+		app->width = 800;
+		app->height = 400;
+		//app->xy_aspect = 2;
         app->init(&argc, argv);
+
 		
         if(argc == 1)
 		{ 

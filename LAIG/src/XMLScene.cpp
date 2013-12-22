@@ -943,7 +943,7 @@ void XMLScene::init()
 	scene->initAnimations();
 	scene->initposition(scene->rootid);
 
-	char * host = "smsesteves";
+	char * host = "Leonel";
 	connectToSocket(host);
 	//setUpdatePeriod(30);
 	app->forceRefresh();
@@ -1026,10 +1026,10 @@ void XMLScene::display(){
 	
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
-	CGFscene::activateCamera(0);
+	//CGFscene::activateCamera(0);
+	//CGFscene::activeCamera->applyView();
+	scene->camerasComp.at(scene->itActiveCamera)->applyView();
 	
-	//scene->camerasComp.at(scene->itActiveCamera)->applyView();
-	CGFscene::activeCamera->applyView();
 	//app->forceRefresh();
 
 

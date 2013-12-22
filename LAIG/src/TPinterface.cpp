@@ -11,13 +11,14 @@ GLuint selectBuf[BUFSIZE];
 void TPinterface::processMouse(int button, int state, int x, int y) 
 {
 	//CGFinterface::processMouse(button,state, x, y);
-
+	
 	// do picking on mouse press (GLUT_DOWN)
 	// this could be more elaborate, e.g. only performing picking when there is a click (DOWN followed by UP) on the same place
 	if (button == GLUT_LEFT_BUTTON && state == GLUT_DOWN){
 		//cout << "Clicou em (" << x << ", " << y << ")\n";
 		performPicking(x,y);
 	}
+	
 }
 
 void TPinterface::performPicking(int x, int y) 
@@ -96,8 +97,6 @@ void TPinterface::processHits(GLint hits, GLuint buffer[])
 	// if there were hits, the one selected is in "selected", and it consist of nselected "names" (integer ID's)
 	if (selected!=NULL)
 	{
-		// this should be replaced by code handling the picked object's ID's (stored in "selected"), 
-		// possibly invoking a method on the scene class and passing "selected" and "nselected"
 		clickHandler(selected, nselected);
 	}
 	else{
@@ -116,13 +115,31 @@ void TPinterface::clickHandler(GLuint* selected, GLint nselected){
 		}
 
 		for (int i=0; i<nselected; i++){
-			//printf("%d ",selected[i]);
+			printf("%d ",selected[i]);
 			idpicado = selected[i];
-			//printf("\n");
+			printf("\n");
 		}
 		
 
 		char id[256];
+		//*
+		// ****************************************
+		// UTILIZADOR CLICOU EM MENU
+		// ****************************************
+		if(idpicado > 500 && idpicado < 505){
+			if(idpicado == 503){
+				cout << "Alterar Camara para Regras\n";
+				vector<Cameras*> aux = ((XMLScene*) scene)->getScenePointer()->camerasComp;
+				for(unsigned int i= 0; i < aux.size(); i++){
+					if(aux.at(i)->getid() == "camRegras"){
+						((XMLScene*) scene)->getScenePointer()->itActiveCamera = i;
+						((XMLScene*) scene)->refreshCameras();
+						break;
+					}
+				}
+			}
+		}
+
 		// ****************************************
 		// UTILIZADOR CLICOU EM PECA DO JOGADOR 1
 		// ****************************************
@@ -473,6 +490,7 @@ void TPinterface::clickHandler(GLuint* selected, GLint nselected){
 
 void TPinterface::initGUI()
 {
+		/*
 	// Check CGFinterface.h and GLUI documentation for the types of controls available
 	GLUI_Panel *varPanel= addPanel("Configuracoes", 1);
 	int lightCounter = 0;
@@ -511,7 +529,7 @@ void TPinterface::initGUI()
 	
 		addButtonToPanel(animPanel,(char *)nova,i+12+(((XMLScene*) scene)->getScenePointer()->camerasComp.size()));
 	}
-	
+	*/
 	// You could also pass a reference to a variable from the scene class, if public
 }
 void TPinterface::processGUI(GLUI_Control *ctrl)
