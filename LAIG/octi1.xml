@@ -163,7 +163,7 @@
 			<transforms>
 			</transforms>
 			<children>
-				<noderef id="prongReferencia"/>
+
 				<noderef id="adicionarProngAzul"/>
 				<noderef id="adicionarProngVermelho"/>
 			</children>
@@ -416,7 +416,34 @@
 				<noderef id="tampaCaixa"/>
 			</children>
 		</node>
+
+		
+		
+
 -->
+
+		<node id="prongReferenciaVermelho">
+			<transforms>
+				<translate to="50 0 50"/>
+				
+			</transforms>
+			<children>
+				<noderef id="prongReferencia"/>	
+			</children>
+		</node>
+
+
+		<node id="prongReferenciaAzul">
+			<transforms>
+				<translate to="50 0 50"/>
+			
+			</transforms>
+			<children>
+				<noderef id="prongReferencia"/>	
+			</children>
+		</node>
+
+
 		<node id="prongReferencia">
 			<transforms>
 				<translate to="0 2 0"/>
@@ -594,6 +621,7 @@
 					</transforms>
 					<appearanceref id="appPecaAzul"/>
 					<children>
+						
 						<noderef id="podReferenciaAzul"/>
 					</children>
 				</node>
@@ -605,6 +633,7 @@
 					</transforms>
 					<appearanceref id="appPecaAzul"/>
 					<children>
+			
 						<noderef id="podReferenciaAzul"/>
 					</children>
 				</node>
@@ -616,6 +645,7 @@
 					</transforms>
 					<appearanceref id="appPecaAzul"/>
 					<children>
+					
 						<noderef id="podReferenciaAzul"/>
 					</children>
 				</node>
@@ -674,6 +704,8 @@
 					<appearanceref id="appPecaVermelha"/>
 					<children>
 						<noderef id="podReferenciaVermelha"/>
+				
+					
 					</children>
 				</node>
 
@@ -685,6 +717,7 @@
 					<appearanceref id="appPecaVermelha"/>
 					<children>
 						<noderef id="podReferenciaVermelha"/>
+			
 					</children>
 				</node>
 

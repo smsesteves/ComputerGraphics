@@ -156,6 +156,8 @@ void TPinterface::clickHandler(GLuint* selected, GLint nselected){
 					cout << "[ADD_PRONG] A logica nao respondeu nada\n";
 					octi->addprong(1,idpicado,octi->getDir(dir));
 					octi->unhighlightId(octi->idLastPick); // Unlight do PRONG
+					//prongReferencia
+					octi->boardElements[idpicado]->addChildren("prongReferenciaAzul");
 					for(int i = 0; i < octi->idsReceived.size(); i++){
 						octi->unhighlightId(octi->idsReceived[i]);
 					}
@@ -232,7 +234,7 @@ void TPinterface::clickHandler(GLuint* selected, GLint nselected){
 					cout << "[ADD_PRONG] A logica nao respondeu nada\n";
 
 					octi->addprong(2,idpicado,octi->getDir(dir));
-
+					octi->boardElements[idpicado]->addChildren("prongReferenciaVermelho");
 					octi->unhighlightId(octi->idLastPick); // Unlight do PRONG
 					for(int i = 0; i < octi->idsReceived.size(); i++){
 						octi->unhighlightId(octi->idsReceived[i]);

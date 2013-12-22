@@ -29,6 +29,12 @@ private:
 	string anim;
 	GLint pickingid;
 public:
+
+	void addChildren(string toAdd)
+	{
+		children.push_back(toAdd);
+	}
+
 	Appearance* notHighlighted;
 	Appearance* highlighted;
 	void switchApp(int next){		
