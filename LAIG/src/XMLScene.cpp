@@ -1026,9 +1026,9 @@ void XMLScene::display(){
 	
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
-	CGFscene::activateCamera(0);
-	CGFscene::activeCamera->applyView();
-	//scene->camerasComp.at(scene->itActiveCamera)->applyView();
+	//CGFscene::activateCamera(0);
+	//CGFscene::activeCamera->applyView();
+	scene->camerasComp.at(scene->itActiveCamera)->applyView();
 	
 	//app->forceRefresh();
 

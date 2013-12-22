@@ -6,7 +6,7 @@
 class Perspective : public Cameras{
 private:
 	float angle;
-	float target[3];
+	//float target[3];
 public:
 	int cameraType(){ return 0; };
 	void applyView();

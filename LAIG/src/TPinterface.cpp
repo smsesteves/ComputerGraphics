@@ -10,7 +10,7 @@ GLuint selectBuf[BUFSIZE];
 
 void TPinterface::processMouse(int button, int state, int x, int y) 
 {
-	CGFinterface::processMouse(button,state, x, y);
+	//CGFinterface::processMouse(button,state, x, y);
 	
 	// do picking on mouse press (GLUT_DOWN)
 	// this could be more elaborate, e.g. only performing picking when there is a click (DOWN followed by UP) on the same place
@@ -128,9 +128,18 @@ void TPinterface::clickHandler(GLuint* selected, GLint nselected){
 		// ****************************************
 		// UTILIZADOR CLICOU EM MENU
 		// ****************************************
-		if(idpicado > 500 && idpicado < 505){
+		if(idpicado > 500 && idpicado < 505 || idpicado == 511){
+			if(idpicado == 501 || idpicado == 502){
+				vector<Cameras*> aux = ((XMLScene*) scene)->getScenePointer()->camerasComp;
+				for(unsigned int i= 0; i < aux.size(); i++){
+					if(aux.at(i)->getid() == "camTabuleiro"){
+						((XMLScene*) scene)->getScenePointer()->itActiveCamera = i;
+						((XMLScene*) scene)->refreshCameras();
+						break;
+					}
+				}
+			}
 			if(idpicado == 503){
-				cout << "Alterar Camara para Regras\n";
 				vector<Cameras*> aux = ((XMLScene*) scene)->getScenePointer()->camerasComp;
 				for(unsigned int i= 0; i < aux.size(); i++){
 					if(aux.at(i)->getid() == "camRegras"){
@@ -140,7 +149,18 @@ void TPinterface::clickHandler(GLuint* selected, GLint nselected){
 					}
 				}
 			}
+			if(idpicado == 511){
+				vector<Cameras*> aux = ((XMLScene*) scene)->getScenePointer()->camerasComp;
+				for(unsigned int i= 0; i < aux.size(); i++){
+					if(aux.at(i)->getid() == "camMenu"){
+						((XMLScene*) scene)->getScenePointer()->itActiveCamera = i;
+						((XMLScene*) scene)->refreshCameras();
+						break;
+					}
+				}
+			}
 		}
+
 
 		// ****************************************
 		// UTILIZADOR CLICOU EM PECA DO JOGADOR 1
@@ -492,19 +512,16 @@ void TPinterface::clickHandler(GLuint* selected, GLint nselected){
 
 void TPinterface::initGUI()
 {
-		/*
+	GLUI_Panel *painel1= addPanel("Accoes", 2);
+	addButtonToPanel(painel1,"Anular Jogada",1);
+
+	GLUI_Panel *painel2= addPanel("Cameras", 2);
+	addButtonToPanel(painel2,"Rodar Camara",2);
+
+
 	// Check CGFinterface.h and GLUI documentation for the types of controls available
 	GLUI_Panel *varPanel= addPanel("Configuracoes", 1);
-	int lightCounter = 0;
 
-	string lightName;
-	for(unsigned int i = 0; i < (((XMLScene*) scene)->getScenePointer()->lightsComp.size()); i++){
-		lightName = "Luz " + (((XMLScene*) scene)->getScenePointer()->lightsComp.at(i)->getIdS());
-		addCheckboxToPanel(varPanel, (char *) lightName.c_str() , &(((XMLScene*) scene)->getScenePointer()->lightsState[i]), i);
-		cout << (char *)lightName.c_str() << " adicionada." << endl;
-		lightName.clear();
-	}
-	
 	addColumnToPanel(varPanel);
 	
 	GLUI_RadioGroup * group1=addRadioGroupToPanel(varPanel,&(((XMLScene*) scene)->getScenePointer()->itActiveCamera),11);
@@ -514,46 +531,22 @@ void TPinterface::initGUI()
 		addRadioButtonToGroup(group1,(char *)cameraName.c_str());
 	}
 
-	addColumnToPanel(varPanel);
-	GLUI_RadioGroup * group2=addRadioGroupToPanel(varPanel,&(((XMLScene*) scene)->getScenePointer()->mode),12);
-	addRadioButtonToGroup(group2,"Fill");
-	addRadioButtonToGroup(group2,"Line");
-	addRadioButtonToGroup(group2,"Point");
-
-	GLUI_Panel *animPanel= addPanel("Animacoes", 1);
-	char animationName[100];
-	char nova[100];
-	for(unsigned int i = 0; i < (((XMLScene*) scene)->getScenePointer()->animationsComp.size()); i++){
-
-		itoa(i,&animationName[0],10);
-		strcpy(nova,"Animacao ");
-		strcat(nova,animationName);
-	
-		addButtonToPanel(animPanel,(char *)nova,i+12+(((XMLScene*) scene)->getScenePointer()->camerasComp.size()));
-	}
-	*/
-	// You could also pass a reference to a variable from the scene class, if public
 }
 void TPinterface::processGUI(GLUI_Control *ctrl)
 {
 	//printf ("GUI control id: %d\n  ",ctrl->user_id);
 
-	if(ctrl->user_id < 10){
-		((XMLScene*) scene)->setLightState(ctrl->user_id);
-		
-	}
-	
 	if(ctrl->user_id == 11){
 		((XMLScene*) scene)->refreshCameras();
 	}
-	
-	if(ctrl->user_id >= (((XMLScene*) scene)->getScenePointer()->camerasComp.size())){
-	
-		//cout << "pressed : " << ctrl->user_id << endl;
-		//cout << "cameras size: " << (((XMLScene*) scene)->getScenePointer()->camerasComp.size()) << endl;
-		int itAnimation = ctrl->user_id -  (((XMLScene*) scene)->getScenePointer()->camerasComp.size()) - 12;
-		cout << itAnimation << endl;
-		((XMLScene*) scene)->getScenePointer()->initInterfaceAnim(itAnimation);
+
+	if(ctrl->user_id == 1){
+		cout << "UNDO!" << endl;
 	}
+
+	if(ctrl->user_id == 2){
+		cout << "ROTATE CAMERA!" << endl;
+	}
+	
 
 }
