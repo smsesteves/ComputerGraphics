@@ -10,14 +10,16 @@ GLuint selectBuf[BUFSIZE];
 
 void TPinterface::processMouse(int button, int state, int x, int y) 
 {
-	//CGFinterface::processMouse(button,state, x, y);
+	CGFinterface::processMouse(button,state, x, y);
 	
 	// do picking on mouse press (GLUT_DOWN)
 	// this could be more elaborate, e.g. only performing picking when there is a click (DOWN followed by UP) on the same place
+	
 	if (button == GLUT_LEFT_BUTTON && state == GLUT_DOWN){
 		//cout << "Clicou em (" << x << ", " << y << ")\n";
 		performPicking(x,y);
 	}
+	
 	
 }
 
@@ -174,7 +176,7 @@ void TPinterface::clickHandler(GLuint* selected, GLint nselected){
 					octi->addprong(1,idpicado,octi->getDir(dir));
 					octi->unhighlightId(octi->idLastPick); // Unlight do PRONG
 					//prongReferencia
-					octi->boardElements[idpicado]->addChildren("prongReferenciaAzul");
+					octi->graph_addProngToPod(idpicado,dir);
 					for(int i = 0; i < octi->idsReceived.size(); i++){
 						octi->unhighlightId(octi->idsReceived[i]);
 					}
@@ -251,7 +253,7 @@ void TPinterface::clickHandler(GLuint* selected, GLint nselected){
 					cout << "[ADD_PRONG] A logica nao respondeu nada\n";
 
 					octi->addprong(2,idpicado,octi->getDir(dir));
-					octi->boardElements[idpicado]->addChildren("prongReferenciaVermelho");
+					octi->graph_addProngToPod(idpicado,dir);
 					octi->unhighlightId(octi->idLastPick); // Unlight do PRONG
 					for(int i = 0; i < octi->idsReceived.size(); i++){
 						octi->unhighlightId(octi->idsReceived[i]);

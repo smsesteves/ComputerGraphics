@@ -40,6 +40,69 @@ void Game::unhighlightAll(){
 	}
 }
 
+void Game::graph_addProngToPod(int idpicado,int dir){
+	cout << "IDPICADO: " << idpicado << endl;
+	cout << "DIR     : " << dir << endl;
+	if(turn == 1){
+		cout << "Entrou" << endl;
+		switch(dir){
+		case 1: 
+			boardElements[idpicado]->addChildren("prongAzulSul");
+			break;
+		case 2:
+			boardElements[idpicado]->addChildren("prongAzulSudeste");
+			break;
+		case 3:
+			boardElements[idpicado]->addChildren("prongAzulEste");
+			break;
+		case 4:
+			boardElements[idpicado]->addChildren("prongAzulNordeste");
+			break;
+		case 5:
+			boardElements[idpicado]->addChildren("prongAzulNorte");
+			break;
+		case 6:
+			boardElements[idpicado]->addChildren("prongAzulNoroeste");
+			break;
+		case 7:
+			boardElements[idpicado]->addChildren("prongAzulOeste");
+			break;
+		case 8:
+			boardElements[idpicado]->addChildren("prongAzulSudoste");
+			break;
+		}
+	}
+	else if(turn == 2){
+		switch(dir){
+		case 1: 
+			boardElements[idpicado]->addChildren("prongVermelhoSul");
+			break;
+		case 2:
+			boardElements[idpicado]->addChildren("prongVermelhoSudeste");
+			break;
+		case 3:
+			boardElements[idpicado]->addChildren("prongVermelhoEste");
+			break;
+		case 4:
+			boardElements[idpicado]->addChildren("prongVermelhoNordeste");
+			break;
+		case 5:
+			boardElements[idpicado]->addChildren("prongVermelhoNorte");
+			break;
+		case 6:
+			boardElements[idpicado]->addChildren("prongVermelhoNoroeste");
+			break;
+		case 7:
+			boardElements[idpicado]->addChildren("prongVermelhoOeste");
+			break;
+		case 8:
+			boardElements[idpicado]->addChildren("prongVermelhoSudoste");
+			break;
+		}
+	}
+
+}
+
 string Game::getDir(int dirI){
 	string dir;
 	switch(dirI){

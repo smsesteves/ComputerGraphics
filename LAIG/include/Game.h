@@ -23,6 +23,7 @@ public:
 	void highlightId(int id);
 	void unhighlightId(int id);
 	void unhighlightAll();
+	void graph_addProngToPod(int id, int dir);
 
 
 	// Logical

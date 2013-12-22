@@ -4,7 +4,7 @@
 
 	<globals background="0.5 0.5 0.5 1" drawmode="fill" shading="flat" cullface="none" cullorder="CCW" />
 
-	<cameras initial="camMenu" >
+	<cameras initial="cam1" >
 		<perspective id="cam1" near="0" far="1000" angle="90" pos="0 20 0" target="0 0 0" /> 
 		<perspective id="camMenu" near="0" far="100" angle="90" pos="50 20 0" target="50 0 0" /> 
 
@@ -206,6 +206,7 @@
 				<noderef id="tabuleiro"/>
 				<noderef id="pods"/>
 				<noderef id="prongs"/>
+				
 				<!-- <noderef id="chao"/> -->
 			</children>
 		</node>
@@ -586,7 +587,6 @@
 		<node id="prongReferenciaVermelho">
 			<transforms>
 				<translate to="50 0 50"/>
-				
 			</transforms>
 			<children>
 				<noderef id="prongReferencia"/>	
@@ -597,7 +597,6 @@
 		<node id="prongReferenciaAzul">
 			<transforms>
 				<translate to="50 0 50"/>
-			
 			</transforms>
 			<children>
 				<noderef id="prongReferencia"/>	
@@ -605,8 +604,188 @@
 		</node>
 
 
+		<node id="prongVermelhoNorte">
+			<transforms>
+				<translate to="50 0 50"/>
+				<translate to="0.3 0 0"/>
+			</transforms>
+			<children>
+				<noderef id="prongReferencia"/>
+			</children>
+		</node>
+
+		<node id="prongVermelhoNordeste">
+			<transforms>
+				<translate to="50 0 50"/>
+				<translate to="0.15 0 0.15"/>
+				<rotate axis="y" angle="-45"/>
+			</transforms>
+			<children>
+				<noderef id="prongReferencia"/>	
+			</children>
+		</node>
+
+		<node id="prongVermelhoEste">
+			<transforms>
+				<translate to="50 0 50"/>
+				<translate to="0 0 0.3"/>
+				<rotate axis="y" angle="-90"/>
+			</transforms>
+			<children>
+				<noderef id="prongReferencia"/>		
+			</children>
+		</node>
+
+		<node id="prongVermelhoSudeste">
+			<transforms>
+				<translate to="50 0 50"/>
+				<translate to="-0.15 0 0.15"/>
+				<rotate axis="y" angle="-135"/>
+			</transforms>
+			<children>
+				<noderef id="prongReferencia"/>	
+			</children>
+		</node>
+		
+
+		<node id="prongVermelhoSul">
+			<transforms>
+				<translate to="50 0 50"/>
+				<translate to="-0.3 0 0"/>
+				<rotate axis="y" angle="180"/>
+			</transforms>
+			<children>
+				<noderef id="prongReferencia"/>	
+			</children>
+		</node>
+
+		<node id="prongVermelhoSudoeste">
+			<transforms>
+				<translate to="50 0 50"/>
+				<translate to="-0.15 0 -0.15"/>
+				<rotate axis="y" angle="135"/>
+			</transforms>
+			<children>
+				<noderef id="prongReferencia"/>	
+			</children>
+		</node>
+
+		<node id="prongVermelhoOeste">
+			<transforms>
+				<translate to="50 0 50"/>
+				<translate to="0 0 -0.3"/>
+				<rotate axis="y" angle="90"/>
+			</transforms>
+			<children>
+				<noderef id="prongReferencia"/>	
+			</children>
+		</node>
+
+		<node id="prongVermelhoNoroeste">
+			<transforms>
+				<translate to="50 0 50"/>
+				<translate to="0.15 0 -0.15"/>
+				<rotate axis="y" angle="45"/>
+			</transforms>
+			<children>
+				<noderef id="prongReferencia"/>	
+			</children>
+		</node>
+
+		<node id="prongAzulNorte">
+			<transforms>
+				<translate to="50 0 50"/>
+				<translate to="-0.3 0 0"/>
+				<rotate axis="y" angle="180"/>
+			</transforms>
+			<children>
+				<noderef id="prongReferencia"/>	
+			</children>
+		</node>
+
+		<node id="prongAzulNordeste">
+			<transforms>
+				<translate to="50 0 50"/>
+				<translate to="-0.15 0 -0.15"/>
+				<rotate axis="y" angle="135"/>
+			</transforms>
+			<children>
+				<noderef id="prongReferencia"/>	
+			</children>
+		</node>
+
+		<node id="prongAzulEste">
+			<transforms>
+				<translate to="50 0 50"/>
+				<translate to="0 0 -0.3"/>
+				<rotate axis="y" angle="90"/>
+			</transforms>
+			<children>
+				<noderef id="prongReferencia"/>	
+			</children>
+		</node>
+
+		<node id="prongAzulSudeste">
+			<transforms>
+				<translate to="50 0 50"/>
+				<translate to="0.15 0 -0.15"/>
+				<rotate axis="y" angle="45"/>
+			</transforms>
+			<children>
+				<noderef id="prongReferencia"/>	
+			</children>
+		</node>
+
+
+		<node id="prongAzulSul">
+			<transforms>
+				<translate to="50 0 50"/>
+				<translate to="-0.3 0 0"/>
+			</transforms>
+			<children>
+				<noderef id="prongReferencia"/>	
+			</children>
+		</node>
+
+		<node id="prongAzulSudoeste">
+			<transforms>
+				<translate to="50 0 50"/>
+				<translate to="0.15 0 0.15"/>
+				<rotate axis="y" angle="-45"/>
+			</transforms>
+			<children>
+				<noderef id="prongReferencia"/>	
+			</children>
+		</node>
+
+		<node id="prongAzulOeste">
+			<transforms>
+				<translate to="50 0 50"/>
+				<translate to="0 0 0.3"/>
+				<rotate axis="y" angle="-90"/>
+			</transforms>
+			<children>
+				<noderef id="prongReferencia"/>	
+			</children>
+		</node>
+
+
+		<node id="prongAzulNoroeste">
+			<transforms>
+				<translate to="50 0 50"/>
+				<translate to="-0.15 1 0.15"/>
+				<rotate axis="y" angle="-135"/>
+			</transforms>
+			<children>
+				<noderef id="prongReferencia"/>	
+			</children>
+		</node>
+
+
+
 		<node id="prongReferencia">
 			<transforms>
+				<scale factor="0.4 0.4 0.4"/>
 				<translate to="0 2 0"/>
 				<rotate axis="x" angle="90"/>
 				
