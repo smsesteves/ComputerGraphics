@@ -33,6 +33,13 @@ void Game::unhighlightId(int id){
 	else return;
 }
 
+void Game::unhighlightAll(){
+	unhighlightId(idLastPick);
+	for(int i = 0; i < idsReceived.size(); i++){
+		unhighlightId(idsReceived[i]);
+	}
+}
+
 string Game::getDir(int dirI){
 	string dir;
 	switch(dirI){

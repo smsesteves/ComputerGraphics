@@ -22,6 +22,7 @@ public:
 	// Graphical
 	void highlightId(int id);
 	void unhighlightId(int id);
+	void unhighlightAll();
 
 
 	// Logical

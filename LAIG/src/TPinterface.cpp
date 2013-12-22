@@ -131,6 +131,7 @@ void TPinterface::clickHandler(GLuint* selected, GLint nselected){
 			if(octi->turn == 2){
 				cout << "Turno Errado. Turno atual e 1\n";
 				octi->pickedAnything = false;
+				octi->unhighlightAll();
 				octi->idLastPick = -1;
 			}
 			// JA TEM SELCCIONADO UMA DIRECAO - ADICIONAR PRONG
@@ -165,16 +166,14 @@ void TPinterface::clickHandler(GLuint* selected, GLint nselected){
 					cout << "----------------- Fim do Turno de 1 -------------------" << endl;
 				}
 				else{
-					out << "Click num POD possivel\n";
+					cout << "Click num POD possivel\n";
 				}
 			}
 			// MOSTRA PARA ONDE SE PODE MOVER - NAO TEM NADA PICADO OU TEM OUTRA PECA PICADA
 			else if(octi->pickedAnything == false || (octi->pickedAnything == true && octi->idLastPick > 10 && octi->idLastPick < 18)){
 				octi->pickedAnything = true;
-				octi->unhighlightId(octi->idLastPick);
-				for(int i = 0; i < octi->idsReceived.size(); i++){
-					octi->unhighlightId(octi->idsReceived[i]);
-				}
+				octi->unhighlightAll();
+				
 				octi->idLastPick = idpicado;
 				octi->highlightId(idpicado); // highlight da peca que pickou
 
@@ -208,6 +207,7 @@ void TPinterface::clickHandler(GLuint* selected, GLint nselected){
 			// TURNO ERRADO
 			if(octi->turn == 1){
 				octi->pickedAnything = false;
+				octi->unhighlightAll();
 				octi->idLastPick = -1;
 				cout << "Turno Invalido. Turno atual e 2\n";
 			}
@@ -218,7 +218,6 @@ void TPinterface::clickHandler(GLuint* selected, GLint nselected){
 					if (idpicado == octi->idsReceived[i]){
 						valid = true;
 					}
-
 				}
 				if(valid){
 					string mensagem;
@@ -252,10 +251,7 @@ void TPinterface::clickHandler(GLuint* selected, GLint nselected){
 			// MOSTRA PARA ONDE SE PODE MOVER - NAO TEM NADA PICADO OU TEM OUTRA PECA PICADA
 			else if(octi->pickedAnything == false || (octi->pickedAnything == true && octi->idLastPick > 20 && octi->idLastPick < 28)){
 				octi->pickedAnything = true;
-				octi->unhighlightId(octi->idLastPick);
-				for(int i = 0; i < octi->idsReceived.size(); i++){
-					octi->unhighlightId(octi->idsReceived[i]);
-				}
+				octi->unhighlightAll();
 				octi->idLastPick = idpicado;
 				octi->highlightId(idpicado); // highlight da peca que pickou
 
@@ -284,6 +280,7 @@ void TPinterface::clickHandler(GLuint* selected, GLint nselected){
 			// TURNO ERRADO
 			if(octi->turn == 2){
 				octi->pickedAnything = false;
+				octi->unhighlightAll();
 				octi->idLastPick = -1;
 				cout << "Nao pode clicar no Oct do adversario. Turno atual e 1\n";
 			}
@@ -331,6 +328,7 @@ void TPinterface::clickHandler(GLuint* selected, GLint nselected){
 			// TURNO ERRADO
 			if(octi->turn == 1){
 				octi->pickedAnything = false;
+				octi->unhighlightAll();
 				octi->idLastPick = -1;
 				cout << "Nao pode clicar no Oct do adversario. Turno atual e 2\n";
 			}
@@ -376,9 +374,98 @@ void TPinterface::clickHandler(GLuint* selected, GLint nselected){
 		// UTILIZADOR CLICOU EM CELULA
 		// ****************************************
 		if(idpicado > 110 && idpicado < 178){
-			
 			cout << "[CELULA HANDLER] Cliclou em celula]"<<endl;
+			if(octi->pickedAnything == false){
+				octi->pickedAnything = false;
+				octi->unhighlightAll();
+				octi->idLastPick = -1;
+			}
+			// Jogador 1 vai mover peca
+			else if(octi->pickedAnything == true && octi->pickedAnything && octi->idLastPick > 10 && octi->idLastPick < 18){
+				bool valid = false;
+				// Verifica se pode mover para a celula que clicou
+				for(int i = 0; i < octi->idsReceived.size(); i++){
+					if (idpicado == octi->idsReceived[i]){
+						valid = true;
+					}
+				}
+				if(valid){
+					// TODO: move peca graf lado LAIG
+					// RODO: move peca logica lado LAIG
 
+					// Envia Info pa Mover POD
+					// FORMATO : 3 IDPECA IDCELULA
+					string mensagem;
+					mensagem = "3 " + intToString(octi->idLastPick);
+					mensagem += " ";
+					mensagem += intToString(idpicado);
+					sendMessage(mensagem.c_str());
+					cout << "[MOVE_POD] '" << mensagem << "'" << endl;
+
+					readMessage();
+					cout << "[MOVE_POD] A logica nao respondeu nada\n";
+
+					
+					// UNHIGLIGHT DE TUDO
+					octi->unhighlightId(octi->idLastPick);
+					for(int i = 0; i < octi->idsReceived.size(); i++){
+						octi->unhighlightId(octi->idsReceived[i]);
+					}
+
+					// MUDA DE TURNO
+					octi->pickedAnything = false;
+					octi->idLastPick = -1;
+					octi->turn = 2; // muda de turno
+					cout << "----------------- Fim do Turno de 1 -------------------" << endl;
+
+				}
+				else{
+					cout << "[MOVE_POD] Click Invalido\n";
+				}
+			}
+			// Jogador 2 vai mover PEca
+			else if(octi->pickedAnything == true && octi->pickedAnything && octi->idLastPick > 20 && octi->idLastPick < 28){
+				bool valid = false;
+				// Verifica se pode mover para a celula que clicou
+				for(int i = 0; i < octi->idsReceived.size(); i++){
+					if (idpicado == octi->idsReceived[i]){
+						valid = true;
+					}
+				}
+				if(valid){
+					// TODO: move peca graf lado LAIG
+					// RODO: move peca logica lado LAIG
+
+					// Envia Info pa Mover POD
+					// FORMATO : 3 IDPECA IDCELULA
+					string mensagem;
+					mensagem = "3 " + intToString(octi->idLastPick);
+					mensagem += " ";
+					mensagem += intToString(idpicado);
+					sendMessage(mensagem.c_str());
+					cout << "[MOVE_POD] '" << mensagem << "'" << endl;
+
+					readMessage();
+					cout << "[MOVE_POD] A logica nao respondeu nada\n";
+
+					
+					// UNHIGLIGHT DE TUDO
+					octi->unhighlightId(octi->idLastPick);
+					for(int i = 0; i < octi->idsReceived.size(); i++){
+						octi->unhighlightId(octi->idsReceived[i]);
+					}
+
+					// MUDA DE TURNO
+					octi->pickedAnything = false;
+					octi->idLastPick = -1;
+					octi->turn = 1; // muda de turno
+					cout << "----------------- Fim do Turno de 2 -------------------" << endl;
+
+				}
+				else{
+					cout << "[MOVE_POD] Click Invalido\n";
+				}
+			}
 		}
 }
 
