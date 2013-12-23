@@ -12,43 +12,61 @@
 		<perspective id="camJogadorVermelho" near="0" far="1000" angle="90" pos="-20 10 0" target="5 0 0" /> 
 
 		<perspective id="camJogadorAzul" near="0" far="1000" angle="-90" pos="20 10 0" target="-5 0 0" /> 
-
-		 
+	 
 	</cameras>
 
 	<lighting doublesided="false" local="true" enabled="true" ambient="0.5 0.5 0.5 1" > 
             <omni id="light1" enabled="true" 
-                location="3.75 3.3 3.75" 
+                location="25 15 0" 
                 ambient="0.1 0.03 0.03 0.03" 
                 diffuse="0.5 0.6 0.8 1" 
                 specular="0.2 0.2 0.3 1" 
             /> 
             <omni id="light2" enabled="true" 
-                location="11.25 5.3 3.75" 
+                 location="-25 15 0" 
                 ambient="0.1 0.03 0.03 0.03" 
                 diffuse="0.5 0.6 0.8 1" 
                 specular="0.2 0.2 0.3 1" 
             /> 
 			<omni id="light3" enabled="false" 
-                location="9.25 7.3 3.75" 
+                location="55 20 0" 
                 ambient="0.1 0.03 0.03 0.03" 
                 diffuse="0.5 0.6 0.8 1" 
                 specular="0.2 0.2 0.3 1" 
             /> 
-			<spot id="light4" enabled="false" 
-                location="2 2 4" 
+            <omni id="light4" enabled="true" 
+                location="0 1 15" 
+                ambient="0.1 0.03 0.03 0.03" 
+                diffuse="0.5 0.6 0.8 1" 
+                specular="0.2 0.2 0.3 1" 
+            /> 
+            <omni id="light5" enabled="true" 
+                location="0 1 -15" 
+                ambient="0.1 0.03 0.03 0.03" 
+                diffuse="0.5 0.6 0.8 1" 
+                specular="0.2 0.2 0.3 1" 
+            /> 
+			<spot id="light10" enabled="false" 
+                location="105 20 0" 
                 ambient="0.1 0.2 0.3 0.5" 
                 diffuse="0.5 0.6 0.8 1" 
                 specular="0.2 0.2 0.3 1" 
                 angle="4" 
                 exponent="2" 
-                direction="5 0.2 1" 
+                direction="100 0 0" 
             /> 
     </lighting> 
 
 	<textures>
-		<texture id="casanormal" file="textures/casabase.png" />
-		<texture id="casaocti0" file="textures/casaocti.png" />
+		<texture id="cbble" file="textures/bg_cobble.jpg"/>
+		<texture id="cbble_celula" file="textures/cbble_celula.jpg" />
+		<texture id="cbble_octi" file="textures/cbble_celula_octi.jpg" />
+		<texture id="cbble_red" file="textures/cbble_peca_vermelha.jpg"/>
+		<texture id="cbble_blue" file="textures/cbble_peca_azul.jpg"/>
+		<texture id="cbble_highlight" file="textures/cobble_celula_hl.jpg"/>
+
+		<texture id="teste" file="textures/teste_triangulo.jpg"/>
+
 		<texture id="casaocti1" file="textures/black.png" />
 		<texture id="table" file="textures/table.png" />
 		<texture id="red" file="textures/pecavermelha.png"/>
@@ -57,16 +75,28 @@
 		<texture id="tampaCaixa" file="textures/tampaCaixa.png"/>
 		<texture id="selected" file= "textures/orange.png"/>
 		<texture id="copo" file="textures/copo.png"/>
-		<texture id="cbble_red" file="textures/cbble_peca_vermelha.jpg"/>
-		<texture id="cbble_blue" file="textures/cbble_peca_azul.jpg"/>
 		<texture id="menu" file="textures/menuInicial.jpg" />
 		<texture id="regras" file="textures/menu_regras.jpg" />
 		<texture id="vidal" file="textures/rmv.jpg" />
-		<texture id="cbble" file="textures/bg_cobble.jpg"/>
+		
+
+
+
 	</textures>
 
 	<appearances>
-		<appearance id="appCobble"
+		<appearance id="appTeste"
+			emissive="1 1 1 1"
+			ambient="1 1 1 1"
+			diffuse="1 1 1 1"
+			specular="1 1 1 1"
+			shininess="1"
+			textureref="teste"
+			texlength_s="1"
+			texlength_t="1"
+        />
+		
+		<appearance id="bg_Cobble"
 			emissive="1 1 1 1"
 			ambient="1 1 1 1"
 			diffuse="1 1 1 1"
@@ -112,7 +142,7 @@
 			diffuse="1 1 1 1"
 			specular="1 1 1 1"
 			shininess="1"
-			textureref="casanormal"
+			textureref="cbble_celula"
 			texlength_s="2"
 			texlength_t="2"
         />
@@ -122,7 +152,7 @@
 			diffuse="1 1 1 1"
 			specular="1 1 1 1"
 			shininess="1"
-			textureref="casaocti0"
+			textureref="cbble_octi"
 			texlength_s="2"
 			texlength_t="2"
 		/>
@@ -142,7 +172,7 @@
 			diffuse="1 1 1 1"
 			specular="1 1 1 1"
 			shininess="1"
-			textureref="selected"
+			textureref="cbble_highlight"
 			texlength_s="2"
 			texlength_t="2"
         />
@@ -152,7 +182,7 @@
 			diffuse="1 1 1 1"
 			specular="1 1 1 1"
 			shininess="1"
-			textureref="red"
+			textureref="cbble_red"
 			texlength_s="2"
 			texlength_t="2"
         />
@@ -162,7 +192,7 @@
 			diffuse="1 1 1 1"
 			specular="1 1 1 1"
 			shininess="1"
-			textureref="blue"
+			textureref="cbble_blue"
 			texlength_s="2"
 			texlength_t="2"
         />
@@ -228,7 +258,7 @@
 			<transforms>
 				<scale factor="50 50 50"/>
 			</transforms>
-			<appearanceref id="appCobble"/>
+			<appearanceref id="bg_Cobble"/>
 			<children>
 				<noderef id="cube"/>
 			</children>
