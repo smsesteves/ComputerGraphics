@@ -310,7 +310,7 @@ string Game::checkMovimentos(int player,int id)
 
 							if(!encontra)
 							{
-								resultados.push_back(100+((aux->getY()-1)*10)+aux->getY());
+								resultados.push_back(100+(aux->getX()*10)+aux->getY()-1);
 							}	
 						}
 
@@ -343,7 +343,7 @@ string Game::checkMovimentos(int player,int id)
 
 							if(!encontra)
 							{
-								resultados.push_back(100+((aux->getY()+1)*10)+aux->getY());
+								resultados.push_back(100+(aux->getX()*10)+aux->getY());
 							}	
 						}	
 
@@ -592,7 +592,7 @@ string Game::checkMovimentos(int player,int id)
 
 							if(!encontra)
 							{
-								resultados.push_back(100+((aux->getY()+1)*10)+aux->getY());
+								resultados.push_back(100+(aux->getX()*10)+aux->getY());
 							}	
 						}
 
@@ -625,7 +625,7 @@ string Game::checkMovimentos(int player,int id)
 
 							if(!encontra)
 							{
-								resultados.push_back(100+((aux->getY()-1)*10)+aux->getY());
+								resultados.push_back(100+(aux->getY()*10)+aux->getY());
 							}	
 						}
 
