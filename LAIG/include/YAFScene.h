@@ -48,6 +48,16 @@ public:
 	vector<Cameras*> camerasComp;
 	vector<Texture*> texturesComp;
 	
+	Node* envolente;
+	vector<Node*> redPods;
+	vector<Node*> bluePods;
+	vector<Node*> tabCells;
+	vector<Node*> octiCells;
+	vector<Node*> bPickProng;
+	vector<Node*> rPickProng;
+
+	int nextTheme;
+	void switchTheme();
 
 	int itActiveCamera;
 

@@ -20,7 +20,7 @@ class TPinterface: public CGFinterface {
 		void performPicking(int x, int y);
 		void processHits(GLint hits, GLuint buffer[]); 
 		void clickHandler(GLuint* selected, GLint nselected);
-		//virtual void processKeyboard(unsigned char key, int x, int y);
+		virtual void processKeyboard(unsigned char key, int x, int y);
 
 		int testVar;
 };

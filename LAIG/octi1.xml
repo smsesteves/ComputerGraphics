@@ -12,7 +12,7 @@
 
 
 
-	<globals background="0.5 0.5 0.5 1" drawmode="fill" shading="flat" cullface="none" cullorder="CCW" />
+	<globals background="0 0 0 1" drawmode="fill" shading="flat" cullface="none" cullorder="CCW" />
 
 	<cameras initial="camJogadorAzul" >
 		<perspective id="camTabuleiro" near="0" far="1000" angle="90" pos="0 20 0" target="0 0 0" /> 
@@ -68,20 +68,32 @@
     </lighting> 
 
 	<textures>
-		<texture id="cbble" file="textures/bg_cobble.jpg"/>
-		<texture id="cbble_celula" file="textures/cbble_celula.jpg" />
-		<texture id="cbble_octi" file="textures/cbble_celula_octi.jpg" />
-		<texture id="cbble_red" file="textures/cbble_peca_vermelha.jpg"/>
-		<texture id="cbble_blue" file="textures/cbble_peca_azul.jpg"/>
-		<texture id="cbble_highlight" file="textures/cobble_celula_hl.jpg"/>
+		<texture id="cbble_bg" file="textures/cobble/bg_cobble.jpg"/>
+		<texture id="cbble_celula" file="textures/cobble/cbble_celula.jpg" />
+		<texture id="cbble_octi" file="textures/cobble/cbble_celula_octi.jpg" />
+		<texture id="cbble_red" file="textures/cobble/cbble_peca_vermelha.jpg"/>
+		<texture id="cbble_blue" file="textures/cobble/cbble_peca_azul.jpg"/>
+		<texture id="cbble_highlight" file="textures/cobble/cobble_celula_hl.jpg"/>
+		<texture id="cbble_peca_highlight" file="textures/cobble/cbble_peca_hl.jpg"/>
+		<texture id="cbble_haste" file="textures/cobble/cbble_haste.jpg"/>
+
+		<texture id="forest" file="textures/forest/bg_forest.png"/>
+		<texture id="forest_celula" file="textures/forest/forest_celula.png" />
+		<texture id="forest_octi" file="textures/forest/forest_octi.png" />
+		<texture id="forest_red" file="textures/forest/forest_peca_vermelha.png"/>
+		<texture id="forest_blue" file="textures/forest/forest_peca_azul.png"/>
+		<texture id="forest_highlight" file="textures/forest/forest_celula_hl.png"/>
+		<texture id="forest_peca_highlight" file="textures/forest/forest_peca_hl.png"/>
+		<texture id="forest_haste" file="textures/forest/forest_haste.jpg"/>
 
 		<texture id="teste" file="textures/teste_triangulo.jpg"/>
 
+		
 		<texture id="casaocti1" file="textures/black.png" />
 		<texture id="table" file="textures/table.png" />
 		<texture id="red" file="textures/pecavermelha.png"/>
 		<texture id="blue" file="textures/pecaazul.png"/>
-		<texture id="copo" file="textures/copo.png"/>
+		<texture id="copo" file="textures/cobble/bg_cobble.jpg"/>
 		<texture id="tampaCaixa" file="textures/tampaCaixa.png"/>
 		<texture id="selected" file= "textures/orange.png"/>
 		<texture id="copo" file="textures/copo.png"/>
@@ -95,27 +107,235 @@
 	</textures>
 
 	<appearances>
-		<appearance id="appTeste"
+		<!--MENUS -->
+				<appearance id="appMenu"
+					emissive="1 1 1 1"
+					ambient="1 1 1 1"
+					diffuse="1 1 1 1"
+					specular="1 1 1 1"
+					shininess="1"
+					textureref="menu"
+					texlength_s="1"
+					texlength_t="1"
+		        />
+		        <appearance id="appMenuRegras"
+					emissive="1 1 1 1"
+					ambient="1 1 1 1"
+					diffuse="1 1 1 1"
+					specular="1 1 1 1"
+					shininess="1"
+					textureref="regras"
+					texlength_s="1"
+					texlength_t="1"
+		        />
+        <!-- FOREST THEME -->
+		        <appearance id="bg_Forest"
+					emissive="1 1 1 1"
+					ambient="1 1 1 1"
+					diffuse="1 1 1 1"
+					specular="1 1 1 1"
+					shininess="1"
+					textureref="forest"
+					texlength_s="1"
+					texlength_t="1"
+		        />
+
+		         <appearance id="forest_hl_peca"
+					emissive="1 1 1 1"
+					ambient="1 1 1 1"
+					diffuse="1 1 1 1"
+					specular="1 1 1 1"
+					shininess="1"
+					textureref="forest_peca_highlight"
+					texlength_s="1"
+					texlength_t="1"
+		        />
+
+		         <appearance id="forest_celula"
+					emissive="1 1 1 1"
+					ambient="1 1 1 1"
+					diffuse="1 1 1 1"
+					specular="1 1 1 1"
+					shininess="1"
+					textureref="forest_celula"
+					texlength_s="1"
+					texlength_t="1"
+		        />
+
+		        <appearance id="forest_casa_octi"
+					emissive="1 1 1 1"
+					ambient="1 1 1 1"
+					diffuse="1 1 1 1"
+					specular="1 1 1 1"
+					shininess="1"
+					textureref="forest_octi"
+					texlength_s="1"
+					texlength_t="1"
+				/>
+
+				<appearance id="forest_highlight"
+					emissive="1 1 1 1"
+					ambient="1 1 1 1"
+					diffuse="1 1 1 1"
+					specular="1 1 1 1"
+					shininess="1"
+					textureref="forest_highlight"
+					texlength_s="1"
+					texlength_t="1"
+		        />
+		        <appearance id="forest_red"
+					emissive="1 1 1 1"
+					ambient="1 1 1 1"
+					diffuse="1 1 1 1"
+					specular="1 1 1 1"
+					shininess="1"
+					textureref="forest_red"
+					texlength_s="1"
+					texlength_t="1"
+		        />
+		        <appearance id="forest_blue"
+					emissive="1 1 1 1"
+					ambient="1 1 1 1"
+					diffuse="1 1 1 1"
+					specular="1 1 1 1"
+					shininess="1"
+					textureref="forest_blue"
+					texlength_s="1"
+					texlength_t="1"
+		        />
+
+		<!-- COBBLE THEME -->
+				<appearance id="bg_Cobble"
+					emissive="1 1 1 1"
+					ambient="1 1 1 1"
+					diffuse="1 1 1 1"
+					specular="1 1 1 1"
+					shininess="1"
+					textureref="cbble_bg"
+					texlength_s="1"
+					texlength_t="1"
+		        />
+
+		         <appearance id="cbble_hl_peca"
+					emissive="1 1 1 1"
+					ambient="1 1 1 1"
+					diffuse="1 1 1 1"
+					specular="1 1 1 1"
+					shininess="1"
+					textureref="cbble_peca_highlight"
+					texlength_s="1"
+					texlength_t="1"
+		        />
+
+		        <appearance id="cbble_celula"
+					emissive="1 1 1 1"
+					ambient="1 1 1 1"
+					diffuse="1 1 1 1"
+					specular="1 1 1 1"
+					shininess="1"
+					textureref="cbble_celula"
+					texlength_s="1"
+					texlength_t="1"
+		        />
+
+		        <appearance id="cbble_octi"
+					emissive="1 1 1 1"
+					ambient="1 1 1 1"
+					diffuse="1 1 1 1"
+					specular="1 1 1 1"
+					shininess="1"
+					textureref="cbble_octi"
+					texlength_s="1"
+					texlength_t="1"
+				/>
+
+				<appearance id="cbble_highlight"
+					emissive="1 1 1 1"
+					ambient="1 1 1 1"
+					diffuse="1 1 1 1"
+					specular="1 1 1 1"
+					shininess="1"
+					textureref="cbble_highlight"
+					texlength_s="1"
+					texlength_t="1"
+		        />
+
+				
+		        <appearance id="appPecaVermelha"
+					emissive="1 1 1 1"
+					ambient="1 1 1 1"
+					diffuse="1 1 1 1"
+					specular="1 1 1 1"
+					shininess="1"
+					textureref="cbble_red"
+					texlength_s="1"
+					texlength_t="1"
+		        />
+		        <appearance id="appPecaAzul"
+					emissive="1 1 1 1"
+					ambient="1 1 1 1"
+					diffuse="1 1 1 1"
+					specular="1 1 1 1"
+					shininess="1"
+					textureref="cbble_blue"
+					texlength_s="1"
+					texlength_t="1"
+		        />
+		        <appearance id="cbble_appPecaVermelha"
+					emissive="1 1 1 1"
+					ambient="1 1 1 1"
+					diffuse="1 1 1 1"
+					specular="1 1 1 1"
+					shininess="1"
+					textureref="cbble_red"
+					texlength_s="1"
+					texlength_t="1"
+		        />
+		        <appearance id="cbble_appPecaAzul"
+					emissive="1 1 1 1"
+					ambient="1 1 1 1"
+					diffuse="1 1 1 1"
+					specular="1 1 1 1"
+					shininess="1"
+					textureref="cbble_blue"
+					texlength_s="1"
+					texlength_t="1"
+		        />
+       
+        <!-- OUTROS -->
+		 <appearance id="appNormal"
 			emissive="1 1 1 1"
 			ambient="1 1 1 1"
 			diffuse="1 1 1 1"
 			specular="1 1 1 1"
 			shininess="1"
-			textureref="teste"
-			texlength_s="1"
-			texlength_t="1"
+			textureref="cbble_celula"
+			texlength_s="2"
+			texlength_t="2"
         />
-		
-		<appearance id="bg_Cobble"
+
+        <appearance id="appSelected"
 			emissive="1 1 1 1"
 			ambient="1 1 1 1"
 			diffuse="1 1 1 1"
 			specular="1 1 1 1"
 			shininess="1"
-			textureref="cbble"
+			textureref="cbble_highlight"
 			texlength_s="1"
 			texlength_t="1"
         />
+
+        <appearance id="appOcti"
+			emissive="1 1 1 1"
+			ambient="1 1 1 1"
+			diffuse="1 1 1 1"
+			specular="1 1 1 1"
+			shininess="1"
+			textureref="cbble_octi"
+			texlength_s="1"
+			texlength_t="1"
+		/>
+
 		<appearance id="appMotivadora"
 			emissive="1 1 1 1"
 			ambient="1 1 1 1"
@@ -126,46 +346,18 @@
 			texlength_s="1"
 			texlength_t="1"
         />
-		<appearance id="appMenu"
+		
+		 <appearance id="appHighlightPeca"
 			emissive="1 1 1 1"
 			ambient="1 1 1 1"
 			diffuse="1 1 1 1"
 			specular="1 1 1 1"
 			shininess="1"
-			textureref="menu"
+			textureref="cbble_peca_highlight"
 			texlength_s="1"
 			texlength_t="1"
         />
-        <appearance id="appMenuRegras"
-			emissive="1 1 1 1"
-			ambient="1 1 1 1"
-			diffuse="1 1 1 1"
-			specular="1 1 1 1"
-			shininess="1"
-			textureref="regras"
-			texlength_s="1"
-			texlength_t="1"
-        />
-		<appearance id="appNormal"
-			emissive="1 1 1 1"
-			ambient="1 1 1 1"
-			diffuse="1 1 1 1"
-			specular="1 1 1 1"
-			shininess="1"
-			textureref="cbble_celula"
-			texlength_s="2"
-			texlength_t="2"
-        />
-		<appearance id="appOcti"
-			emissive="1 1 1 1"
-			ambient="1 1 1 1"
-			diffuse="1 1 1 1"
-			specular="1 1 1 1"
-			shininess="1"
-			textureref="cbble_octi"
-			texlength_s="2"
-			texlength_t="2"
-		/>
+		
 		<appearance id="appTable"
 			emissive="1 1 1 1"
 			ambient="1 1 1 1"
@@ -176,65 +368,16 @@
 			texlength_s="2"
 			texlength_t="2"
         />
-         <appearance id="appSelected"
-			emissive="1 1 1 1"
-			ambient="1 1 1 1"
-			diffuse="1 1 1 1"
-			specular="1 1 1 1"
-			shininess="1"
-			textureref="cbble_highlight"
-			texlength_s="2"
-			texlength_t="2"
-        />
-        <appearance id="appPecaVermelha"
-			emissive="1 1 1 1"
-			ambient="1 1 1 1"
-			diffuse="1 1 1 1"
-			specular="1 1 1 1"
-			shininess="1"
-			textureref="cbble_red"
-			texlength_s="2"
-			texlength_t="2"
-        />
-        <appearance id="appPecaAzul"
-			emissive="1 1 1 1"
-			ambient="1 1 1 1"
-			diffuse="1 1 1 1"
-			specular="1 1 1 1"
-			shininess="1"
-			textureref="cbble_blue"
-			texlength_s="2"
-			texlength_t="2"
-        />
-        <appearance id="cbble_appPecaVermelha"
-			emissive="1 1 1 1"
-			ambient="1 1 1 1"
-			diffuse="1 1 1 1"
-			specular="1 1 1 1"
-			shininess="1"
-			textureref="cbble_red"
-			texlength_s="2"
-			texlength_t="2"
-        />
-        <appearance id="cbble_appPecaAzul"
-			emissive="1 1 1 1"
-			ambient="1 1 1 1"
-			diffuse="1 1 1 1"
-			specular="1 1 1 1"
-			shininess="1"
-			textureref="cbble_blue"
-			texlength_s="2"
-			texlength_t="2"
-        />
+         
         <appearance id="appCopo"
 			emissive="1 1 1 1"
 			ambient="1 1 1 1"
 			diffuse="1 1 1 1"
 			specular="1 1 1 1"
 			shininess="1"
-			textureref="copo"
-			texlength_s="2"
-			texlength_t="2"
+			textureref="cbble_haste"
+			texlength_s="1"
+			texlength_t="1"
         />
         <appearance id="appTampaCaixaProngs"
 			emissive="1 1 1 1"
@@ -268,7 +411,7 @@
 			<transforms>
 				<scale factor="50 50 50"/>
 			</transforms>
-			<appearanceref id="bg_Cobble"/>
+			<appearanceref id="bg_Forest"/>
 			<children>
 				<noderef id="cube"/>
 			</children>
@@ -1056,6 +1199,7 @@
 						<translate to="3 1.1 3"/>
 					</transforms>
 					<appearanceref id="appPecaAzul"/>
+					<highlightApp id="appHighlightPeca"/>
 					<children>
 						
 						<noderef id="podReferenciaAzul"/>
@@ -1068,6 +1212,7 @@
 						<translate to="3 1.1 0"/>
 					</transforms>
 					<appearanceref id="appPecaAzul"/>
+					<highlightApp id="appHighlightPeca"/>
 					<children>
 			
 						<noderef id="podReferenciaAzul"/>
@@ -1080,6 +1225,7 @@
 						<translate to="3 1.1 -3"/>
 					</transforms>
 					<appearanceref id="appPecaAzul"/>
+					<highlightApp id="appHighlightPeca"/>
 					<children>
 					
 						<noderef id="podReferenciaAzul"/>
@@ -1092,6 +1238,7 @@
 						<translate to="1 0 -7.25"/>
 					</transforms>
 					<appearanceref id="appPecaAzul"/>
+					<highlightApp id="appHighlightPeca"/>
 					<children>
 						<noderef id="podReferenciaAzul"/>
 					</children>
@@ -1103,6 +1250,7 @@
 						<translate to="2 0 -7.25"/>
 					</transforms>
 					<appearanceref id="appPecaAzul"/>
+					<highlightApp id="appHighlightPeca"/>
 					<children>
 						<noderef id="podReferenciaAzul"/>
 					</children>
@@ -1114,6 +1262,7 @@
 						<translate to="3 0 -7.25"/>
 					</transforms>
 					<appearanceref id="appPecaAzul"/>
+					<highlightApp id="appHighlightPeca"/>
 					<children>
 						<noderef id="podReferenciaAzul"/>
 					</children>
@@ -1125,6 +1274,7 @@
 						<translate to="4 0 -7.25"/>
 					</transforms>
 					<appearanceref id="appPecaAzul"/>
+					<highlightApp id="appHighlightPeca"/>
 					<children>
 						<noderef id="podReferenciaAzul"/>
 					</children>
@@ -1138,6 +1288,7 @@
 						<translate to="-3 1.1 3"/>
 					</transforms>
 					<appearanceref id="appPecaVermelha"/>
+					<highlightApp id="appHighlightPeca"/>
 					<children>
 						<noderef id="podReferenciaVermelha"/>
 				
@@ -1151,6 +1302,7 @@
 						<translate to="-3 1.1 0"/>
 					</transforms>
 					<appearanceref id="appPecaVermelha"/>
+					<highlightApp id="appHighlightPeca"/>
 					<children>
 						<noderef id="podReferenciaVermelha"/>
 			
@@ -1163,6 +1315,7 @@
 						<translate to="-3 1.1 -3"/>
 					</transforms>
 					<appearanceref id="appPecaVermelha"/>
+					<highlightApp id="appHighlightPeca"/>
 					<children>
 						<noderef id="podReferenciaVermelha"/>
 					</children>
@@ -1174,6 +1327,7 @@
 						<translate to="-1 0 7.25"/>
 					</transforms>
 					<appearanceref id="appPecaVermelha"/>
+					<highlightApp id="appHighlightPeca"/>
 					<children>
 						<noderef id="podReferenciaVermelha"/>
 					</children>
@@ -1185,6 +1339,7 @@
 						<translate to="-2 0 7.25"/>
 					</transforms>
 					<appearanceref id="appPecaVermelha"/>
+					<highlightApp id="appHighlightPeca"/>
 					<children>
 						<noderef id="podReferenciaVermelha"/>
 					</children>
@@ -1196,6 +1351,7 @@
 						<translate to="-3 0 7.25"/>
 					</transforms>
 					<appearanceref id="appPecaVermelha"/>
+					<highlightApp id="appHighlightPeca"/>
 					<children>
 						<noderef id="podReferenciaVermelha"/>
 					</children>
@@ -1207,6 +1363,7 @@
 						<translate to="-4 0 7.25"/>
 					</transforms>
 					<appearanceref id="appPecaVermelha"/>
+					<highlightApp id="appHighlightPeca"/>
 					<children>
 						<noderef id="podReferenciaVermelha"/>
 					</children>

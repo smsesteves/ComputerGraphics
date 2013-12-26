@@ -588,6 +588,23 @@ void TPinterface::processGUI(GLUI_Control *ctrl)
 	if(ctrl->user_id == 2){
 		cout << "ROTATE CAMERA!" << endl;
 	}
-	
+}
 
+void TPinterface::processKeyboard(unsigned char key, int x, int y)
+{
+	// Uncomment below if you would like to process the default keys (e.g. 's' for snapshot, 'Esc' for exiting, ...)
+	CGFinterface::processKeyboard(key, x, y);
+
+	switch(key)
+	{
+		case 't':
+		{
+
+			// This is an example of accessing the associated scene
+			// To test, create the function toggleSomething in your scene to activate/deactivate something
+			//((LightingScene *) scene)->toggleSomething();
+			(((XMLScene*) scene)->getScenePointer()->switchTheme());
+			break;
+		}
+	}
 }

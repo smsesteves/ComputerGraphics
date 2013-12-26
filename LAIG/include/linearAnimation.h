@@ -175,9 +175,11 @@ public:
 			y=y+vinc*velocidades.at(pos).vy;
 			z=z+vinc*velocidades.at(pos).vz;	
 
+			/*
 			cout << " X:"<< x<<endl;
 			cout << " Y:"<< y<<endl;
 			cout << " Z:"<< z<<endl;
+			*/
 
 			bool isX=false;
 			bool isY=false;

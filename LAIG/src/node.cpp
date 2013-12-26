@@ -88,7 +88,7 @@ void Node::move(Animation* aux,unsigned long t)
 	else
 	{
 		aux->updatePosition(t);
-		cout<<"Moving"<<endl;
+		//cout<<"Moving"<<endl;
 	}
 	
 }

@@ -35,6 +35,7 @@ XMLScene::XMLScene(char *filename,CGFapplication* app, Game* game)
 	globalsElement = yafElement->FirstChildElement( "globals" );
 
 	scene = new YAFScene();
+	scene->nextTheme = 1;
 
 	//--------- Animations Parsing -----------
 	animationsElement = yafElement->FirstChildElement( "animations" );
@@ -921,6 +922,30 @@ XMLScene::XMLScene(char *filename,CGFapplication* app, Game* game)
 				children = children->NextSiblingElement();
 			}
 
+			
+			int pickingId = (int)no->getPicking();
+			if(pickingId > 10 && pickingId < 20){
+				scene->bluePods.push_back(no);
+			}
+			else if(pickingId > 20 && pickingId < 30){
+				scene->redPods.push_back(no);
+			}
+			else if(pickingId == 122 || pickingId == 124 || pickingId == 126 || pickingId == 162 || pickingId == 164 || pickingId == 166){
+				scene->octiCells.push_back(no);
+			}
+			else if(pickingId > 110 && pickingId < 178){
+				scene->tabCells.push_back(no);
+			}
+			else if(pickingId > 210 && pickingId < 219){
+				scene->bPickProng.push_back(no);
+			}
+			else if(pickingId > 220 && pickingId < 229){
+				scene->rPickProng.push_back(no);
+			}
+			if(no->getId() == "envolvente"){
+				scene->envolente = no;
+			}
+			
 
 			scene->graph.insert(std::pair<string,Node*>(no->getId(),no));
 			node=node->NextSiblingElement();
@@ -938,13 +963,13 @@ void XMLScene::init()
 
 	scene->initGlobals();
 	scene->initCameras();
-
+	scene->switchTheme();
 	scene->initLights();
 	//scene->initAnimations();
 	glPushMatrix();
 	//scene->initposition(scene->rootid);
 	glPopMatrix();
-	char * host = "smsesteves";
+	char * host = "Leonel";
 	connectToSocket(host);
 	setUpdatePeriod(30);
 	app->forceRefresh();
@@ -978,7 +1003,7 @@ void XMLScene::update(unsigned long	tempo)
 			}
 			else
 			{
-				cout<<"ELIMINOU"<<endl;
+				//cout<<"ELIMINOU"<<endl;
 				it->second.erase(it->second.begin()+i);
 			}
 			

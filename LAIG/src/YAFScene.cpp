@@ -413,3 +413,132 @@ void YAFScene::initposition(string node)
         return;
 
 }
+
+void YAFScene::switchTheme(){
+	Appearance* aux_hl = new Appearance();
+	Appearance* aux_hl_outro = new Appearance();
+	/*********
+	// FOREST
+	**********/
+	if(nextTheme == 1){ 
+		for(int i = 0; i < this->appearancesComp.size(); i++){
+			if(appearancesComp[i]->getIdS() == "forest_highlight"){
+				aux_hl = appearancesComp[i];
+			}
+			if(appearancesComp[i]->getIdS() == "forest_hl_peca"){
+				aux_hl_outro = appearancesComp[i];
+			}
+			if(appearancesComp[i]->getIdS() == "bg_Forest"){
+				envolente->setAppearance(appearancesComp[i]);
+				envolente->notHighlighted = appearancesComp[i];
+			}
+		}
+
+		for(int i = 0; i < this->appearancesComp.size(); i++){
+			// Tabuleiro
+			if(appearancesComp[i]->getIdS() == "forest_celula"){
+				for(int j = 0; j < this->tabCells.size(); j++){
+					tabCells[j]->setAppearance(appearancesComp[i]);
+					tabCells[j]->notHighlighted = appearancesComp[i];
+					tabCells[j]->highlighted = aux_hl;
+				}
+			}
+			if(appearancesComp[i]->getIdS() == "forest_casa_octi"){
+				for(int j = 0; j < this->octiCells.size(); j++){
+					octiCells[j]->setAppearance(appearancesComp[i]);
+					octiCells[j]->notHighlighted = appearancesComp[i];
+					octiCells[j]->highlighted = aux_hl;
+				}
+			}
+			if(appearancesComp[i]->getIdS() == "forest_red"){
+				for(int j = 0; j < this->redPods.size(); j++){
+					redPods[j]->setAppearance(appearancesComp[i]);
+					redPods[j]->notHighlighted = appearancesComp[i];
+					redPods[j]->highlighted = aux_hl_outro;
+				}
+				for(int j = 0; j < this->rPickProng.size(); j++){
+					rPickProng[j]->setAppearance(appearancesComp[i]);
+					rPickProng[j]->notHighlighted = appearancesComp[i];
+					rPickProng[j]->highlighted = aux_hl_outro;
+				}
+			}
+			if(appearancesComp[i]->getIdS() == "forest_blue"){
+				for(int j = 0; j < this->bluePods.size(); j++){
+					bluePods[j]->setAppearance(appearancesComp[i]);
+					bluePods[j]->notHighlighted = appearancesComp[i];
+					bluePods[j]->highlighted = aux_hl_outro;
+				}
+				for(int j = 0; j < this->bPickProng.size(); j++){
+					bPickProng[j]->setAppearance(appearancesComp[i]);
+					bPickProng[j]->notHighlighted = appearancesComp[i];
+					bPickProng[j]->highlighted = aux_hl_outro;
+				}
+			}
+		}
+		nextTheme = 2;
+	}
+	/*********
+	// CBBLE
+	**********/
+	else if(nextTheme == 2){ 
+		for(int i = 0; i < this->appearancesComp.size(); i++){
+			if(appearancesComp[i]->getIdS() == "cbble_highlight"){
+				aux_hl = appearancesComp[i];
+			}
+			if(appearancesComp[i]->getIdS() == "cbble_hl_peca"){
+				aux_hl_outro = appearancesComp[i];
+			}
+			if(appearancesComp[i]->getIdS() == "bg_Cobble"){
+				envolente->setAppearance(appearancesComp[i]);
+				envolente->notHighlighted = appearancesComp[i];
+			}
+		}
+		for(int i = 0; i < this->appearancesComp.size(); i++){
+			// Tabuleiro
+			if(appearancesComp[i]->getIdS() == "cbble_celula"){
+				for(int j = 0; j < this->tabCells.size(); j++){
+					tabCells[j]->setAppearance(appearancesComp[i]);
+					tabCells[j]->notHighlighted = appearancesComp[i];
+					tabCells[j]->highlighted = aux_hl;
+				}
+			}
+			if(appearancesComp[i]->getIdS() == "cbble_octi"){
+				for(int j = 0; j < this->octiCells.size(); j++){
+					octiCells[j]->setAppearance(appearancesComp[i]);
+					octiCells[j]->notHighlighted = appearancesComp[i];
+					octiCells[j]->highlighted = aux_hl;
+				}
+			}
+			if(appearancesComp[i]->getIdS() == "cbble_appPecaVermelha"){
+				for(int j = 0; j < this->redPods.size(); j++){
+					redPods[j]->setAppearance(appearancesComp[i]);
+					redPods[j]->notHighlighted = appearancesComp[i];
+					redPods[j]->highlighted = aux_hl_outro;
+				}
+				for(int j = 0; j < this->rPickProng.size(); j++){
+					rPickProng[j]->setAppearance(appearancesComp[i]);
+					rPickProng[j]->notHighlighted = appearancesComp[i];
+					rPickProng[j]->highlighted = aux_hl_outro;
+				}
+			}
+			if(appearancesComp[i]->getIdS() == "cbble_appPecaAzul"){
+				for(int j = 0; j < this->bluePods.size(); j++){
+					bluePods[j]->setAppearance(appearancesComp[i]);
+					bluePods[j]->notHighlighted = appearancesComp[i];
+					bluePods[j]->highlighted = aux_hl_outro;
+				}
+				for(int j = 0; j < this->bPickProng.size(); j++){
+					bPickProng[j]->setAppearance(appearancesComp[i]);
+					bPickProng[j]->notHighlighted = appearancesComp[i];
+					bPickProng[j]->highlighted = aux_hl_outro;
+				}
+			}
+		}
+
+
+		nextTheme = 1;
+	}
+	else if(nextTheme == 3){
+
+	}
+}
