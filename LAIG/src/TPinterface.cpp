@@ -194,9 +194,13 @@ void TPinterface::clickHandler(GLuint* selected, GLint nselected){
 					readMessage();
 					cout << "[ADD_PRONG] A logica nao respondeu nada\n";
 					octi->addprong(1,idpicado,octi->getDir(dir));
+
+					
+
 					octi->unhighlightId(octi->idLastPick); // Unlight do PRONG
 					//prongReferencia
-					octi->graph_addProngToPod(idpicado,dir);
+					octi->graph_addProngToPod(idpicado,dir,((XMLScene*) scene)->getScenePointer()) ;
+					
 					for(int i = 0; i < octi->idsReceived.size(); i++){
 						octi->unhighlightId(octi->idsReceived[i]);
 					}
@@ -273,7 +277,7 @@ void TPinterface::clickHandler(GLuint* selected, GLint nselected){
 					cout << "[ADD_PRONG] A logica nao respondeu nada\n";
 
 					octi->addprong(2,idpicado,octi->getDir(dir));
-					octi->graph_addProngToPod(idpicado,dir);
+					octi->graph_addProngToPod(idpicado,dir,((XMLScene*) scene)->getScenePointer());
 					octi->unhighlightId(octi->idLastPick); // Unlight do PRONG
 					for(int i = 0; i < octi->idsReceived.size(); i++){
 						octi->unhighlightId(octi->idsReceived[i]);
@@ -435,11 +439,30 @@ void TPinterface::clickHandler(GLuint* selected, GLint nselected){
 					// RODO: move peca logica lado LAIG
 
 					// Envia Info pa Mover POD
-					// FORMATO : 3 IDPECA IDCELULA
+					// FORMATO : 2 IDPECA IDCELULA
 					string mensagem;
-					mensagem = "3 " + intToString(octi->idLastPick);
+					mensagem = "2 " + intToString(octi->idLastPick);
 					mensagem += " ";
-					mensagem += intToString(idpicado);
+
+					int x=(idpicado-100)/10;
+					int y=(idpicado-100)%10;
+
+					mensagem += intToString(x);
+					mensagem += " ";
+					mensagem += intToString(y);
+
+					sendMessage(mensagem.c_str());
+
+					int lastx=octi->getBoard()->getXbyId(1,idpicado%10);
+					int lasty=octi->getBoard()->getYbyId(1,idpicado%10);
+
+					int incx=x-lastx;
+					int incy=y-lasty;
+
+					octi->movepod(1,octi->idLastPick,x,y);
+
+
+
 					sendMessage(mensagem.c_str());
 					cout << "[MOVE_POD] '" << mensagem << "'" << endl;
 
@@ -478,12 +501,30 @@ void TPinterface::clickHandler(GLuint* selected, GLint nselected){
 					// RODO: move peca logica lado LAIG
 
 					// Envia Info pa Mover POD
-					// FORMATO : 3 IDPECA IDCELULA
+					// FORMATO : 2 IDPECA IDCELULA
 					string mensagem;
-					mensagem = "3 " + intToString(octi->idLastPick);
+					mensagem = "2 " + intToString(octi->idLastPick);
 					mensagem += " ";
-					mensagem += intToString(idpicado);
+					
+					int x=(idpicado-100)/10;
+					int y=(idpicado-100)%10;
+
+					mensagem += intToString(x);
+					mensagem += " ";
+					mensagem += intToString(y);
+
 					sendMessage(mensagem.c_str());
+
+					int lastx=octi->getBoard()->getXbyId(2,idpicado%10);
+					int lasty=octi->getBoard()->getYbyId(2,idpicado%10);
+
+					int incx=x-lastx;
+					int incy=y-lasty;
+
+					octi->movepod(2,octi->idLastPick,x,y);
+
+					//Knows increment
+
 					cout << "[MOVE_POD] '" << mensagem << "'" << endl;
 
 					readMessage();

@@ -29,6 +29,10 @@ public:
 	Pod* getJogador2PodAt(int pos);
 	void addJogador1PodAt(int x,int y,int id);
 	void addJogador2PodAt(int x,int y,int id);
+	
+	int getXbyId(int player,int id);
+	int getYbyId(int player,int id);
+
 };
 
 #endif

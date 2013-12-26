@@ -5,6 +5,8 @@
 #include "utils.h"
 #include <map>
 #include "node.h"
+#include "YAFScene.h"
+
 
 class Game{
 private:
@@ -23,18 +25,19 @@ public:
 	void highlightId(int id);
 	void unhighlightId(int id);
 	void unhighlightAll();
-	void graph_addProngToPod(int id, int dir);
+	void graph_addProngToPod(int id, int dir,YAFScene * graph);
 
 
 	// Logical
 	string getDir(int dir);
 	bool getEnded();
+	Board* getBoard();
 	void createBoard();
 	void displayBoard();
 	void menu(int player);
 
 	bool addprong(int player, int pod, string dir);
-
+	bool movepod(int player, int podnumber, int x,int y);
 	void displayWin(int player){};
 	void play(int op,int player);
 

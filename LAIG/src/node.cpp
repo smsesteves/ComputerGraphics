@@ -2,6 +2,8 @@
 
 Node::Node()
 {
+
+	glMatrixMode(GL_MODELVIEW); 
 	glPushMatrix();
 	glLoadIdentity();
 	glGetFloatv(GL_MODELVIEW_MATRIX,matrix);
@@ -15,6 +17,9 @@ Node::Node()
 	position[0]=0.0;
 	position[1]=0.0;
 	position[2]=0.0;
+	pickingid=-1;
+	toanimate=false;
+
 }
 
 
@@ -69,6 +74,22 @@ void Node::insertprimitive(Primitive* primitiva)
 
 void Node::move(Animation* aux,unsigned long t)
 {
-	if(!((LinearAnimation*)aux)->started){aux->init(t);};
-	aux->updatePosition(t);
+
+	if(!((LinearAnimation*)aux)->started)
+	{
+		aux->init(t);
+		cout<<"Started"<<endl;
+		aux->updatePosition(t);
+	}
+	else if(((LinearAnimation*)aux)->animationEnded)
+	{
+		toanimate=false;
+	}
+	else
+	{
+		aux->updatePosition(t);
+		cout<<"Moving"<<endl;
+	}
+	
 }
+

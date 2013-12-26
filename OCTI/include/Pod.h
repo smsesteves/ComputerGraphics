@@ -15,6 +15,10 @@ public:
 	Pod(int player,int x,int y,int id);
 	int getPlayer();
 	int getX();
+
+	void setX(int incX);
+	void setY(int incY);
+
 	int getY();
 	void incX();
 	void incY();

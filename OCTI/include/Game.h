@@ -19,7 +19,7 @@ public:
 	void displayWin(int player){};
 	void play(int op,int player);
 	bool addprong(int player, int pod, string dir);
-	bool movepod(int player, int pod, string dir);
+	bool movepod(int player, int pod, int x, int y);
 	bool addpod(int player, int idpod, int idcasa);
 
 	void processaDir(Pod* aux, string dir, int player);

@@ -20,6 +20,11 @@ public:
 	void incY();
 	void decX();
 	void decY();
+
+	void setX(int incX);
+	void setY(int incY);
+
+
 	int getDirsSize();
 	Prong* getDirsAt(int pos);
 	void addProng(string dir);

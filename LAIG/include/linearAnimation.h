@@ -43,18 +43,47 @@ public:
 		primeiro.x=0.0;
 		primeiro.y=0.0;
 		primeiro.z=1.0;
-	
+
+
+
+
+		float tempoTotal = span;
+		float distanciatotal=0;
+		vector<ControlPoint> aux= this->controlPoints;
+		for(unsigned int j = 0; j < this->controlPoints.size() -1 ; j++){
+			//cout << "\tde " << j << " a " << j+1 << endl;
+			distanciatotal+=distanciapontos(aux[j].x,aux[j].y,aux[j].z,aux[j+1].x,aux[j+1].y,aux[j+1].z);
+
+		}
+
+
+
+
+		for(unsigned int j = 0; j < this->controlPoints.size() -1 ; j++){
+			//cout << "\tde " << j << " a " << j+1 << endl;
+			velocidadescomp v1;
+			v1.number1=j;
+			v1.number2=j+1;
+			v1.time=tempoTotal*distanciapontos(aux[j].x,aux[j].y,aux[j].z,aux[j+1].x,aux[j+1].y,aux[j+1].z)/distanciatotal;
+			v1.vx=abs(aux[j+1].x-aux[j].x)/v1.time;
+			v1.vy=abs(aux[j+1].y-aux[j].y)/v1.time;
+			v1.vz=abs(aux[j+1].z-aux[j].z)/v1.time;
+
+			this->velocidades.push_back(v1);
+		}
+
+
 	};
-	
+
 	float x,y,z;
 	float xf, yf, zf;
 	float incx,incy,incz;
 	float ry;
 	int numbercontrol;
 	bool animationEnded;
-	
+
 	void updatePosition(unsigned long t){
-		
+
 		tempoatual=t;
 		float vinc=(tempoatual-tempoanterior)/1000.0;
 		//cout<<"Control Point"<< numbercontrol<<endl;
@@ -70,16 +99,16 @@ public:
 			aux2.x=controlPoints.at(numbercontrol+1).x-controlPoints.at(numbercontrol).x;
 			aux2.y=controlPoints.at(numbercontrol+1).y-controlPoints.at(numbercontrol).y;
 			aux2.z=controlPoints.at(numbercontrol+1).z-controlPoints.at(numbercontrol).z;				
-			
 
-		
+
+
 			//cout<<" Vetor 1 :"<<aux2.x<<" "<<aux2.y<<" "<<aux2.z<<endl;
 			//cout<<" Modulo 2:"<<distanciapontos(0,0,0,aux2.x,aux2.y,aux2.z);
 
 
-			ry=acos(((aux1.x*aux2.x)+(aux1.y*aux2.y)+(aux1.z*aux2.z))/
-					(distanciapontos(0,0,0,aux1.x,aux1.y,aux1.z)*distanciapontos(0,0,0,aux2.x,aux2.y,aux2.z)));
-			
+			//ry=acos(((aux1.x*aux2.x)+(aux1.y*aux2.y)+(aux1.z*aux2.z))/
+				//(distanciapontos(0,0,0,aux1.x,aux1.y,aux1.z)*distanciapontos(0,0,0,aux2.x,aux2.y,aux2.z)));
+
 			//float i = (aux1.y * aux2.z)-(aux2.y* aux1.z);
 			//float j = -((aux1.x * aux2.z)-(aux2.x* aux1.z));
 			//float k = (aux1.x * aux2.y)-(aux2.x* aux1.y);
@@ -89,15 +118,15 @@ public:
 			//float newangle=asin(i/(scale*n.x));
 			//cout<<"Angle:\n"<<ry<<endl;
 
-			
-			ry=radiustodegrees(ry);
-			if(aux2.x<0){ry=-ry;};
+
+			//ry=radiustodegrees(ry);
+			//if(aux2.x<0){ry=-ry;};
 			//newangle=radiustodegrees(newangle);
 			//cout<<"Angle:\n"<<ry<<" "<<newangle<<endl;
-			
-			
-		
-			
+
+
+
+
 
 			int pos=0;
 
@@ -107,7 +136,7 @@ public:
 			{
 				if(velocidades.at(i).number1==numbercontrol && velocidades.at(i).number2==numbercontrol+1)
 				{
-					
+
 					pos=i;
 					break;
 				}
@@ -115,7 +144,7 @@ public:
 
 			if(controlPoints.at(numbercontrol+1).x-controlPoints.at(numbercontrol).x<0 && velocidades.at(pos).vx>0)
 			{
-				
+
 				velocidades.at(pos).vx=-velocidades.at(pos).vx;
 			}
 			else if(controlPoints.at(numbercontrol+1).x-controlPoints.at(numbercontrol).x>0 && velocidades.at(pos).vx<0)
@@ -138,13 +167,17 @@ public:
 			{
 				velocidades.at(pos).vz=-velocidades.at(pos).vz;
 			}
-			
-				
-				//verificar nova posição				
-			
+
+
+			//verificar nova posição				
+
 			x=x+vinc*velocidades.at(pos).vx;
 			y=y+vinc*velocidades.at(pos).vy;
 			z=z+vinc*velocidades.at(pos).vz;	
+
+			cout << " X:"<< x<<endl;
+			cout << " Y:"<< y<<endl;
+			cout << " Z:"<< z<<endl;
 
 			bool isX=false;
 			bool isY=false;
@@ -191,27 +224,28 @@ public:
 			{
 				animationEnded=true;
 			}
-			
+
 			//system("pause");
 		}
 		else
 		{
 			//cout<<"Reinicia"<<endl;
-			
+
 			animationEnded=true;
 			x=0;
 			y=0;
 			ry=0;
-			
+
 
 		}
 		tempoanterior=t;
-		
+
 	};
 
 
 	void init(unsigned long t)
 	{
+		cout<<"FEZ INIT"<<endl;
 		numbercontrol=0;
 		x=controlPoints.at(0).x*1.0;
 		y=controlPoints.at(0).y*1.0;

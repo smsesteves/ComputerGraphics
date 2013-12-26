@@ -13,6 +13,12 @@ bool Game::getEnded()
 	return ended;
 }
 
+
+Board* Game::getBoard()
+{
+	return gameBoard;
+}
+
 void Game::createBoard()
 {
 	gameBoard=new Board();
@@ -40,63 +46,222 @@ void Game::unhighlightAll(){
 	}
 }
 
-void Game::graph_addProngToPod(int idpicado,int dir){
+void Game::graph_addProngToPod(int idpicado,int dir,YAFScene* scene){
 	cout << "IDPICADO: " << idpicado << endl;
 	cout << "DIR     : " << dir << endl;
+
+	string s;
+			
+	Node* aux = new Node();
+
 	if(turn == 1){
 		cout << "Entrou" << endl;
 		switch(dir){
 		case 1: 
-			boardElements[idpicado]->addChildren("prongAzulSul");
+			s="ProngSul"+intToString(idpicado);
+			aux->setId(s);
+			aux->setAnimationid("moveProng");
+			aux->toanimate=true;
+			((LinearAnimation*)scene->animationsComp["moveProng"])->started=false;
+			scene->graphanimation[scene->animationsComp["moveProng"]].push_back(aux);
+			scene->graph.insert(pair<string,Node*>(s,aux));
+			boardElements[idpicado]->addChildren(s);
+			aux->addChildren("prongAzulSul");
+
 			break;
 		case 2:
-			boardElements[idpicado]->addChildren("prongAzulSudeste");
+
+
+			s="ProngSudeste"+intToString(idpicado);
+			aux->setId(s);
+			aux->setAnimationid("moveProng");
+			aux->toanimate=true;
+			((LinearAnimation*)scene->animationsComp["moveProng"])->started=false;
+			scene->graphanimation[scene->animationsComp["moveProng"]].push_back(aux);
+			scene->graph.insert(pair<string,Node*>(s,aux));
+			boardElements[idpicado]->addChildren(s);
+
+			aux->addChildren("prongAzulSudeste");
+
 			break;
 		case 3:
-			boardElements[idpicado]->addChildren("prongAzulEste");
+			s="ProngEste"+intToString(idpicado);
+			aux->setId(s);
+			aux->setAnimationid("moveProng");
+			aux->toanimate=true;
+			((LinearAnimation*)scene->animationsComp["moveProng"])->started=false;
+			scene->graphanimation[scene->animationsComp["moveProng"]].push_back(aux);
+			scene->graph.insert(pair<string,Node*>(s,aux));
+			boardElements[idpicado]->addChildren(s);
+			aux->addChildren("prongAzulEste");
+		
+			
 			break;
 		case 4:
-			boardElements[idpicado]->addChildren("prongAzulNordeste");
+
+
+			s="ProngNordeste"+intToString(idpicado);
+			aux->setId(s);
+			aux->setAnimationid("moveProng");
+			aux->toanimate=true;
+			((LinearAnimation*)scene->animationsComp["moveProng"])->started=false;
+			scene->graphanimation[scene->animationsComp["moveProng"]].push_back(aux);
+			scene->graph.insert(pair<string,Node*>(s,aux));
+			boardElements[idpicado]->addChildren(s);
+			aux->addChildren("prongAzulNordeste");
+
+			
 			break;
 		case 5:
-			boardElements[idpicado]->addChildren("prongAzulNorte");
+			s="ProngNorte"+intToString(idpicado);
+			aux->setId(s);
+			aux->setAnimationid("moveProng");
+			aux->toanimate=true;
+			((LinearAnimation*)scene->animationsComp["moveProng"])->started=false;
+			scene->graphanimation[scene->animationsComp["moveProng"]].push_back(aux);
+			scene->graph.insert(pair<string,Node*>(s,aux));
+			boardElements[idpicado]->addChildren(s);
+			aux->addChildren("prongAzulNorte");
+
 			break;
 		case 6:
-			boardElements[idpicado]->addChildren("prongAzulNoroeste");
+
+			s="ProngNoroeste"+intToString(idpicado);
+			aux->setId(s);
+			aux->setAnimationid("moveProng");
+			aux->toanimate=true;
+			((LinearAnimation*)scene->animationsComp["moveProng"])->started=false;
+			scene->graphanimation[scene->animationsComp["moveProng"]].push_back(aux);
+			scene->graph.insert(pair<string,Node*>(s,aux));
+			boardElements[idpicado]->addChildren(s);
+			aux->addChildren("prongAzulNoroeste");
 			break;
 		case 7:
-			boardElements[idpicado]->addChildren("prongAzulOeste");
+
+			s="ProngOeste"+intToString(idpicado);
+			aux->setId(s);
+			aux->setAnimationid("moveProng");
+			aux->toanimate=true;
+			((LinearAnimation*)scene->animationsComp["moveProng"])->started=false;
+			scene->graphanimation[scene->animationsComp["moveProng"]].push_back(aux);
+			scene->graph.insert(pair<string,Node*>(s,aux));
+			boardElements[idpicado]->addChildren(s);
+			aux->addChildren("prongAzulOeste");
+		
+		
 			break;
 		case 8:
-			boardElements[idpicado]->addChildren("prongAzulSudoste");
+			s="ProngSudoeste"+intToString(idpicado);
+			aux->setId(s);
+			aux->setAnimationid("moveProng");
+			aux->toanimate=true;
+			((LinearAnimation*)scene->animationsComp["moveProng"])->started=false;
+			scene->graphanimation[scene->animationsComp["moveProng"]].push_back(aux);
+			scene->graph.insert(pair<string,Node*>(s,aux));
+			boardElements[idpicado]->addChildren(s);
+			aux->addChildren("prongAzulSudoste");
+		
+			
 			break;
 		}
 	}
 	else if(turn == 2){
 		switch(dir){
 		case 1: 
-			boardElements[idpicado]->addChildren("prongVermelhoSul");
+			s="ProngSul"+intToString(idpicado);
+			aux->setId(s);
+			aux->setAnimationid("moveProng");
+			aux->toanimate=true;
+			((LinearAnimation*)scene->animationsComp["moveProng"])->started=false;
+			scene->graphanimation[scene->animationsComp["moveProng"]].push_back(aux);
+			scene->graph.insert(pair<string,Node*>(s,aux));
+			boardElements[idpicado]->addChildren(s);
+			aux->addChildren("prongVermelhoSul");
+		
 			break;
 		case 2:
-			boardElements[idpicado]->addChildren("prongVermelhoSudeste");
+			s="ProngSudeste"+intToString(idpicado);
+			aux->setId(s);
+			aux->setAnimationid("moveProng");
+			aux->toanimate=true;
+			((LinearAnimation*)scene->animationsComp["moveProng"])->started=false;
+			scene->graphanimation[scene->animationsComp["moveProng"]].push_back(aux);
+			scene->graph.insert(pair<string,Node*>(s,aux));
+			boardElements[idpicado]->addChildren(s);
+			aux->addChildren("prongVermelhoSudeste");
+
 			break;
 		case 3:
-			boardElements[idpicado]->addChildren("prongVermelhoEste");
+			s="ProngEste"+intToString(idpicado);
+			aux->setId(s);
+			aux->setAnimationid("moveProng");
+			aux->toanimate=true;
+			((LinearAnimation*)scene->animationsComp["moveProng"])->started=false;
+			scene->graphanimation[scene->animationsComp["moveProng"]].push_back(aux);
+			scene->graph.insert(pair<string,Node*>(s,aux));
+			boardElements[idpicado]->addChildren(s);
+			aux->addChildren("prongVermelhoEste");
+	
 			break;
 		case 4:
-			boardElements[idpicado]->addChildren("prongVermelhoNordeste");
+			s="ProngNordeste"+intToString(idpicado);
+			aux->setId(s);
+			aux->setAnimationid("moveProng");
+			aux->toanimate=true;
+			((LinearAnimation*)scene->animationsComp["moveProng"])->started=false;
+			scene->graphanimation[scene->animationsComp["moveProng"]].push_back(aux);
+			scene->graph.insert(pair<string,Node*>(s,aux));
+			boardElements[idpicado]->addChildren(s);
+			aux->addChildren("prongVermelhoNordeste");
+
 			break;
 		case 5:
-			boardElements[idpicado]->addChildren("prongVermelhoNorte");
+			s="ProngNorte"+intToString(idpicado);
+			aux->setId(s);
+			aux->setAnimationid("moveProng");
+			aux->toanimate=true;
+			((LinearAnimation*)scene->animationsComp["moveProng"])->started=false;
+			scene->graphanimation[scene->animationsComp["moveProng"]].push_back(aux);
+			scene->graph.insert(pair<string,Node*>(s,aux));
+			boardElements[idpicado]->addChildren(s);
+			aux->addChildren("prongVermelhoNorte");
+		
 			break;
 		case 6:
-			boardElements[idpicado]->addChildren("prongVermelhoNoroeste");
+			s="ProngNoroeste"+intToString(idpicado);
+			aux->setId(s);
+			aux->setAnimationid("moveProng");
+			aux->toanimate=true;
+			((LinearAnimation*)scene->animationsComp["moveProng"])->started=false;
+			scene->graphanimation[scene->animationsComp["moveProng"]].push_back(aux);
+			scene->graph.insert(pair<string,Node*>(s,aux));
+			boardElements[idpicado]->addChildren(s);
+			aux->addChildren("prongVermelhoNoroeste");
+		
 			break;
 		case 7:
-			boardElements[idpicado]->addChildren("prongVermelhoOeste");
+			s="ProngOeste"+intToString(idpicado);
+			aux->setId(s);
+			aux->setAnimationid("moveProng");
+			aux->toanimate=true;
+			((LinearAnimation*)scene->animationsComp["moveProng"])->started=false;
+			scene->graphanimation[scene->animationsComp["moveProng"]].push_back(aux);
+			scene->graph.insert(pair<string,Node*>(s,aux));
+			boardElements[idpicado]->addChildren(s);
+			aux->addChildren("prongVermelhoOeste");
+	
 			break;
 		case 8:
-			boardElements[idpicado]->addChildren("prongVermelhoSudoste");
+			s="ProngSudoeste"+intToString(idpicado);
+			aux->setId(s);
+			aux->setAnimationid("moveProng");
+			aux->toanimate=true;
+			((LinearAnimation*)scene->animationsComp["moveProng"])->started=false;
+			scene->graphanimation[scene->animationsComp["moveProng"]].push_back(aux);
+			scene->graph.insert(pair<string,Node*>(s,aux));
+			boardElements[idpicado]->addChildren(s);
+			aux->addChildren("prongVermelhoSudoste");
+
 			break;
 		}
 	}
@@ -145,4 +310,56 @@ bool Game::addprong(int player, int podnumber, string dir)
 		}
 		return false;
 	}
+}
+
+
+
+
+bool Game::movepod(int player, int podnumber, int x,int y)
+{
+	
+	if(player==1)
+	{
+		for(int i=0;i<gameBoard->getJogador1Size();i++)
+		{
+			if(gameBoard->getJogador1PodAt(i)->getId()==podnumber)
+			{
+				for(int j=0;j<gameBoard->getJogador1PodAt(i)->getDirsSize();j++)
+				{
+					
+						Pod * aux = gameBoard->getJogador2PodAt(i);
+						
+						aux->setX(x);
+						aux->setY(y);
+
+						return true;
+					
+				}
+				return false;
+			}
+		}
+	
+	}
+	else
+	{
+		for(int i=0;i<gameBoard->getJogador2Size();i++)
+		{
+			if(gameBoard->getJogador2PodAt(i)->getId()==podnumber)
+			{
+				for(int j=0;j<gameBoard->getJogador2PodAt(i)->getDirsSize();j++)
+				{
+					
+						Pod * aux = gameBoard->getJogador2PodAt(i);
+						aux->setX(x);
+						aux->setY(y);
+
+						return true;
+					
+				}
+				
+				return false;
+			}
+		}
+	}
+	return false;
 }

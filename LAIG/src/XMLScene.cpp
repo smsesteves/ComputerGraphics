@@ -940,12 +940,13 @@ void XMLScene::init()
 	scene->initCameras();
 
 	scene->initLights();
-	scene->initAnimations();
-	scene->initposition(scene->rootid);
-
-	char * host = "Leonel";
+	//scene->initAnimations();
+	glPushMatrix();
+	//scene->initposition(scene->rootid);
+	glPopMatrix();
+	char * host = "smsesteves";
 	connectToSocket(host);
-	//setUpdatePeriod(30);
+	setUpdatePeriod(30);
 	app->forceRefresh();
 	vector<Appearance*> appearancesStack;
 	scene->createdisplays(scene->rootid,appearancesStack);
@@ -971,7 +972,15 @@ void XMLScene::update(unsigned long	tempo)
 			//cout<<"X "<<((LinearAnimation*)it->first)->x<<"Y "<<((LinearAnimation*)it->first)->y<<"Z "<<((LinearAnimation*)it->first)->z<<endl;
 			//cout<<"VX "<<((LinearAnimation*)it->first)->vx<<"VY "<<((LinearAnimation*)it->first)->vy<<"VZ "<<((LinearAnimation*)it->first)->vz<<endl;
 			//cout<<"Control Point "<<((LinearAnimation*)it->first)->numbercontrol<<endl;
-			it->second[i]->move(it->first,tempo);
+			if(it->second[i]->toanimate)
+			{
+				it->second[i]->move(it->first,tempo);
+			}
+			else
+			{
+				cout<<"ELIMINOU"<<endl;
+				it->second.erase(it->second.begin()+i);
+			}
 			
 		}
 		

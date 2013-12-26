@@ -71,3 +71,12 @@ int Pod::getId()
 {
 	return id;
 }
+
+void Pod::setX(int incX)
+{
+	x=incX;
+}
+void Pod::setY(int incY)
+{
+	y=incY;
+}

@@ -28,6 +28,7 @@ string Game::executaOperacao(vector<int> valoresRecebidos){
 	int player;
 	int pod;
 	int casa;
+	int x,y;
 	switch(operacao)
 	{
 	case 1: 
@@ -58,8 +59,9 @@ string Game::executaOperacao(vector<int> valoresRecebidos){
 	case 2:
 		player = valoresRecebidos[1]/10;
 		pod = valoresRecebidos[1]%10;
-		dir = valoresRecebidos[2];
-		movepod(player,pod,dir);
+		x = valoresRecebidos[2];
+		y = valoresRecebidos [3];
+		movepod(player,pod,x,y);
 		break;
 	case 3:
 		player = valoresRecebidos[1]/10;
@@ -131,7 +133,7 @@ bool Game::addprong(int player, int podnumber, string dir)
 	}
 }
 
-bool Game::movepod(int player, int podnumber, string dir)
+bool Game::movepod(int player, int podnumber, int x,int y)
 {
 	
 	if(player==1)
@@ -142,15 +144,14 @@ bool Game::movepod(int player, int podnumber, string dir)
 			{
 				for(int j=0;j<gameBoard->getJogador1PodAt(i)->getDirsSize();j++)
 				{
-					if(gameBoard->getJogador1PodAt(i)->getDirsAt(i)->getDir()==dir+"")
-					{
+
 						Pod * aux = gameBoard->getJogador2PodAt(i);
-						//Position pos=processaComer(gameBoard,aux,dir);
-						processaDir(aux,dir,player);
-						//Testa comer
+						
+						aux->setX(x);
+						aux->setY(y);
 
 						return true;
-					}
+					
 				}
 				return false;
 			}
@@ -165,17 +166,13 @@ bool Game::movepod(int player, int podnumber, string dir)
 			{
 				for(int j=0;j<gameBoard->getJogador2PodAt(i)->getDirsSize();j++)
 				{
-					if(gameBoard->getJogador2PodAt(i)->getDirsAt(i)->getDir()==dir+"")
-					{
+				
 						Pod * aux = gameBoard->getJogador2PodAt(i);
-						//Position pos=processaComer(gameBoard,aux,dir);
+						aux->setX(x);
+						aux->setY(y);
 
-
-						processaDir(aux,dir,player);
-						
-						//Testa comer
 						return true;
-					}
+					
 				}
 				
 				return false;
@@ -890,7 +887,7 @@ Board* Game::getBoard()
 }
 
 
-void processaDir(Pod* aux,string dir,int player)
+void Game::processaDir(Pod* aux,string dir,int player)
 {
 	if((dir=="n" && player==2) || (dir=="s" && player==1))
 	{
@@ -929,3 +926,4 @@ void processaDir(Pod* aux,string dir,int player)
 		aux->decY();
 	}
 }
+

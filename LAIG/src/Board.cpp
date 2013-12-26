@@ -199,3 +199,54 @@ void Board::addJogador2PodAt(int x,int y,int id)
 {
 	Jogador2.push_back(new Pod(2,x,y,id));
 }
+
+int Board::getXbyId(int player, int id)
+{
+	if(player==1)
+	{
+		for(int i=0;i<Jogador1.size();i++)
+		{
+			if(getJogador1PodAt(i)->getId())
+			{
+				return getJogador1PodAt(i)->getX();
+			}
+
+		}
+	}
+	else
+	{
+		for(int i=0;i<Jogador2.size();i++)
+		{
+			if(getJogador2PodAt(i)->getId())
+			{
+				return getJogador2PodAt(i)->getX();
+			}
+		}
+	}
+}
+
+int Board::getYbyId(int player , int id)
+{
+	if(player==1)
+	{
+		for(int i=0;i<Jogador1.size();i++)
+		{
+			if(getJogador1PodAt(i)->getId())
+			{
+				return getJogador1PodAt(i)->getY();
+			}
+
+		}
+	}
+	else
+	{
+		for(int i=0;i<Jogador2.size();i++)
+		{
+			if(getJogador2PodAt(i)->getId())
+			{
+				return getJogador2PodAt(i)->getY();
+			}
+		}
+	}
+
+}

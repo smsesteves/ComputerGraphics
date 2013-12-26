@@ -59,40 +59,29 @@ void YAFScene::initCameras(){
 
 void YAFScene::draw(string node,vector<Appearance*> &appstack)
 {
+
+
 	glPushMatrix();
+	glMultMatrixf(graph[node]->getmatrix());
 	if(!graph[node]->getAnimationid().empty())
 	{
-		float incx=((LinearAnimation*)animationsComp[graph[node]->getAnimationid()])->x;
-		float incy=((LinearAnimation*)animationsComp[graph[node]->getAnimationid()])->y;
-		float incz=((LinearAnimation*)animationsComp[graph[node]->getAnimationid()])->z;
-		
-
-		float matrix[16] ;
-		glGetFloatv(GL_MODELVIEW_MATRIX, &matrix[0]);
-		
-		float resX = graph[node]->incposx( matrix[0], matrix[4], matrix[8], matrix[12] );
-		float resY = graph[node]->incposy( matrix[1], matrix[5], matrix[9], matrix[13] );
-		float resZ = graph[node]->incposz( matrix[2], matrix[6], matrix[10], matrix[14] );
-
-
-		
-		glTranslated(graph[node]->getx(),graph[node]->gety(),graph[node]->getz());
-		glTranslated(incx,incy,incz);
-		if((((LinearAnimation*)animationsComp[graph[node]->getAnimationid()])->ry)!=-1)
+		if(graph[node]->toanimate)
 		{
-			glRotated(((LinearAnimation*)animationsComp[graph[node]->getAnimationid()])->ry,0,1,0);
+			float incx=((LinearAnimation*)animationsComp[graph[node]->getAnimationid()])->x;
+			float incy=((LinearAnimation*)animationsComp[graph[node]->getAnimationid()])->y;
+			float incz=((LinearAnimation*)animationsComp[graph[node]->getAnimationid()])->z;
+		
 
-
-
+			float matrix[16] ;
+			glGetFloatv(GL_MODELVIEW_MATRIX, &matrix[0]);
+			glTranslated(incx,incy,incz);
 		}
+
 		//glTranslated(-graph[node]->getx(),-graph[node]->gety(),-graph[node]->getz());
 
 		//cout<<" X: "<<graph[node]->getx()<<" Y: "<<graph[node]->gety()<<" Z: "<<graph[node]->getz()<<endl;
 		//cout<<" Angle: "<<((LinearAnimation*)animationsComp[graph[node]->getAnimationid()])->ry<<endl;
 		//cout<<" X: "<<incx<<" Y: "<<incy<<" Z: "<<incz<<endl;
-
-
-
 	}
 	if(graph[node]->getIsDL())
 	{
@@ -100,7 +89,7 @@ void YAFScene::draw(string node,vector<Appearance*> &appstack)
 		glPopMatrix();
 		return;
 	}
-	glMultMatrixf(graph[node]->getmatrix());
+
 
 	bool newAppearance = false;
 
@@ -130,7 +119,9 @@ void YAFScene::draw(string node,vector<Appearance*> &appstack)
 			glPopName();
 		}
 		else
-		draw(graph[children[i]]->getId(),appstack);
+		{
+			draw(graph[children[i]]->getId(),appstack);
+		}
 	}
 	
 	if (newAppearance && !appstack.empty())

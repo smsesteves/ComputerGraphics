@@ -1,6 +1,16 @@
 <yaf>
-	 <animations>           
+	 <animations> 
+	 <animation id="moveProng" span="1.0" type="linear">
+                            
+                <controlpoint xx="0" yy="5" zz="0" />
+                <controlpoint xx="0" yy="0" zz="0" />
+
+     </animation>          
     </animations>
+
+
+
+
 
 	<globals background="0.5 0.5 0.5 1" drawmode="fill" shading="flat" cullface="none" cullorder="CCW" />
 
@@ -673,7 +683,8 @@
 		</node>
 
 
-		<node id="prongVermelhoNorte">
+		<node id="prongVermelhoNorte" >
+			
 			<transforms>
 				<translate to="50 0 50"/>
 				<translate to="0.3 0 0"/>
@@ -684,6 +695,7 @@
 		</node>
 
 		<node id="prongVermelhoNordeste">
+
 			<transforms>
 				<translate to="50 0 50"/>
 				<translate to="0.15 0 0.15"/>
@@ -695,6 +707,7 @@
 		</node>
 
 		<node id="prongVermelhoEste">
+		
 			<transforms>
 				<translate to="50 0 50"/>
 				<translate to="0 0 0.3"/>
@@ -706,6 +719,7 @@
 		</node>
 
 		<node id="prongVermelhoSudeste">
+			
 			<transforms>
 				<translate to="50 0 50"/>
 				<translate to="-0.15 0 0.15"/>
@@ -718,6 +732,7 @@
 		
 
 		<node id="prongVermelhoSul">
+		
 			<transforms>
 				<translate to="50 0 50"/>
 				<translate to="-0.3 0 0"/>
@@ -729,6 +744,7 @@
 		</node>
 
 		<node id="prongVermelhoSudoeste">
+		
 			<transforms>
 				<translate to="50 0 50"/>
 				<translate to="-0.15 0 -0.15"/>
@@ -740,6 +756,7 @@
 		</node>
 
 		<node id="prongVermelhoOeste">
+	
 			<transforms>
 				<translate to="50 0 50"/>
 				<translate to="0 0 -0.3"/>
@@ -751,6 +768,7 @@
 		</node>
 
 		<node id="prongVermelhoNoroeste">
+		
 			<transforms>
 				<translate to="50 0 50"/>
 				<translate to="0.15 0 -0.15"/>
@@ -762,6 +780,7 @@
 		</node>
 
 		<node id="prongAzulNorte">
+
 			<transforms>
 				<translate to="50 0 50"/>
 				<translate to="-0.3 0 0"/>
@@ -773,6 +792,7 @@
 		</node>
 
 		<node id="prongAzulNordeste">
+		
 			<transforms>
 				<translate to="50 0 50"/>
 				<translate to="-0.15 0 -0.15"/>
@@ -784,6 +804,7 @@
 		</node>
 
 		<node id="prongAzulEste">
+
 			<transforms>
 				<translate to="50 0 50"/>
 				<translate to="0 0 -0.3"/>
@@ -795,6 +816,8 @@
 		</node>
 
 		<node id="prongAzulSudeste">
+			
+
 			<transforms>
 				<translate to="50 0 50"/>
 				<translate to="0.15 0 -0.15"/>
@@ -807,6 +830,7 @@
 
 
 		<node id="prongAzulSul">
+		
 			<transforms>
 				<translate to="50 0 50"/>
 				<translate to="-0.3 0 0"/>
@@ -817,6 +841,7 @@
 		</node>
 
 		<node id="prongAzulSudoeste">
+	
 			<transforms>
 				<translate to="50 0 50"/>
 				<translate to="0.15 0 0.15"/>
@@ -828,6 +853,7 @@
 		</node>
 
 		<node id="prongAzulOeste">
+
 			<transforms>
 				<translate to="50 0 50"/>
 				<translate to="0 0 0.3"/>
@@ -840,6 +866,7 @@
 
 
 		<node id="prongAzulNoroeste">
+	
 			<transforms>
 				<translate to="50 0 50"/>
 				<translate to="-0.15 0 0.15"/>
