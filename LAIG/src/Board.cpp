@@ -206,7 +206,7 @@ int Board::getXbyId(int player, int id)
 	{
 		for(int i=0;i<Jogador1.size();i++)
 		{
-			if(getJogador1PodAt(i)->getId())
+			if(getJogador1PodAt(i)->getId() == id)
 			{
 				return getJogador1PodAt(i)->getX();
 			}
@@ -217,7 +217,7 @@ int Board::getXbyId(int player, int id)
 	{
 		for(int i=0;i<Jogador2.size();i++)
 		{
-			if(getJogador2PodAt(i)->getId())
+			if(getJogador2PodAt(i)->getId() == id)
 			{
 				return getJogador2PodAt(i)->getX();
 			}
@@ -231,7 +231,7 @@ int Board::getYbyId(int player , int id)
 	{
 		for(int i=0;i<Jogador1.size();i++)
 		{
-			if(getJogador1PodAt(i)->getId())
+			if(getJogador1PodAt(i)->getId() == id )
 			{
 				return getJogador1PodAt(i)->getY();
 			}
@@ -242,7 +242,7 @@ int Board::getYbyId(int player , int id)
 	{
 		for(int i=0;i<Jogador2.size();i++)
 		{
-			if(getJogador2PodAt(i)->getId())
+			if(getJogador2PodAt(i)->getId() == id)
 			{
 				return getJogador2PodAt(i)->getY();
 			}

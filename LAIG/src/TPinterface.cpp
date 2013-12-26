@@ -453,17 +453,22 @@ void TPinterface::clickHandler(GLuint* selected, GLint nselected){
 
 					sendMessage(mensagem.c_str());
 
-					int lastx=octi->getBoard()->getXbyId(1,idpicado%10);
-					int lasty=octi->getBoard()->getYbyId(1,idpicado%10);
+
+					
+					int lastx=octi->getBoard()->getXbyId(1,octi->idLastPick%10);
+
+					int lasty=octi->getBoard()->getYbyId(1,octi->idLastPick%10);
 
 					int incx=x-lastx;
 					int incy=y-lasty;
 
-					octi->movepod(1,octi->idLastPick,x,y);
+
+				
+					octi->movepod(1,octi->idLastPick,x,y,incx,incy);
+				
 
 
-
-					sendMessage(mensagem.c_str());
+				
 					cout << "[MOVE_POD] '" << mensagem << "'" << endl;
 
 					readMessage();
@@ -502,10 +507,10 @@ void TPinterface::clickHandler(GLuint* selected, GLint nselected){
 
 					// Envia Info pa Mover POD
 					// FORMATO : 2 IDPECA IDCELULA
-					string mensagem;
+						string mensagem;
 					mensagem = "2 " + intToString(octi->idLastPick);
 					mensagem += " ";
-					
+
 					int x=(idpicado-100)/10;
 					int y=(idpicado-100)%10;
 
@@ -515,13 +520,20 @@ void TPinterface::clickHandler(GLuint* selected, GLint nselected){
 
 					sendMessage(mensagem.c_str());
 
-					int lastx=octi->getBoard()->getXbyId(2,idpicado%10);
-					int lasty=octi->getBoard()->getYbyId(2,idpicado%10);
+
+					
+					int lastx=octi->getBoard()->getXbyId(2,octi->idLastPick%10);
+
+					int lasty=octi->getBoard()->getYbyId(2,octi->idLastPick%10);
 
 					int incx=x-lastx;
 					int incy=y-lasty;
 
-					octi->movepod(2,octi->idLastPick,x,y);
+
+				
+					octi->movepod(2,octi->idLastPick,x,y,incx,incy);
+				
+
 
 					//Knows increment
 

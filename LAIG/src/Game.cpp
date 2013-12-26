@@ -315,27 +315,28 @@ bool Game::addprong(int player, int podnumber, string dir)
 
 
 
-bool Game::movepod(int player, int podnumber, int x,int y)
+bool Game::movepod(int player, int podnumber, int x,int y, int incx, int incy)
 {
 	
 	if(player==1)
 	{
 		for(int i=0;i<gameBoard->getJogador1Size();i++)
 		{
-			if(gameBoard->getJogador1PodAt(i)->getId()==podnumber)
+			if(gameBoard->getJogador1PodAt(i)->getId()==podnumber%10)
 			{
-				for(int j=0;j<gameBoard->getJogador1PodAt(i)->getDirsSize();j++)
-				{
-					
-						Pod * aux = gameBoard->getJogador2PodAt(i);
+				
+
+						Pod * aux = gameBoard->getJogador1PodAt(i);
 						
 						aux->setX(x);
 						aux->setY(y);
 
+						graph_movePod(podnumber,incx,incy);
+
 						return true;
 					
-				}
-				return false;
+				
+				
 			}
 		}
 	
@@ -344,22 +345,38 @@ bool Game::movepod(int player, int podnumber, int x,int y)
 	{
 		for(int i=0;i<gameBoard->getJogador2Size();i++)
 		{
-			if(gameBoard->getJogador2PodAt(i)->getId()==podnumber)
+			if(gameBoard->getJogador2PodAt(i)->getId()==podnumber%10)
 			{
-				for(int j=0;j<gameBoard->getJogador2PodAt(i)->getDirsSize();j++)
-				{
-					
+				
+				
 						Pod * aux = gameBoard->getJogador2PodAt(i);
 						aux->setX(x);
 						aux->setY(y);
+						
+						graph_movePod(podnumber,incx,incy);
 
 						return true;
 					
-				}
 				
-				return false;
+				
 			}
 		}
 	}
 	return false;
+}
+
+void Game::graph_movePod(int podnumber,int incx,int incy)
+{
+	glMatrixMode(GL_MODELVIEW); 
+	Node* aux=boardElements[podnumber];
+	float matrix[16];
+	glPushMatrix();
+	glLoadIdentity();
+	glTranslated(-incx*1.5,0,incy*1.5);	
+	glMultMatrixf(aux->getmatrix());
+
+	glGetFloatv(GL_MODELVIEW_MATRIX, &matrix[0]);
+	aux->setmatrix(&matrix[0]);
+	glPopMatrix();
+	return;
 }

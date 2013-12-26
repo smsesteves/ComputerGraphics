@@ -37,9 +37,10 @@ public:
 	void menu(int player);
 
 	bool addprong(int player, int pod, string dir);
-	bool movepod(int player, int podnumber, int x,int y);
+	bool movepod(int player, int podnumber, int x,int y, int incx, int incy);
 	void displayWin(int player){};
 	void play(int op,int player);
+	void graph_movePod(int podnumber,int incx,int incy);
 
 
 };
