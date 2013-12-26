@@ -198,12 +198,14 @@ string Game::checkMovimentos(int player,int id)
 	int number=0;
 	if(player==1)
 	{
+		bool podfound=false;
 		int size=gameBoard->getJogador1Size();
 		for(int i=0;i<size;i++)
 		{
 			Pod * aux=gameBoard->getJogador1PodAt(i);
 			if(aux->getId()==id)
 			{
+				podfound=true;
 				int sizedir= aux->getDirsSize();
 				for(int j=0;j<sizedir;j++)
 				{
@@ -477,15 +479,60 @@ string Game::checkMovimentos(int player,int id)
 			}
 
 		}
+
+		if(!podfound)
+		{
+			bool encontra1=false;
+			bool encontra2=false;
+			bool encontra3=false;
+			int sizeJogador1=gameBoard->getJogador1Size();
+			for(int i=0;i<sizeJogador1;i++)
+			{
+				if(gameBoard->getJogador1PodAt(i)->getX()==2)
+				{
+					if(gameBoard->getJogador1PodAt(i)->getY()==2)
+					{
+						encontra1=true;
+					}
+					else if(gameBoard->getJogador1PodAt(i)->getY()==4)
+					{
+						encontra2=true;
+					}
+					else if(gameBoard->getJogador1PodAt(i)->getY()==6)
+					{
+						encontra3=true;
+					}
+
+
+				}
+
+				
+			}
+			if(!encontra1)
+			{
+				resultados.push_back(100+2*10+2);
+			}
+			if(!encontra2)
+			{
+				resultados.push_back(100+2*10+4);
+			}
+			if(!encontra3)
+			{
+				resultados.push_back(100+2*10+6);
+			}
+		}
+
 	}
 	else
 	{
+		bool podfound=false;
 		int size=gameBoard->getJogador2Size();
 		for(int i=0;i<size;i++)
 		{
 			Pod * aux=gameBoard->getJogador2PodAt(i);
 			if(aux->getId()==id)
 			{
+				podfound=true;
 				int sizedir= aux->getDirsSize();
 				for(int j=0;j<sizedir;j++)
 				{
@@ -760,6 +807,50 @@ string Game::checkMovimentos(int player,int id)
 			}
 
 		}	
+
+		if(!podfound)
+		{
+			bool encontra1=false;
+			bool encontra2=false;
+			bool encontra3=false;
+			int sizeJogador2=gameBoard->getJogador2Size();
+			for(int i=0;i<sizeJogador2;i++)
+			{
+				if(gameBoard->getJogador2PodAt(i)->getX()==6)
+				{
+					if(gameBoard->getJogador2PodAt(i)->getY()==2)
+					{
+						encontra1=true;
+					}
+					else if(gameBoard->getJogador2PodAt(i)->getY()==4)
+					{
+						encontra2=true;
+					}
+					else if(gameBoard->getJogador2PodAt(i)->getY()==6)
+					{
+						encontra3=true;
+					}
+
+
+				}
+
+				
+			}
+			if(!encontra1)
+			{
+				resultados.push_back(100+6*10+2);
+			}
+			if(!encontra2)
+			{
+				resultados.push_back(100+6*10+4);
+			}
+			if(!encontra3)
+			{
+				resultados.push_back(100+6*10+6);
+			}
+		}
+
+
 	}
 	if(resultados.size()>0)
 		return criastring(resultados);
