@@ -4,6 +4,7 @@
 #include "CGFinterface.h"
 #include "XMLScene.h"
 #include "socket.h"
+#include <algorithm>
 
 class TPinterface: public CGFinterface {
 	public:

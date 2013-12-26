@@ -110,16 +110,13 @@ void TPinterface::processHits(GLint hits, GLuint buffer[])
 void TPinterface::clickHandler(GLuint* selected, GLint nselected){
 		cout << endl << "ClickHandler: " << octi->turn << endl;
 		GLint idpicado;
-		cout << "LAST PICK : " << octi->idLastPick << endl;
-		cout << "IDS RECEIVED : " << endl;
-		for(int i = 0; i < octi->idsReceived.size(); i++){
-			cout << "[" << i << "] " << octi->idsReceived[i] << endl;
-		}
+		octi->displayBoard(); cout << endl;
 
+		
 		for (int i=0; i<nselected; i++){
-			printf("%d ",selected[i]);
+			//printf("%d ",selected[i]);
 			idpicado = selected[i];
-			printf("\n");
+			//printf("\n");
 		}
 		
 
@@ -193,7 +190,7 @@ void TPinterface::clickHandler(GLuint* selected, GLint nselected){
 
 					readMessage();
 					cout << "[ADD_PRONG] A logica nao respondeu nada\n";
-					octi->addprong(1,idpicado,octi->getDir(dir));
+					octi->addprong(1,idpicado%10,octi->getDir(dir));
 
 					
 
@@ -276,7 +273,7 @@ void TPinterface::clickHandler(GLuint* selected, GLint nselected){
 					readMessage();
 					cout << "[ADD_PRONG] A logica nao respondeu nada\n";
 
-					octi->addprong(2,idpicado,octi->getDir(dir));
+					octi->addprong(2,idpicado%10,octi->getDir(dir));
 					octi->graph_addProngToPod(idpicado,dir,((XMLScene*) scene)->getScenePointer());
 					octi->unhighlightId(octi->idLastPick); // Unlight do PRONG
 					for(int i = 0; i < octi->idsReceived.size(); i++){
@@ -427,140 +424,212 @@ void TPinterface::clickHandler(GLuint* selected, GLint nselected){
 			}
 			// Jogador 1 vai mover peca
 			else if(octi->pickedAnything == true && octi->pickedAnything && octi->idLastPick > 10 && octi->idLastPick < 18){
-				bool valid = false;
-				// Verifica se pode mover para a celula que clicou
-				for(int i = 0; i < octi->idsReceived.size(); i++){
-					if (idpicado == octi->idsReceived[i]){
-						valid = true;
+				bool isInGame = false;
+				// verifica se a peca que clicou antes esta em jogo
+				for(int i = 0; i < octi->getBoard()->Jogador1.size(); i++){
+					if(octi->getBoard()->Jogador1.at(i)->getId()+10 == octi->idLastPick){
+						isInGame = true;
+						break;
 					}
 				}
-				if(valid){
-					// TODO: move peca graf lado LAIG
-					// RODO: move peca logica lado LAIG
-
-					// Envia Info pa Mover POD
-					// FORMATO : 2 IDPECA IDCELULA
-					string mensagem;
-					mensagem = "2 " + intToString(octi->idLastPick);
-					mensagem += " ";
-
-					int x=(idpicado-100)/10;
-					int y=(idpicado-100)%10;
-
-					mensagem += intToString(x);
-					mensagem += " ";
-					mensagem += intToString(y);
-
-					sendMessage(mensagem.c_str());
-
-
-					
-					int lastx=octi->getBoard()->getXbyId(1,octi->idLastPick%10);
-
-					int lasty=octi->getBoard()->getYbyId(1,octi->idLastPick%10);
-
-					int incx=x-lastx;
-					int incy=y-lasty;
-
-
-				
-					octi->movepod(1,octi->idLastPick,x,y,incx,incy);
-				
-
-
-				
-					cout << "[MOVE_POD] '" << mensagem << "'" << endl;
-
-					readMessage();
-					cout << "[MOVE_POD] A logica nao respondeu nada\n";
-
-					
-					// UNHIGLIGHT DE TUDO
-					octi->unhighlightId(octi->idLastPick);
+				// Clicou em peca em jogo
+				if(isInGame){
+					bool valid = false;
+					// Verifica se pode mover para a celula que clicou
 					for(int i = 0; i < octi->idsReceived.size(); i++){
-						octi->unhighlightId(octi->idsReceived[i]);
+						if (idpicado == octi->idsReceived[i]){
+							valid = true;
+						}
 					}
+					if(valid){
+						string mensagem;
+						mensagem = "2 " + intToString(octi->idLastPick);
+						mensagem += " ";
 
-					// MUDA DE TURNO
-					octi->pickedAnything = false;
-					octi->idLastPick = -1;
-					octi->turn = 2; // muda de turno
-					cout << "----------------- Fim do Turno de 1 -------------------" << endl;
+						int x=(idpicado-100)/10;
+						int y=(idpicado-100)%10;
+						mensagem += intToString(x);
+						mensagem += " ";
+						mensagem += intToString(y);
+						sendMessage(mensagem.c_str());
 
+						int lastx=octi->getBoard()->getXbyId(1,octi->idLastPick%10);
+						int lasty=octi->getBoard()->getYbyId(1,octi->idLastPick%10);
+						int incx=x-lastx;
+						int incy=y-lasty;	
+						cout << "[MOVE_POD] INC X = " << incx << "; INCY = " << incy << ";" << endl;
+						octi->movepod(1,octi->idLastPick,x,y,incx,incy);		
+						cout << "[MOVE_POD] '" << mensagem << "'" << endl;
+						readMessage();
+						cout << "[MOVE_POD] A logica nao respondeu nada\n";
+
+					
+						// UNHIGLIGHT DE TUDO
+						octi->unhighlightId(octi->idLastPick);
+						for(int i = 0; i < octi->idsReceived.size(); i++){
+							octi->unhighlightId(octi->idsReceived[i]);
+						}
+
+						// MUDA DE TURNO
+						octi->pickedAnything = false;
+						octi->idLastPick = -1;
+						octi->turn = 2; // muda de turno
+						cout << "----------------- Fim do Turno de 1 -------------------" << endl;
+					}
+					else{
+
+						cout << "Jogada Invalida!" << endl;
+					}
+				// Clicou em peca que ta ao lado
 				}
-				else{
-					cout << "[MOVE_POD] Click Invalido\n";
+				else if(!isInGame){
+						cout << "o que querias 1" << endl;
+
+						// 3 IDPOD X Y
+						string mensagem;
+						mensagem = "3 " + intToString(octi->idLastPick);
+						mensagem += " ";
+
+						int x=(idpicado-100)/10;
+						int y=(idpicado-100)%10;
+						mensagem += intToString(x);
+						mensagem += " ";
+						mensagem += intToString(y);
+						sendMessage(mensagem.c_str());
+
+						octi->addpod(octi->idLastPick/10, octi->idLastPick%10, x,y);
+						octi->graph_addPod(octi->idLastPick, idpicado);
+
+						cout << "[ADD_POD] '" << mensagem << "'" << endl;
+						readMessage();
+						cout << "[ADD_POD] A logica nao respondeu nada\n";
+
+					
+						// UNHIGLIGHT DE TUDO
+						octi->unhighlightId(octi->idLastPick);
+						for(int i = 0; i < octi->idsReceived.size(); i++){
+							octi->unhighlightId(octi->idsReceived[i]);
+						}
+
+						// MUDA DE TURNO
+						octi->pickedAnything = false;
+						octi->idLastPick = -1;
+						octi->turn = 2; // muda de turno
+						cout << "----------------- Fim do Turno de 1 -------------------" << endl;
+					
+
 				}
 			}
 			// Jogador 2 vai mover PEca
 			else if(octi->pickedAnything == true && octi->pickedAnything && octi->idLastPick > 20 && octi->idLastPick < 28){
-				bool valid = false;
-				// Verifica se pode mover para a celula que clicou
-				for(int i = 0; i < octi->idsReceived.size(); i++){
-					if (idpicado == octi->idsReceived[i]){
-						valid = true;
+				bool isInGame = false;
+				// verifica se a peca que clicou antes esta em jogo
+				for(int i = 0; i < octi->getBoard()->Jogador2.size(); i++){
+					if(octi->getBoard()->Jogador2.at(i)->getId()+20 == octi->idLastPick){
+						isInGame = true;
+						break;
 					}
 				}
-				if(valid){
-					// TODO: move peca graf lado LAIG
-					// RODO: move peca logica lado LAIG
-
-					// Envia Info pa Mover POD
-					// FORMATO : 2 IDPECA IDCELULA
-						string mensagem;
-					mensagem = "2 " + intToString(octi->idLastPick);
-					mensagem += " ";
-
-					int x=(idpicado-100)/10;
-					int y=(idpicado-100)%10;
-
-					mensagem += intToString(x);
-					mensagem += " ";
-					mensagem += intToString(y);
-
-					sendMessage(mensagem.c_str());
-
-
-					
-					int lastx=octi->getBoard()->getXbyId(2,octi->idLastPick%10);
-
-					int lasty=octi->getBoard()->getYbyId(2,octi->idLastPick%10);
-
-					int incx=x-lastx;
-					int incy=y-lasty;
-
-
-				
-					octi->movepod(2,octi->idLastPick,x,y,incx,incy);
-				
-
-
-					//Knows increment
-
-					cout << "[MOVE_POD] '" << mensagem << "'" << endl;
-
-					readMessage();
-					cout << "[MOVE_POD] A logica nao respondeu nada\n";
-
-					
-					// UNHIGLIGHT DE TUDO
-					octi->unhighlightId(octi->idLastPick);
+				// Clicou em peca em jogo
+				if(isInGame){
+					bool valid = false;
+					// Verifica se pode mover para a celula que clicou
 					for(int i = 0; i < octi->idsReceived.size(); i++){
-						octi->unhighlightId(octi->idsReceived[i]);
+						if (idpicado == octi->idsReceived[i]){
+							valid = true;
+						}
 					}
+					if(valid){
+						// TODO: move peca graf lado LAIG
+						// RODO: move peca logica lado LAIG
 
-					// MUDA DE TURNO
-					octi->pickedAnything = false;
-					octi->idLastPick = -1;
-					octi->turn = 1; // muda de turno
-					cout << "----------------- Fim do Turno de 2 -------------------" << endl;
+						// Envia Info pa Mover POD
+						// FORMATO : 2 IDPECA IDCELULA
+						string mensagem;
+						mensagem = "2 " + intToString(octi->idLastPick);
+						mensagem += " ";
+
+						int x=(idpicado-100)/10;
+						int y=(idpicado-100)%10;
+
+						mensagem += intToString(x);
+						mensagem += " ";
+						mensagem += intToString(y);
+
+						sendMessage(mensagem.c_str());
+
+						int lastx=octi->getBoard()->getXbyId(2,octi->idLastPick%10);
+						int lasty=octi->getBoard()->getYbyId(2,octi->idLastPick%10);
+						int incx=x-lastx;
+						int incy=y-lasty;
+						cout << "[MOVE_POD] INC X = " << incx << "; INCY = " << incy << ";" << endl;
+						octi->movepod(2,octi->idLastPick,x,y,incx,incy);
+				
+						//Knows increment
+
+						cout << "[MOVE_POD] '" << mensagem << "'" << endl;
+
+						readMessage();
+						cout << "[MOVE_POD] A logica nao respondeu nada\n";
+
+					
+						// UNHIGLIGHT DE TUDO
+						octi->unhighlightId(octi->idLastPick);
+						for(int i = 0; i < octi->idsReceived.size(); i++){
+							octi->unhighlightId(octi->idsReceived[i]);
+						}
+
+						// MUDA DE TURNO
+						octi->pickedAnything = false;
+						octi->idLastPick = -1;
+						octi->turn = 1; // muda de turno
+						cout << "----------------- Fim do Turno de 2 -------------------" << endl;
+
+					}
+					else{
+
+						cout << "Jogada Invalida!" << endl;
+					}
+				}
+				else if(!isInGame){
+
+						// 3 IDPOD X Y
+						string mensagem;
+						mensagem = "3 " + intToString(octi->idLastPick);
+						mensagem += " ";
+
+						int x=(idpicado-100)/10;
+						int y=(idpicado-100)%10;
+						mensagem += intToString(x);
+						mensagem += " ";
+						mensagem += intToString(y);
+						sendMessage(mensagem.c_str());
+
+						octi->addpod(octi->idLastPick/10, octi->idLastPick%10, x,y);
+						octi->graph_addPod(octi->idLastPick, idpicado);
+
+
+						cout << "[ADD_POD] '" << mensagem << "'" << endl;
+						readMessage();
+						cout << "[ADD_POD] A logica nao respondeu nada\n";
+
+					
+						// UNHIGLIGHT DE TUDO
+						octi->unhighlightId(octi->idLastPick);
+						for(int i = 0; i < octi->idsReceived.size(); i++){
+							octi->unhighlightId(octi->idsReceived[i]);
+						}
+
+						// MUDA DE TURNO
+						octi->pickedAnything = false;
+						octi->idLastPick = -1;
+						octi->turn = 1; // muda de turno
+						cout << "----------------- Fim do Turno de 2 -------------------" << endl;
 
 				}
-				else{
-					cout << "[MOVE_POD] Click Invalido\n";
-				}
+
 			}
-		}
+	}
 }
 
 void TPinterface::initGUI()

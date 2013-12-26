@@ -967,9 +967,11 @@ void XMLScene::init()
 	scene->initLights();
 	//scene->initAnimations();
 	glPushMatrix();
-	//scene->initposition(scene->rootid);
+	glMatrixMode(GL_MODELVIEW); 
+	glLoadIdentity();
+	scene->initposition(scene->rootid);
 	glPopMatrix();
-	char * host = "smsesteves";
+	char * host = "Leonel";
 	connectToSocket(host);
 	setUpdatePeriod(30);
 	app->forceRefresh();
@@ -1078,7 +1080,7 @@ void XMLScene::display(){
 	}
 
 	// Draw axis
-	//axis.draw();
+	axis.draw();
 
 	
 	vector<Appearance*> appearancesStack;

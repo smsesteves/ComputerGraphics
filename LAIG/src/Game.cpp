@@ -313,8 +313,6 @@ bool Game::addprong(int player, int podnumber, string dir)
 }
 
 
-
-
 bool Game::movepod(int player, int podnumber, int x,int y, int incx, int incy)
 {
 	
@@ -377,6 +375,41 @@ void Game::graph_movePod(int podnumber,int incx,int incy)
 
 	glGetFloatv(GL_MODELVIEW_MATRIX, &matrix[0]);
 	aux->setmatrix(&matrix[0]);
+	glPopMatrix();
+	return;
+}
+
+bool Game::addpod(int player, int idpod, int x,int y)
+{
+	
+	if(player==1)
+	{
+		
+		gameBoard->addJogador1PodAt(x,y,idpod);
+
+	}
+	else
+	{
+		gameBoard->addJogador2PodAt(x,y,idpod);
+	}
+	return true;
+
+}
+
+
+void Game::graph_addPod(int podnumber, int idocti){
+	cout << "POD " << podnumber << " para pos " << idocti << endl;
+	glMatrixMode(GL_MODELVIEW); 
+	Node* pod = boardElements[podnumber];
+	Node* celula = boardElements[idocti];
+	float matrix[16];
+	glPushMatrix();
+	glLoadIdentity();
+	glTranslated(celula->getx()-50,celula->gety()+1,celula->getz()-50);
+	glTranslated(-pod->getx(),-pod->gety(),-pod->getz());
+	glMultMatrixf(pod->getmatrix());
+	glGetFloatv(GL_MODELVIEW_MATRIX, &matrix[0]);
+	pod->setmatrix(&matrix[0]);
 	glPopMatrix();
 	return;
 }

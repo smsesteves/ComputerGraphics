@@ -13,11 +13,12 @@ using namespace std;
 class Board{
 
 private:
-	vector<Pod *> Jogador1;
-	vector<Pod *> Jogador2;
+	
 	//Pod boardGame[BOARDSIZE][BOARDSIZE][BOARDSIZE];
 
 public:
+	vector<Pod *> Jogador1;
+	vector<Pod *> Jogador2;
 	Board();
 	void display();
 	bool checkmove(int player);

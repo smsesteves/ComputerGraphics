@@ -389,6 +389,15 @@ void YAFScene::initAnimations()
 
 void YAFScene::initposition(string node)
 {       
+	
+		vector<string> children=graph[node]->getchildren();
+        for(unsigned int i=0;i<children.size();i++)
+        {
+			glPushMatrix();
+                initposition(graph[children[i]]->getId());
+			glPopMatrix();
+        }
+
 
         glMultMatrixf(graph[node]->getmatrix());
         float matrix[16] ;//=graph[node]->getmatrix();
@@ -403,12 +412,7 @@ void YAFScene::initposition(string node)
         graph[node]->sety(resY);
         graph[node]->setz(resZ);
 
-        vector<string> children=graph[node]->getchildren();
-        for(unsigned int i=0;i<children.size();i++)
-        {
-                initposition(graph[children[i]]->getId());
-        }
-
+        
 
         return;
 
