@@ -23,7 +23,7 @@ int main()
 		g1.displayBoard();
 
 		cout<<aEnviar<<endl;
-		enviaMensagem(aEnviar.c_str());
+		//enviaMensagem(aEnviar.c_str());
 		cout << "Enviou '" << aEnviar << "'"<< endl;
 		
 		aEnviar.clear();

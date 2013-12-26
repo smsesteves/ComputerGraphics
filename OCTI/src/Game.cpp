@@ -66,8 +66,9 @@ string Game::executaOperacao(vector<int> valoresRecebidos){
 	case 3:
 		player = valoresRecebidos[1]/10;
 		pod = valoresRecebidos[1]%10;
-		casa = valoresRecebidos[2];
-		addpod(player,pod,casa);
+		x = valoresRecebidos[2];
+		y = valoresRecebidos[3];
+		addpod(player,pod,x,y);
 		break;
 	case 10:
 		player = valoresRecebidos[1]/10;
@@ -171,10 +172,9 @@ bool Game::movepod(int player, int podnumber, int x,int y)
 	return false;
 }
 
-bool Game::addpod(int player, int idpod, int idcasa)
+bool Game::addpod(int player, int idpod, int x,int y)
 {
-	int x=(idcasa-100)/10;
-	int y=(idcasa-100)%10;
+	
 	if(player==1)
 	{
 		
@@ -482,6 +482,9 @@ string Game::checkMovimentos(int player,int id)
 
 		if(!podfound)
 		{
+
+			cout<<"NAO ENCONTROU TURNO 1"<<endl;
+
 			bool encontra1=false;
 			bool encontra2=false;
 			bool encontra3=false;
@@ -525,6 +528,9 @@ string Game::checkMovimentos(int player,int id)
 	}
 	else
 	{
+
+		cout<<"NAO ENCONTROU TURNO 2"<<endl;
+
 		bool podfound=false;
 		int size=gameBoard->getJogador2Size();
 		for(int i=0;i<size;i++)
