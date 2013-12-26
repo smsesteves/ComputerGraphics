@@ -142,18 +142,15 @@ bool Game::movepod(int player, int podnumber, int x,int y)
 		{
 			if(gameBoard->getJogador1PodAt(i)->getId()==podnumber)
 			{
-				for(int j=0;j<gameBoard->getJogador1PodAt(i)->getDirsSize();j++)
-				{
+				
 
-						Pod * aux = gameBoard->getJogador2PodAt(i);
+						Pod * aux = gameBoard->getJogador1PodAt(i);
 						
 						aux->setX(x);
 						aux->setY(y);
 
 						return true;
-					
-				}
-				return false;
+		
 			}
 		}
 	
@@ -164,18 +161,10 @@ bool Game::movepod(int player, int podnumber, int x,int y)
 		{
 			if(gameBoard->getJogador2PodAt(i)->getId()==podnumber)
 			{
-				for(int j=0;j<gameBoard->getJogador2PodAt(i)->getDirsSize();j++)
-				{
-				
 						Pod * aux = gameBoard->getJogador2PodAt(i);
 						aux->setX(x);
 						aux->setY(y);
-
 						return true;
-					
-				}
-				
-				return false;
 			}
 		}
 	}
@@ -230,7 +219,7 @@ string Game::checkMovimentos(int player,int id)
 							bool encontra=false;
 							for(int z=0;z<size2;z++)
 							{
-								if(gameBoard->getJogador1PodAt(z)->getX()==aux->getX()+1)
+								if(gameBoard->getJogador1PodAt(z)->getX()==aux->getX()+1 && aux->getY()==gameBoard->getJogador1PodAt(z)->getY())
 								{
 									encontra=true;
 								}
@@ -238,7 +227,7 @@ string Game::checkMovimentos(int player,int id)
 							//Pecas do 2
 							for(int z=0;z<size3;z++)
 							{
-								if(gameBoard->getJogador2PodAt(z)->getX()==aux->getX()+1)
+								if(gameBoard->getJogador2PodAt(z)->getX()==aux->getX()+1 && aux->getY()==gameBoard->getJogador2PodAt(z)->getY())
 								{
 									encontra=true;
 								}
@@ -262,7 +251,7 @@ string Game::checkMovimentos(int player,int id)
 							bool encontra=false;
 							for(int z=0;z<size2;z++)
 							{
-								if(gameBoard->getJogador1PodAt(z)->getX()==aux->getX()-1)
+								if(gameBoard->getJogador1PodAt(z)->getX()==aux->getX()-1 && aux->getY()==gameBoard->getJogador1PodAt(z)->getY())
 								{
 									encontra=true;
 								}
@@ -270,7 +259,7 @@ string Game::checkMovimentos(int player,int id)
 							//Pecas do 2
 							for(int z=0;z<size3;z++)
 							{
-								if(gameBoard->getJogador2PodAt(z)->getX()==aux->getX()-1)
+								if(gameBoard->getJogador2PodAt(z)->getX()==aux->getX()-1 && aux->getY()==gameBoard->getJogador2PodAt(z)->getY())
 								{
 									encontra=true;
 								}
@@ -294,7 +283,7 @@ string Game::checkMovimentos(int player,int id)
 							bool encontra=false;
 							for(int z=0;z<size2;z++)
 							{
-								if(gameBoard->getJogador1PodAt(z)->getY()==aux->getY()-1)
+								if(gameBoard->getJogador1PodAt(z)->getY()==aux->getY()-1 && aux->getX()==gameBoard->getJogador1PodAt(z)->getX())
 								{
 									encontra=true;
 								}
@@ -302,7 +291,7 @@ string Game::checkMovimentos(int player,int id)
 							//Pecas do 2
 							for(int z=0;z<size3;z++)
 							{
-								if(gameBoard->getJogador2PodAt(z)->getY()==aux->getY()-1)
+								if(gameBoard->getJogador2PodAt(z)->getY()==aux->getY()-1 && aux->getX()==gameBoard->getJogador2PodAt(z)->getX())
 								{
 									encontra=true;
 								}
@@ -310,7 +299,7 @@ string Game::checkMovimentos(int player,int id)
 
 							if(!encontra)
 							{
-								resultados.push_back(100+(aux->getX()*10)+aux->getY()-1);
+								resultados.push_back(100+(aux->getX()*10)+(aux->getY()-1));
 							}	
 						}
 
@@ -327,7 +316,7 @@ string Game::checkMovimentos(int player,int id)
 							bool encontra=false;
 							for(int z=0;z<size2;z++)
 							{
-								if(gameBoard->getJogador1PodAt(z)->getY()==aux->getY()+1)
+								if(gameBoard->getJogador1PodAt(z)->getY()==aux->getY()+1 && aux->getX()==gameBoard->getJogador1PodAt(z)->getX())
 								{
 									encontra=true;
 								}
@@ -335,7 +324,7 @@ string Game::checkMovimentos(int player,int id)
 							//Pecas do 2
 							for(int z=0;z<size3;z++)
 							{
-								if(gameBoard->getJogador2PodAt(z)->getY()==aux->getY()+1)
+								if(gameBoard->getJogador2PodAt(z)->getY()==aux->getY()+1 && aux->getX()==gameBoard->getJogador2PodAt(z)->getX())
 								{
 									encontra=true;
 								}
@@ -343,7 +332,7 @@ string Game::checkMovimentos(int player,int id)
 
 							if(!encontra)
 							{
-								resultados.push_back(100+(aux->getX()*10)+aux->getY());
+								resultados.push_back(100+(aux->getX()*10)+(aux->getY()+1));
 							}	
 						}	
 
@@ -502,6 +491,8 @@ string Game::checkMovimentos(int player,int id)
 				{
 					if(aux->getDirsAt(j)->getDir()=="n")
 					{
+						
+
 						if(aux->getX()>=2)
 						{
 							int size2=gameBoard->getJogador1Size();
@@ -512,7 +503,7 @@ string Game::checkMovimentos(int player,int id)
 							bool encontra=false;
 							for(int z=0;z<size2;z++)
 							{
-								if(gameBoard->getJogador1PodAt(z)->getX()==aux->getX()-1)
+								if(gameBoard->getJogador1PodAt(z)->getX()==aux->getX()-1 && aux->getY()==gameBoard->getJogador1PodAt(z)->getY())
 								{
 									encontra=true;
 								}
@@ -520,7 +511,7 @@ string Game::checkMovimentos(int player,int id)
 							//Pecas do 2
 							for(int z=0;z<size3;z++)
 							{
-								if(gameBoard->getJogador2PodAt(z)->getX()==aux->getX()-1)
+								if(gameBoard->getJogador2PodAt(z)->getX()==aux->getX()-1 && aux->getY()==gameBoard->getJogador2PodAt(z)->getY())
 								{
 									encontra=true;
 								}
@@ -528,7 +519,7 @@ string Game::checkMovimentos(int player,int id)
 
 							if(!encontra)
 							{
-								resultados.push_back(100+((aux->getX()-1)*10)+aux->getY());
+								resultados.push_back(100+((aux->getX()-1)*10)+(aux->getY()));
 							}
 						}
 					}
@@ -544,7 +535,7 @@ string Game::checkMovimentos(int player,int id)
 							bool encontra=false;
 							for(int z=0;z<size2;z++)
 							{
-								if(gameBoard->getJogador1PodAt(z)->getX()==aux->getX()+1)
+								if(gameBoard->getJogador1PodAt(z)->getX()==aux->getX()+1 && aux->getY()==gameBoard->getJogador1PodAt(z)->getY())
 								{
 									encontra=true;
 								}
@@ -552,7 +543,7 @@ string Game::checkMovimentos(int player,int id)
 							//Pecas do 2
 							for(int z=0;z<size3;z++)
 							{
-								if(gameBoard->getJogador2PodAt(z)->getX()==aux->getX()+1)
+								if(gameBoard->getJogador2PodAt(z)->getX()==aux->getX()+1 && aux->getY()==gameBoard->getJogador2PodAt(z)->getY())
 								{
 									encontra=true;
 								}
@@ -576,7 +567,7 @@ string Game::checkMovimentos(int player,int id)
 							bool encontra=false;
 							for(int z=0;z<size2;z++)
 							{
-								if(gameBoard->getJogador1PodAt(z)->getY()==aux->getY()+1)
+								if(gameBoard->getJogador1PodAt(z)->getY()==aux->getY()+1 && aux->getX()==gameBoard->getJogador1PodAt(z)->getX())
 								{
 									encontra=true;
 								}
@@ -584,7 +575,7 @@ string Game::checkMovimentos(int player,int id)
 							//Pecas do 2
 							for(int z=0;z<size3;z++)
 							{
-								if(gameBoard->getJogador2PodAt(z)->getY()==aux->getY()+1)
+								if(gameBoard->getJogador2PodAt(z)->getY()==aux->getY()+1 && aux->getX()==gameBoard->getJogador2PodAt(z)->getX())
 								{
 									encontra=true;
 								}
@@ -592,7 +583,7 @@ string Game::checkMovimentos(int player,int id)
 
 							if(!encontra)
 							{
-								resultados.push_back(100+(aux->getX()*10)+aux->getY());
+								resultados.push_back(100+(aux->getX()*10)+(aux->getY()+1));
 							}	
 						}
 
@@ -609,7 +600,7 @@ string Game::checkMovimentos(int player,int id)
 							bool encontra=false;
 							for(int z=0;z<size2;z++)
 							{
-								if(gameBoard->getJogador1PodAt(z)->getY()==aux->getY()-1)
+								if(gameBoard->getJogador1PodAt(z)->getY()==aux->getY()-1 && aux->getX()==gameBoard->getJogador1PodAt(z)->getX())
 								{
 									encontra=true;
 								}
@@ -617,7 +608,7 @@ string Game::checkMovimentos(int player,int id)
 							//Pecas do 2
 							for(int z=0;z<size3;z++)
 							{
-								if(gameBoard->getJogador2PodAt(z)->getY()==aux->getY()-1)
+								if(gameBoard->getJogador2PodAt(z)->getY()==aux->getY()-1 && aux->getX()==gameBoard->getJogador2PodAt(z)->getX())
 								{
 									encontra=true;
 								}
@@ -625,7 +616,7 @@ string Game::checkMovimentos(int player,int id)
 
 							if(!encontra)
 							{
-								resultados.push_back(100+(aux->getY()*10)+aux->getY());
+								resultados.push_back(100+(aux->getX()*10)+(aux->getY()-1));
 							}	
 						}
 
@@ -765,7 +756,7 @@ string Game::checkMovimentos(int player,int id)
 
 					}
 				}
-
+				break;
 			}
 
 		}	
