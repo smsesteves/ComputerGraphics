@@ -2,7 +2,6 @@
 
 Node::Node()
 {
-
 	glMatrixMode(GL_MODELVIEW); 
 	glPushMatrix();
 	glLoadIdentity();

@@ -167,7 +167,7 @@ void Game::graph_addProngToPod(int idpicado,int dir,YAFScene* scene){
 			scene->graphanimation[scene->animationsComp["moveProng"]].push_back(aux);
 			scene->graph.insert(pair<string,Node*>(s,aux));
 			boardElements[idpicado]->addChildren(s);
-			aux->addChildren("prongAzulSudoste");
+			aux->addChildren("prongAzulSudoeste");
 		
 			
 			break;
@@ -268,7 +268,7 @@ void Game::graph_addProngToPod(int idpicado,int dir,YAFScene* scene){
 			scene->graphanimation[scene->animationsComp["moveProng"]].push_back(aux);
 			scene->graph.insert(pair<string,Node*>(s,aux));
 			boardElements[idpicado]->addChildren(s);
-			aux->addChildren("prongVermelhoSudoste");
+			aux->addChildren("prongVermelhoSudoeste");
 
 			break;
 		}
@@ -434,7 +434,7 @@ void Game::graph_addPod(int podnumber, int idocti, YAFScene* scene){
 	c1.push_back(ControlPoint(0,1,0));
 
 
-	LinearAnimation* l1= new LinearAnimation("addPod",0.5,c1);
+	LinearAnimation* l1= new LinearAnimation("addPod",1,c1);
 
 	pod->setAnimationid("addPod");
 	scene->animationsComp[l1->getId()]=l1;

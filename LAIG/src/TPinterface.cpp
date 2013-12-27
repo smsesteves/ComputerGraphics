@@ -243,7 +243,7 @@ void TPinterface::clickHandler(GLuint* selected, GLint nselected){
 				octi->idLastPick = -1;
 			}
 			// JA TEM SELCCIONADO UMA DIRECAO - ADICIONAR PRONG
-			else if(octi->pickedAnything && octi->idLastPick > 210 && octi->idLastPick <= 218){
+			else if(octi->pickedAnything && octi->idLastPick > 210 && octi->idLastPick < 219){
 				bool valid = false;
 				for(int i = 0; i < octi->idsReceived.size(); i++){
 					if (idpicado == octi->idsReceived[i]){
@@ -266,14 +266,12 @@ void TPinterface::clickHandler(GLuint* selected, GLint nselected){
 
 					
 
-					octi->unhighlightId(octi->idLastPick); // Unlight do PRONG
+					
 					//prongReferencia
 					octi->graph_addProngToPod(idpicado,dir,((XMLScene*) scene)->getScenePointer()) ;
 					
-					for(int i = 0; i < octi->idsReceived.size(); i++){
-						octi->unhighlightId(octi->idsReceived[i]);
-					}
-
+					
+					octi->unhighlightAll();
 					octi->pickedAnything = false;
 					octi->idLastPick = -1;
 					octi->turn = 2; // muda de turno
@@ -326,7 +324,7 @@ void TPinterface::clickHandler(GLuint* selected, GLint nselected){
 				cout << "Turno Invalido. Turno atual e 2\n";
 			}
 			// JA TEM SELCCIONADO UMA DIRECAO - ADICIONAR PRONG
-			else if(octi->pickedAnything && octi->idLastPick > 220 && octi->idLastPick < 228){
+			else if(octi->pickedAnything && octi->idLastPick > 220 && octi->idLastPick < 229){
 				bool valid = false;
 				for(int i = 0; i < octi->idsReceived.size(); i++){
 					if (idpicado == octi->idsReceived[i]){
@@ -347,11 +345,8 @@ void TPinterface::clickHandler(GLuint* selected, GLint nselected){
 
 					octi->addprong(2,idpicado%10,octi->getDir(dir));
 					octi->graph_addProngToPod(idpicado,dir,((XMLScene*) scene)->getScenePointer());
-					octi->unhighlightId(octi->idLastPick); // Unlight do PRONG
-					for(int i = 0; i < octi->idsReceived.size(); i++){
-						octi->unhighlightId(octi->idsReceived[i]);
-					}
-
+					
+					octi->unhighlightAll();
 					octi->pickedAnything = false;
 					octi->idLastPick = -1;
 					octi->turn = 1; // muda de turno
@@ -390,7 +385,7 @@ void TPinterface::clickHandler(GLuint* selected, GLint nselected){
 		// ****************************************
 		// UTILIZADOR CLICOU PRONGS JOGADOR 1
 		// ****************************************
-		if(idpicado > 210 && idpicado <= 218){
+		if(idpicado > 210 && idpicado < 219){
 			// TURNO ERRADO
 			if(octi->turn == 2){
 				octi->pickedAnything = false;
@@ -400,7 +395,7 @@ void TPinterface::clickHandler(GLuint* selected, GLint nselected){
 			}
 			// HIGHLIGHT DOS PODS POSSIVEIS - TEM OUTRO PRONG SELCCIONADO OU NAO TEM NADA SELECCIONADO
 			else if(octi->pickedAnything == false || 
-							(octi->pickedAnything && octi->idLastPick > 210 && octi->idLastPick <= 218) ||
+							(octi->pickedAnything && octi->idLastPick > 210 && octi->idLastPick < 219) ||
 							(octi->pickedAnything && octi->idLastPick > 10 && octi->idLastPick < 18)){
 				
 				// Unhighlight do que ja estava
@@ -438,7 +433,7 @@ void TPinterface::clickHandler(GLuint* selected, GLint nselected){
 		// ****************************************
 		// UTILIZADOR CLICOU PRONGS JOGADOR 2
 		// ****************************************
-		if(idpicado > 220 && idpicado < 228){
+		if(idpicado > 220 && idpicado < 229){
 			// TURNO ERRADO
 			if(octi->turn == 1){
 				octi->pickedAnything = false;
@@ -448,7 +443,7 @@ void TPinterface::clickHandler(GLuint* selected, GLint nselected){
 			}
 			// HIGHLIGHT DOS PODS POSSIVEIS - TEM OUTRO PRONG SELCCIONADO OU NAO TEM NADA SELECCIONADO
 			else if(octi->pickedAnything == false ||
-							(octi->pickedAnything && octi->idLastPick > 220 && octi->idLastPick < 228) ||
+							(octi->pickedAnything && octi->idLastPick > 220 && octi->idLastPick < 229) ||
 							(octi->pickedAnything && octi->idLastPick > 20 && octi->idLastPick < 28)){
 				
 				// Unhighlight do que ja estava
