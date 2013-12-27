@@ -35,14 +35,15 @@
 
 	<globals background="0 0 0 1" drawmode="fill" shading="flat" cullface="none" cullorder="CCW" />
 
-	<cameras initial="camJogadorAzul" >
+	<cameras initial="camJogadorVermelho" >
 		<perspective id="camTabuleiro" near="0" far="1000" angle="90" pos="0 20 0" target="0 0 0" /> 
 		<perspective id="camMenu" near="0" far="1000" angle="90" pos="50 20 0" target="50 0 0" /> 
 		<perspective id="camRegras" near="0" far="1000" angle="90" pos="100 20 0" target="100 0 0" />
+		<perspective id="camComputador" near="0" far="1000" angle="90" pos="150 20 0" target="150 0 0" />
+		<perspective id="camVencedor" near="0" far="1000" angle="90" pos="200 20 0" target="200 0 0" />
 
-		<perspective id="camJogadorVermelho" near="0" far="1000" angle="90" pos="-20 10 0" target="5 0 0" /> 
-
-		<perspective id="camJogadorAzul" near="0" far="1000" angle="-90" pos="20 10 0" target="-5 0 0" /> 
+		<perspective id="camJogadorVermelho" near="0" far="1000" angle="90" pos="-15 10 0" target="5 0 0" /> 
+		<perspective id="camJogadorAzul" near="0" far="1000" angle="-90" pos="15 10 0" target="-5 0 0" /> 
 	 
 	</cameras>
 
@@ -120,6 +121,9 @@
 		<texture id="copo" file="textures/copo.png"/>
 		<texture id="menu" file="textures/menuInicial.jpg" />
 		<texture id="regras" file="textures/menu_regras.jpg" />
+		<texture id="menuComputador" file="textures/menuComputador.jpg"/>
+		<texture id="jogador1Venceu" file="textures/menuJogador1Venceu.jpg"/>
+		<texture id="Jogador2Venceu" file="textures/menuJogador2Venceu.jpg"/>
 		<texture id="vidal" file="textures/rmv.jpg" />
 		
 
@@ -129,6 +133,26 @@
 
 	<appearances>
 		<!--MENUS -->
+				<appearance id="appJ1Venceu"
+					emissive="1 1 1 1"
+					ambient="1 1 1 1"
+					diffuse="1 1 1 1"
+					specular="1 1 1 1"
+					shininess="1"
+					textureref="jogador1Venceu"
+					texlength_s="1"
+					texlength_t="1"
+		        />
+		        <appearance id="appJ2Venceu"
+					emissive="1 1 1 1"
+					ambient="1 1 1 1"
+					diffuse="1 1 1 1"
+					specular="1 1 1 1"
+					shininess="1"
+					textureref="jogador2Venceu"
+					texlength_s="1"
+					texlength_t="1"
+		        />
 				<appearance id="appMenu"
 					emissive="1 1 1 1"
 					ambient="1 1 1 1"
@@ -136,6 +160,16 @@
 					specular="1 1 1 1"
 					shininess="1"
 					textureref="menu"
+					texlength_s="1"
+					texlength_t="1"
+		        />
+		        <appearance id="appMenuComputador"
+					emissive="1 1 1 1"
+					ambient="1 1 1 1"
+					diffuse="1 1 1 1"
+					specular="1 1 1 1"
+					shininess="1"
+					textureref="menuComputador"
 					texlength_s="1"
 					texlength_t="1"
 		        />
@@ -444,11 +478,92 @@
 			<children>
 				<noderef id="menuInicial"/>
 				<noderef id="menuRegras"/>
+				<noderef id="menuComputador"/>
+				<noderef id="menuVitoria"/>
 				<noderef id="menuRegras_opcao1"/>
 				<noderef id="menuInicial_opcao1"/>
 				<noderef id="menuInicial_opcao2"/>
 				<noderef id="menuInicial_opcao3"/>
 				<noderef id="menuInicial_opcao4"/>
+				<noderef id="menuComputador_opcao1"/>
+				<noderef id="menuComputador_opcao2"/>
+				<noderef id="menuComputador_opcao3"/>
+				<noderef id="menuComputador_opcao4"/>
+				<noderef id="menuVitoria_opcao1"/>
+			</children>
+		</node>
+
+
+		<node id="menuVitoria_opcao1" pickingid="541">
+			<transforms>
+				<translate to="0 -1 0"/>
+				<translate to="-3.8 0 -0.2"/>
+				<translate to="200 0 0"/>
+				<scale factor="1.5 1 5"/>
+				<rotate axis="y" angle="-90"/>
+				<rotate axis="x" angle="-90"/>
+			</transforms>
+			<appearanceref id="appMotivadora"/>
+			<children>
+				<rectangle xy1="-0.75 -0.75" xy2="0.75 0.75" />
+			</children>
+		</node>
+
+		<node id="menuComputador_opcao1" pickingid="521">
+			<transforms>
+				<translate to="0 -1 0"/>
+				<translate to="4.1 0 -5.5"/>
+				<translate to="150 0 0"/>
+				<scale factor="1.5 1 5"/>
+				<rotate axis="y" angle="-90"/>
+				<rotate axis="x" angle="-90"/>
+			</transforms>
+			<appearanceref id="appMotivadora"/>
+			<children>
+				<rectangle xy1="-0.75 -0.75" xy2="0.75 0.75" />
+			</children>
+		</node>
+
+		<node id="menuComputador_opcao2" pickingid="522">
+			<transforms>
+				<translate to="0 -1 0"/>
+				<translate to="1.4 0 -5.5"/>
+				<translate to="150 0 0"/>
+				<scale factor="1.5 1 5"/>
+				<rotate axis="y" angle="-90"/>
+				<rotate axis="x" angle="-90"/>
+			</transforms>
+			<appearanceref id="appMotivadora"/>
+			<children>
+				<rectangle xy1="-0.75 -0.75" xy2="0.75 0.75" />
+			</children>
+		</node>
+		<node id="menuComputador_opcao3" pickingid="523">
+			<transforms>
+				<translate to="0 -1 0"/>
+				<translate to="-1.4 0 -5.5"/>
+				<translate to="150 0 0"/>
+				<scale factor="1.5 1 5"/>
+				<rotate axis="y" angle="-90"/>
+				<rotate axis="x" angle="-90"/>
+			</transforms>
+			<appearanceref id="appMotivadora"/>
+			<children>
+				<rectangle xy1="-0.75 -0.75" xy2="0.75 0.75" />
+			</children>
+		</node>
+		<node id="menuComputador_opcao4" pickingid="524">
+			<transforms>
+				<translate to="0 -1 0"/>
+				<translate to="-4.1 0 -5.5"/>
+				<translate to="150 0 0"/>
+				<scale factor="1.5 1 5"/>
+				<rotate axis="y" angle="-90"/>
+				<rotate axis="x" angle="-90"/>
+			</transforms>
+			<appearanceref id="appMotivadora"/>
+			<children>
+				<rectangle xy1="-0.75 -0.75" xy2="0.75 0.75" />
 			</children>
 		</node>
 
@@ -525,6 +640,31 @@
 			</children>
 		</node>
 
+		<node id="menuVitoria">
+			<transforms>		
+				<translate to="200 0 0"/>
+				<scale factor="10 1 20"/>
+				<rotate axis="y" angle="-90"/>
+				<rotate axis="x" angle="-90"/>
+			</transforms>
+			<appearanceref id="appJ1Venceu"/>
+			<children>
+				<rectangle xy1="-0.75 -0.75" xy2="0.75 0.75" />
+			</children>
+		</node>
+
+		<node id="menuComputador">
+			<transforms>		
+				<translate to="150 0 0"/>
+				<scale factor="10 1 20"/>
+				<rotate axis="y" angle="-90"/>
+				<rotate axis="x" angle="-90"/>
+			</transforms>
+			<appearanceref id="appMenuComputador"/>
+			<children>
+				<rectangle xy1="-0.75 -0.75" xy2="0.75 0.75" />
+			</children>
+		</node>
 
 		<node id="menuInicial">
 			<transforms>		

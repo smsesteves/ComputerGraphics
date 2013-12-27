@@ -110,7 +110,7 @@ void TPinterface::processHits(GLint hits, GLuint buffer[])
 void TPinterface::clickHandler(GLuint* selected, GLint nselected){
 		cout << endl << "ClickHandler: " << octi->turn << endl;
 		GLint idpicado;
-		octi->displayBoard(); cout << endl;
+		//octi->displayBoard(); cout << endl;
 
 		
 		for (int i=0; i<nselected; i++){
@@ -126,10 +126,20 @@ void TPinterface::clickHandler(GLuint* selected, GLint nselected){
 		// UTILIZADOR CLICOU EM MENU
 		// ****************************************
 		if(idpicado > 500 && idpicado < 505 || idpicado == 511){
-			if(idpicado == 501 || idpicado == 502){
+			if(idpicado == 501){
 				vector<Cameras*> aux = ((XMLScene*) scene)->getScenePointer()->camerasComp;
 				for(unsigned int i= 0; i < aux.size(); i++){
 					if(aux.at(i)->getid() == "camTabuleiro"){
+						((XMLScene*) scene)->getScenePointer()->itActiveCamera = i;
+						((XMLScene*) scene)->refreshCameras();
+						break;
+					}
+				}
+			}
+			if(idpicado == 502){
+				vector<Cameras*> aux = ((XMLScene*) scene)->getScenePointer()->camerasComp;
+				for(unsigned int i= 0; i < aux.size(); i++){
+					if(aux.at(i)->getid() == "camComputador"){
 						((XMLScene*) scene)->getScenePointer()->itActiveCamera = i;
 						((XMLScene*) scene)->refreshCameras();
 						break;
@@ -157,7 +167,69 @@ void TPinterface::clickHandler(GLuint* selected, GLint nselected){
 				}
 			}
 		}
-
+		if(idpicado > 520 && idpicado < 525){
+			if(idpicado == 521){
+				// EASY
+				octi->setDificuldade(1);
+				cout << "Selected EASY" << endl;
+				vector<Cameras*> aux = ((XMLScene*) scene)->getScenePointer()->camerasComp;
+				for(unsigned int i= 0; i < aux.size(); i++){
+					if(aux.at(i)->getid() == "camTabuleiro"){
+						((XMLScene*) scene)->getScenePointer()->itActiveCamera = i;
+						((XMLScene*) scene)->refreshCameras();
+						break;
+					}
+				}
+			}
+			if(idpicado == 522){
+				// Normal
+				octi->setDificuldade(2);
+				cout << "Selected NORMAL" << endl;
+				vector<Cameras*> aux = ((XMLScene*) scene)->getScenePointer()->camerasComp;
+				for(unsigned int i= 0; i < aux.size(); i++){
+					if(aux.at(i)->getid() == "camTabuleiro"){
+						((XMLScene*) scene)->getScenePointer()->itActiveCamera = i;
+						((XMLScene*) scene)->refreshCameras();
+						break;
+					}
+				}
+			}
+			if(idpicado == 523){
+				// Dificil
+				octi->setDificuldade(3);
+				cout << "Selected HARD" << endl;
+				vector<Cameras*> aux = ((XMLScene*) scene)->getScenePointer()->camerasComp;
+				for(unsigned int i= 0; i < aux.size(); i++){
+					if(aux.at(i)->getid() == "camTabuleiro"){
+						((XMLScene*) scene)->getScenePointer()->itActiveCamera = i;
+						((XMLScene*) scene)->refreshCameras();
+						break;
+					}
+				}
+			}
+			if(idpicado == 524){
+				// Voltar
+				vector<Cameras*> aux = ((XMLScene*) scene)->getScenePointer()->camerasComp;
+				for(unsigned int i= 0; i < aux.size(); i++){
+					if(aux.at(i)->getid() == "camMenu"){
+						((XMLScene*) scene)->getScenePointer()->itActiveCamera = i;
+						((XMLScene*) scene)->refreshCameras();
+						break;
+					}
+				}
+			}
+		}
+		if(idpicado == 541){
+			// Voltar
+			vector<Cameras*> aux = ((XMLScene*) scene)->getScenePointer()->camerasComp;
+			for(unsigned int i= 0; i < aux.size(); i++){
+				if(aux.at(i)->getid() == "camMenu"){
+					((XMLScene*) scene)->getScenePointer()->itActiveCamera = i;
+					((XMLScene*) scene)->refreshCameras();
+					break;
+				}
+			}
+		}
 
 		// ****************************************
 		// UTILIZADOR CLICOU EM PECA DO JOGADOR 1

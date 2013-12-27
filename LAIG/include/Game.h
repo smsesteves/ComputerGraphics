@@ -13,6 +13,10 @@ private:
 	bool ended;
 	Board* gameBoard;
 public:
+	int dificuldade;
+	void setDificuldade(int dif);
+	int getDificuldade();
+
 	int turn;
 	int idLastPick;
 	

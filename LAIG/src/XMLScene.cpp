@@ -971,7 +971,7 @@ void XMLScene::init()
 	glLoadIdentity();
 	scene->initposition(scene->rootid);
 	glPopMatrix();
-	char * host = "smsesteves";
+	char * host = "Leonel";
 	connectToSocket(host);
 	setUpdatePeriod(30);
 	app->forceRefresh();
