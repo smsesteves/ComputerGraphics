@@ -2,6 +2,7 @@
 #define PERSPECTIVE_H
 
 #include "cameras.h"
+#include <iostream>
 
 class Perspective : public Cameras{
 private:
@@ -13,6 +14,8 @@ public:
 	void updateProjectionMatrix(int width, int height);
 	void setCAngle(float angle);
 	void setCTarget(float t1, float t2, float t3);
+	void update(int turn);
+	bool toanimate;
 };
 
 #endif

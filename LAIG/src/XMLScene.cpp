@@ -174,6 +174,7 @@ XMLScene::XMLScene(char *filename,CGFapplication* app, Game* game, int connectin
 				string id;
 
 				Perspective* perspectiveAux = new Perspective();
+				perspectiveAux->toanimate = false;
 
 				if (cameraElement->QueryFloatAttribute("near",&near)==TIXML_SUCCESS &&
 					cameraElement->QueryFloatAttribute("far",&far)==TIXML_SUCCESS &&
@@ -977,8 +978,8 @@ void XMLScene::init()
 	scene->initposition(scene->rootid);
 	glPopMatrix();
 	scene->defaultGraph = scene->graph;
-	char * host = "smsesteves";
-		connectToSocket(host);
+	char * host = "Leonel";
+	connectToSocket(host);
 	setUpdatePeriod(30);
 	app->forceRefresh();
 	vector<Appearance*> appearancesStack;
@@ -1017,7 +1018,17 @@ void XMLScene::update(unsigned long	tempo)
 		}
 		
 	}
-
+	
+	for(int i = 0; i < scene->camerasComp.size(); i++){
+		if(scene->camerasComp[i]->getid() == "camJogadorAzul"){
+			if(((Perspective *)scene->camerasComp[i])->toanimate == true){
+				((Perspective *)scene->camerasComp[i])->update(octi->turn);
+				((Perspective *)scene->camerasComp[i])->applyView();
+				//cout << "Encontrei! " << endl;
+			}
+		}
+	}
+	
 	scene->draw(scene->rootid,appearancesStack);
 
 

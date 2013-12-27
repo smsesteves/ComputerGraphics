@@ -35,6 +35,7 @@ public:
 	void graph_addProngToPod(int id, int dir,YAFScene * graph);
 	void graph_movePod(int podnumber,int incx,int incy, YAFScene* scene);
 	void graph_addPod(int podnumber, int idocti, YAFScene* scene);
+	void rotateCamera(YAFScene* scene,int turn);
 
 
 	// Logical

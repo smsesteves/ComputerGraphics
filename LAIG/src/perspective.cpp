@@ -22,3 +22,29 @@ void Perspective::updateProjectionMatrix(int width, int height) {
         gluPerspective(angle, aspect, near, far);
  
 }
+
+void Perspective::update(int turn){
+
+	if(turn == 1){
+		if(rotation[CG_CGFcamera_AXIS_Y] < 360){
+			this->rotation[CG_CGFcamera_AXIS_Y] += 20;
+			std::cout << "VAI EM " << rotation[CG_CGFcamera_AXIS_Y] << endl;
+		}
+		else{
+			rotation[CG_CGFcamera_AXIS_Y] = 0;
+			toanimate = false;
+		}
+	}
+
+	if(turn == 2){
+		if(rotation[CG_CGFcamera_AXIS_Y] < 180){
+			this->rotation[CG_CGFcamera_AXIS_Y] += 20;
+			std::cout << "VAI EM " << rotation[CG_CGFcamera_AXIS_Y] << endl;
+		}
+		else{
+			rotation[CG_CGFcamera_AXIS_Y] = 180;
+			toanimate = false;
+		}
+	}
+	
+}

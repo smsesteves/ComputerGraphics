@@ -3,9 +3,35 @@
 Game::Game(){
 	createBoard();
 	turn = 1;
+	ended = false;
 	pickedAnything = false;
 	idLastPick = -1;
 }
+
+void Game::rotateCamera(YAFScene* scene, int turn){
+	cout << "Rotating Camera " << endl;
+
+	if(turn == 1){
+
+		for(int i = 0; i < scene->camerasComp.size(); i++){
+			if(scene->camerasComp[i]->getid() == "camJogadorAzul"){
+				scene->camerasComp[i]->setRotation(CG_CGFcamera_AXIS_Y, 0);
+				((Perspective *)scene->camerasComp[i])->toanimate = true;
+			}
+		}
+	}
+	else if(turn == 2){
+		for(int i = 0; i < scene->camerasComp.size(); i++){
+			if(scene->camerasComp[i]->getid() == "camJogadorAzul"){
+				scene->camerasComp[i]->setRotation(CG_CGFcamera_AXIS_Y, 180);
+				((Perspective *)scene->camerasComp[i])->toanimate = true;
+			}
+		}
+
+	}
+
+}
+
 
 void Game::setEnded(bool newBool){
 	ended = newBool;
