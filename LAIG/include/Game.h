@@ -26,8 +26,8 @@ public:
 	void unhighlightId(int id);
 	void unhighlightAll();
 	void graph_addProngToPod(int id, int dir,YAFScene * graph);
-	void graph_movePod(int podnumber,int incx,int incy);
-	void graph_addPod(int podnumber, int idocti);
+	void graph_movePod(int podnumber,int incx,int incy, YAFScene* scene);
+	void graph_addPod(int podnumber, int idocti, YAFScene* scene);
 
 
 	// Logical
@@ -39,7 +39,7 @@ public:
 	void menu(int player);
 
 	bool addprong(int player, int pod, string dir);
-	bool movepod(int player, int podnumber, int x,int y, int incx, int incy);
+	bool movepod(int player, int podnumber, int x,int y, int incx, int incy, YAFScene* scene);
 	bool addpod(int player, int idpod, int x,int y);
 
 	void displayWin(int player){};

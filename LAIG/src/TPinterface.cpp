@@ -171,7 +171,7 @@ void TPinterface::clickHandler(GLuint* selected, GLint nselected){
 				octi->idLastPick = -1;
 			}
 			// JA TEM SELCCIONADO UMA DIRECAO - ADICIONAR PRONG
-			else if(octi->pickedAnything && octi->idLastPick > 210 && octi->idLastPick < 218){
+			else if(octi->pickedAnything && octi->idLastPick > 210 && octi->idLastPick <= 218){
 				bool valid = false;
 				for(int i = 0; i < octi->idsReceived.size(); i++){
 					if (idpicado == octi->idsReceived[i]){
@@ -318,7 +318,7 @@ void TPinterface::clickHandler(GLuint* selected, GLint nselected){
 		// ****************************************
 		// UTILIZADOR CLICOU PRONGS JOGADOR 1
 		// ****************************************
-		if(idpicado > 210 && idpicado < 218){
+		if(idpicado > 210 && idpicado <= 218){
 			// TURNO ERRADO
 			if(octi->turn == 2){
 				octi->pickedAnything = false;
@@ -328,7 +328,7 @@ void TPinterface::clickHandler(GLuint* selected, GLint nselected){
 			}
 			// HIGHLIGHT DOS PODS POSSIVEIS - TEM OUTRO PRONG SELCCIONADO OU NAO TEM NADA SELECCIONADO
 			else if(octi->pickedAnything == false || 
-							(octi->pickedAnything && octi->idLastPick > 210 && octi->idLastPick < 218) ||
+							(octi->pickedAnything && octi->idLastPick > 210 && octi->idLastPick <= 218) ||
 							(octi->pickedAnything && octi->idLastPick > 10 && octi->idLastPick < 18)){
 				
 				// Unhighlight do que ja estava
@@ -458,7 +458,7 @@ void TPinterface::clickHandler(GLuint* selected, GLint nselected){
 						int incx=x-lastx;
 						int incy=y-lasty;	
 						cout << "[MOVE_POD] INC X = " << incx << "; INCY = " << incy << ";" << endl;
-						octi->movepod(1,octi->idLastPick,x,y,incx,incy);		
+						octi->movepod(1,octi->idLastPick,x,y,incx,incy,((XMLScene* )scene)->getScenePointer());		
 						cout << "[MOVE_POD] '" << mensagem << "'" << endl;
 						readMessage();
 						cout << "[MOVE_POD] A logica nao respondeu nada\n";
@@ -498,7 +498,7 @@ void TPinterface::clickHandler(GLuint* selected, GLint nselected){
 						sendMessage(mensagem.c_str());
 
 						octi->addpod(octi->idLastPick/10, octi->idLastPick%10, x,y);
-						octi->graph_addPod(octi->idLastPick, idpicado);
+						octi->graph_addPod(octi->idLastPick, idpicado, ((XMLScene*)scene)->getScenePointer());
 
 						cout << "[ADD_POD] '" << mensagem << "'" << endl;
 						readMessage();
@@ -563,7 +563,7 @@ void TPinterface::clickHandler(GLuint* selected, GLint nselected){
 						int incx=x-lastx;
 						int incy=y-lasty;
 						cout << "[MOVE_POD] INC X = " << incx << "; INCY = " << incy << ";" << endl;
-						octi->movepod(2,octi->idLastPick,x,y,incx,incy);
+						octi->movepod(2,octi->idLastPick,x,y,incx,incy, ((XMLScene*)scene)->getScenePointer());
 				
 						//Knows increment
 
@@ -606,7 +606,7 @@ void TPinterface::clickHandler(GLuint* selected, GLint nselected){
 						sendMessage(mensagem.c_str());
 
 						octi->addpod(octi->idLastPick/10, octi->idLastPick%10, x,y);
-						octi->graph_addPod(octi->idLastPick, idpicado);
+						octi->graph_addPod(octi->idLastPick, idpicado, ((XMLScene*)scene)->getScenePointer());
 
 
 						cout << "[ADD_POD] '" << mensagem << "'" << endl;

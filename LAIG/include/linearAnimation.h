@@ -3,6 +3,7 @@
 
 #include "animation.h"
 #include "utils.h"
+#include <algorithm> 
 struct velocidadescomp
 {
 	int number1;
@@ -26,10 +27,53 @@ public:
 	unsigned long tempoanterior,tempoatual;
 	int animationType(){ return 0; };
 	vector<ControlPoint> controlPoints;
+	vector<ControlPoint> controlPointsDeafault;
+
+	void setSignalControlPoints(int incx,int incy)
+	{
+		//+ +
+		this->controlPoints=controlPointsDeafault;
+		if(incx==0)
+		{
+			for(int i=0;i<controlPoints.size();i++)
+			{
+				controlPoints[i].x=0;
+			}
+			//multiplicar x por 0
+		}
+		if(incy==0)
+		{
+			for(int i=0;i<controlPoints.size();i++)
+			{
+				controlPoints[i].z=0;
+			}
+			//multiplicar z por 0
+		}
+		if(incy<0)
+		{
+			for(int i=0;i<controlPoints.size();i++)
+			{
+				controlPoints[i].z*=-1;
+			}
+			//multiplicar z por -1
+		}
+		if(incx>0)
+		{
+			for(int i=0;i<controlPoints.size();i++)
+			{
+				controlPoints[i].x*=-1;
+			}
+
+		}
+
+	}
+
 	ControlPoint primeiro;
+
 
 	LinearAnimation(string id, float span, vector<ControlPoint> controlPoints):Animation(id,span){
 		this->controlPoints = controlPoints;
+		this->controlPointsDeafault = controlPoints;
 		x = controlPoints.at(0).x*1.0;
 		y = controlPoints.at(0).y*1.0;
 		z = controlPoints.at(0).z*1.0;
@@ -107,7 +151,7 @@ public:
 
 
 			//ry=acos(((aux1.x*aux2.x)+(aux1.y*aux2.y)+(aux1.z*aux2.z))/
-				//(distanciapontos(0,0,0,aux1.x,aux1.y,aux1.z)*distanciapontos(0,0,0,aux2.x,aux2.y,aux2.z)));
+			//(distanciapontos(0,0,0,aux1.x,aux1.y,aux1.z)*distanciapontos(0,0,0,aux2.x,aux2.y,aux2.z)));
 
 			//float i = (aux1.y * aux2.z)-(aux2.y* aux1.z);
 			//float j = -((aux1.x * aux2.z)-(aux2.x* aux1.z));

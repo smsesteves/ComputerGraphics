@@ -313,7 +313,7 @@ bool Game::addprong(int player, int podnumber, string dir)
 }
 
 
-bool Game::movepod(int player, int podnumber, int x,int y, int incx, int incy)
+bool Game::movepod(int player, int podnumber, int x,int y, int incx, int incy, YAFScene* scene)
 {
 	
 	if(player==1)
@@ -329,7 +329,7 @@ bool Game::movepod(int player, int podnumber, int x,int y, int incx, int incy)
 						aux->setX(x);
 						aux->setY(y);
 
-						graph_movePod(podnumber,incx,incy);
+						graph_movePod(podnumber,incx,incy,scene);
 
 						return true;
 					
@@ -351,7 +351,7 @@ bool Game::movepod(int player, int podnumber, int x,int y, int incx, int incy)
 						aux->setX(x);
 						aux->setY(y);
 						
-						graph_movePod(podnumber,incx,incy);
+						graph_movePod(podnumber,incx,incy,scene);
 
 						return true;
 					
@@ -363,7 +363,7 @@ bool Game::movepod(int player, int podnumber, int x,int y, int incx, int incy)
 	return false;
 }
 
-void Game::graph_movePod(int podnumber,int incx,int incy)
+void Game::graph_movePod(int podnumber,int incx,int incy, YAFScene* scene)
 {
 	glMatrixMode(GL_MODELVIEW); 
 	Node* aux=boardElements[podnumber];
@@ -372,10 +372,18 @@ void Game::graph_movePod(int podnumber,int incx,int incy)
 	glLoadIdentity();
 	glTranslated(-incx*1.5,0,incy*1.5);	
 	glMultMatrixf(aux->getmatrix());
-
 	glGetFloatv(GL_MODELVIEW_MATRIX, &matrix[0]);
 	aux->setmatrix(&matrix[0]);
 	glPopMatrix();
+
+	aux->setAnimationid("movePod");
+	((LinearAnimation*)scene->animationsComp["movePod"])->setSignalControlPoints(incx,incy);
+	aux->toanimate=true;
+	((LinearAnimation*)scene->animationsComp["movePod"])->started=false;
+	scene->graphanimation[scene->animationsComp["movePod"]].push_back(aux);
+
+	
+
 	return;
 }
 
@@ -397,7 +405,7 @@ bool Game::addpod(int player, int idpod, int x,int y)
 }
 
 
-void Game::graph_addPod(int podnumber, int idocti){
+void Game::graph_addPod(int podnumber, int idocti, YAFScene* scene){
 	cout << "POD " << podnumber << " para pos " << idocti << endl;
 	glMatrixMode(GL_MODELVIEW); 
 	Node* pod = boardElements[podnumber];
@@ -405,11 +413,28 @@ void Game::graph_addPod(int podnumber, int idocti){
 	float matrix[16];
 	glPushMatrix();
 	glLoadIdentity();
-	glTranslated(celula->getx()-50,celula->gety()+1,celula->getz()-50);
+	glTranslated(celula->getx()-50,celula->gety()+1,celula->getz()-50); //casa octi
 	glTranslated(-pod->getx(),-pod->gety(),-pod->getz());
 	glMultMatrixf(pod->getmatrix());
 	glGetFloatv(GL_MODELVIEW_MATRIX, &matrix[0]);
 	pod->setmatrix(&matrix[0]);
 	glPopMatrix();
+
+
+	vector<ControlPoint> c1;
+	c1.push_back(ControlPoint(50+pod->getx()-celula->getx(),-1,50+pod->getz()-celula->getz()));
+	c1.push_back(ControlPoint(0,1,0));
+
+
+	LinearAnimation* l1= new LinearAnimation("addPod",0.5,c1);
+
+	pod->setAnimationid("addPod");
+	scene->animationsComp[l1->getId()]=l1;
+	pod->toanimate=true;
+	((LinearAnimation*)scene->animationsComp["addPod"])->started=false;
+	scene->graphanimation[scene->animationsComp["addPod"]].push_back(pod);
+
+
+
 	return;
 }
