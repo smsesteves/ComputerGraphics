@@ -36,18 +36,20 @@
 	<globals background="0 0 0 1" drawmode="fill" shading="flat" cullface="none" cullorder="CCW" />
 
 	<cameras initial="camMenu" >
-		<perspective id="camTabuleiro" near="0" far="1000" angle="90" pos="0 20 0" target="0 0 0" /> 
-		<perspective id="camMenu" near="0" far="1000" angle="90" pos="50 20 0" target="50 0 0" /> 
-		<perspective id="camRegras" near="0" far="1000" angle="90" pos="100 20 0" target="100 0 0" />
-		<perspective id="camComputador" near="0" far="1000" angle="90" pos="150 20 0" target="150 0 0" />
-		<perspective id="camVencedor" near="0" far="1000" angle="90" pos="200 20 0" target="200 0 0" />
+		<perspective id="camTabuleiro" near="0" far="30" angle="0" pos="0 20 0" target="0 0 0" /> 
+		<perspective id="camMenu" near="0" far="1000" angle="90" pos="50 20 0.1" target="50 0 0" /> 
+		<perspective id="camRegras" near="0" far="1000" angle="90" pos="100 20 0.1" target="100 0 0" />
+		<perspective id="camComputador" near="0" far="1000" angle="90" pos="150 20 0.1" target="150 0 0" />
+		<perspective id="camVencedor" near="0" far="1000" angle="90" pos="200 20 0.1" target="200 0 0" />
 
 		<perspective id="camJogadorVermelho" near="0" far="1000" angle="90" pos="-15 10 0" target="5 0 0" /> 
-		<perspective id="camJogadorAzul" near="0" far="1000" angle="-90" pos="15 10 0" target="-5 0 0" /> 
+		<perspective id="camJogadorAzul" near="0" far="1000" angle="-90" pos="15 10 0" target="0 0 0" /> 
 	 
 	</cameras>
 
-	<lighting doublesided="false" local="true" enabled="true" ambient="0.5 0.5 0.5 1" > 
+
+	<lighting doublesided="true" local="true" enabled="true" ambient="0.5 0.5 0.5 1" > 
+            
             <omni id="light1" enabled="true" 
                 location="25 15 0" 
                 ambient="0.1 0.03 0.03 0.03" 
@@ -60,8 +62,8 @@
                 diffuse="0.5 0.6 0.8 1" 
                 specular="0.2 0.2 0.3 1" 
             /> 
-			<omni id="light3" enabled="false" 
-                location="55 20 0" 
+			<omni id="light3" enabled="true" 
+                location="55 30 0" 
                 ambient="0.1 0.03 0.03 0.03" 
                 diffuse="0.5 0.6 0.8 1" 
                 specular="0.2 0.2 0.3 1" 
@@ -72,14 +74,16 @@
                 diffuse="0.5 0.6 0.8 1" 
                 specular="0.2 0.2 0.3 1" 
             /> 
+            <!--
             <omni id="light5" enabled="true" 
                 location="0 1 -15" 
                 ambient="0.1 0.03 0.03 0.03" 
                 diffuse="0.5 0.6 0.8 1" 
                 specular="0.2 0.2 0.3 1" 
             /> 
-			<spot id="light10" enabled="false" 
-                location="105 20 0" 
+            
+			<spot id="light10" enabled="true" 
+                location="105 30 0" 
                 ambient="0.1 0.2 0.3 0.5" 
                 diffuse="0.5 0.6 0.8 1" 
                 specular="0.2 0.2 0.3 1" 
@@ -87,6 +91,7 @@
                 exponent="2" 
                 direction="100 0 0" 
             /> 
+        -->
     </lighting> 
 
 	<textures>
@@ -507,9 +512,9 @@
 
 		<node id="menuVitoria_opcao1" pickingid="541">
 			<transforms>
-				<translate to="0 -1 0"/>
-				<translate to="-3.8 0 -0.2"/>
-				<translate to="200 0 0"/>
+				<translate to="0 0 3.8"/>
+				<translate to="200 -1 0"/>
+				<rotate axis="y" angle="90"/>
 				<scale factor="1.5 1 5"/>
 				<rotate axis="y" angle="-90"/>
 				<rotate axis="x" angle="-90"/>
@@ -522,9 +527,9 @@
 
 		<node id="menuComputador_opcao1" pickingid="521">
 			<transforms>
-				<translate to="0 -1 0"/>
-				<translate to="4.1 0 -5.5"/>
-				<translate to="150 0 0"/>
+				<translate to="-5.5 0 -4"/>
+				<translate to="150 -1 0"/>
+				<rotate axis="y" angle="90"/>
 				<scale factor="1.5 1 5"/>
 				<rotate axis="y" angle="-90"/>
 				<rotate axis="x" angle="-90"/>
@@ -537,9 +542,9 @@
 
 		<node id="menuComputador_opcao2" pickingid="522">
 			<transforms>
-				<translate to="0 -1 0"/>
-				<translate to="1.4 0 -5.5"/>
-				<translate to="150 0 0"/>
+				<translate to="-5.5 0 -1.5"/>
+				<translate to="150 -1 0"/>
+				<rotate axis="y" angle="90"/>
 				<scale factor="1.5 1 5"/>
 				<rotate axis="y" angle="-90"/>
 				<rotate axis="x" angle="-90"/>
@@ -551,9 +556,9 @@
 		</node>
 		<node id="menuComputador_opcao3" pickingid="523">
 			<transforms>
-				<translate to="0 -1 0"/>
-				<translate to="-1.4 0 -5.5"/>
-				<translate to="150 0 0"/>
+				<translate to="-5.5 0 1.5"/>
+				<translate to="150 -1 0"/>
+				<rotate axis="y" angle="90"/>
 				<scale factor="1.5 1 5"/>
 				<rotate axis="y" angle="-90"/>
 				<rotate axis="x" angle="-90"/>
@@ -565,9 +570,9 @@
 		</node>
 		<node id="menuComputador_opcao4" pickingid="524">
 			<transforms>
-				<translate to="0 -1 0"/>
-				<translate to="-4.1 0 -5.5"/>
-				<translate to="150 0 0"/>
+				<translate to="-5.5 0 4"/>
+				<translate to="150 -1 0"/>
+				<rotate axis="y" angle="90"/>
 				<scale factor="1.5 1 5"/>
 				<rotate axis="y" angle="-90"/>
 				<rotate axis="x" angle="-90"/>
@@ -580,9 +585,9 @@
 
 		<node id="menuRegras_opcao1" pickingid="511">
 			<transforms>
-				<translate to="0 -1 0"/>
-				<translate to="-4 0 -4.5"/>
-				<translate to="100 0 0"/>
+				<translate to="-4.8 0 4.5"/>
+				<translate to="100 -1 0"/>
+				<rotate axis="y" angle="90"/>
 				<scale factor="1.5 1 5"/>
 				<rotate axis="y" angle="-90"/>
 				<rotate axis="x" angle="-90"/>
@@ -595,9 +600,9 @@
 
 		<node id="menuInicial_opcao1" pickingid="501">
 			<transforms>
-				<translate to="0 -1 0"/>
-				<translate to="4.2 0 8"/>
-				<translate to="50 0 0"/>
+				<translate to="7.5 0 -4"/>
+				<translate to="50 -1 0"/>
+				<rotate axis="y" angle="90"/>
 				<scale factor="1.5 1 5"/>
 				<rotate axis="y" angle="-90"/>
 				<rotate axis="x" angle="-90"/>
@@ -610,9 +615,9 @@
 
 		<node id="menuInicial_opcao2" pickingid="502">
 			<transforms>
-				<translate to="0 -1 0"/>
-				<translate to="1.4 0 8"/>
-				<translate to="50 0 0"/>
+				<translate to="7.5 0 -1.5"/>
+				<translate to="50 -1 0"/>
+				<rotate axis="y" angle="90"/>
 				<scale factor="1.5 1 5"/>
 				<rotate axis="y" angle="-90"/>
 				<rotate axis="x" angle="-90"/>
@@ -624,9 +629,9 @@
 		</node>
 		<node id="menuInicial_opcao3" pickingid="503">
 			<transforms>
-				<translate to="0 -1 0"/>
-				<translate to="-1.4 0 8"/>
-				<translate to="50 0 0"/>
+				<translate to="7.5 0 1.5"/>
+				<translate to="50 -1 0"/>
+				<rotate axis="y" angle="90"/>
 				<scale factor="1.5 1 5"/>
 				<rotate axis="y" angle="-90"/>
 				<rotate axis="x" angle="-90"/>
@@ -638,9 +643,9 @@
 		</node>
 		<node id="menuInicial_opcao4" pickingid="504">
 			<transforms>
-				<translate to="0 -1 0"/>
-				<translate to="-4.2 0 8"/>
-				<translate to="50 0 0"/>
+				<translate to="7.5 0 4"/>
+				<translate to="50 -1 0"/>
+				<rotate axis="y" angle="90"/>
 				<scale factor="1.5 1 5"/>
 				<rotate axis="y" angle="-90"/>
 				<rotate axis="x" angle="-90"/>
@@ -654,6 +659,7 @@
 		<node id="menuVitoria">
 			<transforms>		
 				<translate to="200 0 0"/>
+				<rotate axis="y" angle="90"/>
 				<scale factor="10 1 20"/>
 				<rotate axis="y" angle="-90"/>
 				<rotate axis="x" angle="-90"/>
@@ -667,6 +673,7 @@
 		<node id="menuComputador">
 			<transforms>		
 				<translate to="150 0 0"/>
+				<rotate axis="y" angle="90"/>
 				<scale factor="10 1 20"/>
 				<rotate axis="y" angle="-90"/>
 				<rotate axis="x" angle="-90"/>
@@ -680,6 +687,7 @@
 		<node id="menuInicial">
 			<transforms>		
 				<translate to="50 0 0"/>
+				<rotate axis="y" angle="90"/>
 				<scale factor="10 1 20"/>
 				<rotate axis="y" angle="-90"/>
 				<rotate axis="x" angle="-90"/>
@@ -693,6 +701,7 @@
 		<node id="menuRegras">
 			<transforms>		
 				<translate to="100 0 0"/>
+				<rotate axis="y" angle="90"/>
 				<scale factor="10 1 20"/>
 				<rotate axis="y" angle="-90"/>
 				<rotate axis="x" angle="-90"/>

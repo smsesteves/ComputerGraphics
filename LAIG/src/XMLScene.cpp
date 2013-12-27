@@ -979,7 +979,7 @@ void XMLScene::init()
 	glPopMatrix();
 	scene->defaultGraph = scene->graph;
 	char * host = "Leonel";
-	connectToSocket(host);
+	//connectToSocket(host);
 	setUpdatePeriod(30);
 	app->forceRefresh();
 	vector<Appearance*> appearancesStack;
@@ -1022,8 +1022,9 @@ void XMLScene::update(unsigned long	tempo)
 	for(int i = 0; i < scene->camerasComp.size(); i++){
 		if(scene->camerasComp[i]->getid() == "camJogadorAzul"){
 			if(((Perspective *)scene->camerasComp[i])->toanimate == true){
+				cout << octi->turn << endl;
 				((Perspective *)scene->camerasComp[i])->update(octi->turn);
-				((Perspective *)scene->camerasComp[i])->applyView();
+				scene->itActiveCamera = i;
 				//cout << "Encontrei! " << endl;
 			}
 		}
@@ -1075,16 +1076,13 @@ void XMLScene::display(){
 	case 2: glPolygonMode(GL_FRONT_AND_BACK, GL_POINT); break;
 
 	}
-	
-	glMatrixMode(GL_MODELVIEW);
-	glLoadIdentity();
-	//CGFscene::activateCamera(0);
-	//CGFscene::activeCamera->applyView();
-	scene->camerasComp.at(scene->itActiveCamera)->applyView();
+
 	
 	//app->forceRefresh();
 
 
+	glMatrixMode(GL_MODELVIEW);
+	glLoadIdentity();
 	//Lights Processing
 	std::vector<Light*>::iterator it = scene->lightsComp.begin();
 	for(it; it != scene->lightsComp.end(); it++){
@@ -1095,6 +1093,17 @@ void XMLScene::display(){
 		(*it)->update();
 	}
 
+
+	scene->camerasComp.at(scene->itActiveCamera)->applyView();
+	//CGFscene::activateCamera(0);
+	//CGFscene::activeCamera->applyView();
+	//cout << "IT    : " << scene->itActiveCamera << endl;
+	//cout << "CAMARA: " << scene->camerasComp.at(scene->itActiveCamera)->getid() << endl;
+	
+	
+	
+
+	
 	// Draw axis
 	axis.draw();
 

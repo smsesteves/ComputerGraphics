@@ -15,7 +15,7 @@ void Game::rotateCamera(YAFScene* scene, int turn){
 
 		for(int i = 0; i < scene->camerasComp.size(); i++){
 			if(scene->camerasComp[i]->getid() == "camJogadorAzul"){
-				scene->camerasComp[i]->setRotation(CG_CGFcamera_AXIS_Y, 0);
+				scene->camerasComp[i]->setRotation(CG_CGFcamera_AXIS_Y, 180);
 				((Perspective *)scene->camerasComp[i])->toanimate = true;
 			}
 		}
@@ -23,7 +23,7 @@ void Game::rotateCamera(YAFScene* scene, int turn){
 	else if(turn == 2){
 		for(int i = 0; i < scene->camerasComp.size(); i++){
 			if(scene->camerasComp[i]->getid() == "camJogadorAzul"){
-				scene->camerasComp[i]->setRotation(CG_CGFcamera_AXIS_Y, 180);
+				scene->camerasComp[i]->setRotation(CG_CGFcamera_AXIS_Y, 0);
 				((Perspective *)scene->camerasComp[i])->toanimate = true;
 			}
 		}
