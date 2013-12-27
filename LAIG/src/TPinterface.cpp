@@ -131,16 +131,14 @@ void TPinterface::clickHandler(GLuint* selected, GLint nselected){
 				
 
 				// RESET CENA
-				
+				/*
 				octi = new Game();
 				octi->createBoard();
 				octi->setEnded(false);
-				this->application->setScene(new XMLScene("octi1.xml",application,octi));
-				
-				
-
 
 				octi->setDificuldade(0);
+				octi->turn = 1;
+				*/
 				vector<Cameras*> aux = ((XMLScene*) scene)->getScenePointer()->camerasComp;
 				for(unsigned int i= 0; i < aux.size(); i++){
 					if(aux.at(i)->getid() == "camJogadorAzul"){
@@ -162,6 +160,8 @@ void TPinterface::clickHandler(GLuint* selected, GLint nselected){
 				}
 			}
 			if(idpicado == 503){
+				
+				
 				vector<Cameras*> aux = ((XMLScene*) scene)->getScenePointer()->camerasComp;
 				for(unsigned int i= 0; i < aux.size(); i++){
 					if(aux.at(i)->getid() == "camRegras"){
@@ -170,6 +170,7 @@ void TPinterface::clickHandler(GLuint* selected, GLint nselected){
 						break;
 					}
 				}
+				
 			}
 			if(idpicado == 511){
 				vector<Cameras*> aux = ((XMLScene*) scene)->getScenePointer()->camerasComp;
@@ -246,7 +247,7 @@ void TPinterface::clickHandler(GLuint* selected, GLint nselected){
 				}
 			}
 		}
-
+		cout << "Comecar handler de cliques no jogo - turno: "<< octi->turn << endl;
 		// ****************************************
 		// UTILIZADOR CLICOU EM PECA DO JOGADOR 1
 		// ****************************************
@@ -770,10 +771,6 @@ void TPinterface::clickHandler(GLuint* selected, GLint nselected){
 				}
 			}
 		}	
-
-		
-
-		//TODO: RESET TABULEIRO
 }
 
 void TPinterface::initGUI()

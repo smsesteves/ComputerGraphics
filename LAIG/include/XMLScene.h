@@ -12,7 +12,7 @@
 class XMLScene: public CGFscene
 {
 public:
-	XMLScene(char *filename,CGFapplication* app, Game* game);
+	XMLScene(char *filename,CGFapplication* app, Game* game, int connecting);
 	~XMLScene();
 	void init();
 	static TiXmlElement *findChildByAttribute(TiXmlElement *parent,const char * attr, const char *val);
@@ -25,6 +25,7 @@ public:
 	int initSocket(char* host, int port);
 	
 protected:
+	
 	CGFapplication* app;
 	TiXmlDocument* doc;
 	Game* octi;
@@ -38,6 +39,9 @@ protected:
 	TiXmlElement* animationsElement;
 
 	YAFScene* scene;
+
+public:
+	int needConnection;
 };
 
 #endif

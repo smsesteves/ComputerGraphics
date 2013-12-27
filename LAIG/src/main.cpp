@@ -27,14 +27,14 @@ int main(int argc, char* argv[]) {
 		
         if(argc == 1)
 		{ 
-			app->setScene(new XMLScene("octi1.xml",app,octi)); 
+			app->setScene(new XMLScene("octi1.xml",app,octi,0)); 
 		} 
 		else
 		{ 
 			
-			app->setScene(new XMLScene(argv[1],app,octi)); 
+			app->setScene(new XMLScene(argv[1],app,octi,0)); 
 		}
-        //app->setInterface(new TPinterface(octi,app));
+        app->setInterface(new TPinterface(octi,app));
         app->run();
     }
     catch(GLexception& ex) {

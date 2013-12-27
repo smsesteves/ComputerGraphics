@@ -7,7 +7,7 @@
 #define NAMS	64
 
 /**********************/
-int port = 29214;
+int port = 30157;
 /**********************/
 
 
@@ -68,7 +68,6 @@ int connectToSocket(char* hostname)
 	perror("Connecting stream socket");
 	exit(1);
 	}
-	isConnected = true;
 }
 
 void sendMessage(const char* buf){

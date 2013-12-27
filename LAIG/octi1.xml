@@ -35,7 +35,7 @@
 
 	<globals background="0 0 0 1" drawmode="fill" shading="flat" cullface="none" cullorder="CCW" />
 
-	<cameras initial="camJogadorVermelho" >
+	<cameras initial="camMenu" >
 		<perspective id="camTabuleiro" near="0" far="1000" angle="90" pos="0 20 0" target="0 0 0" /> 
 		<perspective id="camMenu" near="0" far="1000" angle="90" pos="50 20 0" target="50 0 0" /> 
 		<perspective id="camRegras" near="0" far="1000" angle="90" pos="100 20 0" target="100 0 0" />

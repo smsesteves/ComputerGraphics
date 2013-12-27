@@ -3,8 +3,10 @@
 
 using namespace std;
 
-XMLScene::XMLScene(char *filename,CGFapplication* app, Game* game)
+XMLScene::XMLScene(char *filename,CGFapplication* app, Game* game, int connecting)
 {
+	needConnection = connecting;
+
 	this->octi=game;
 	this->app=app;
 	glMatrixMode(GL_MODELVIEW); 
@@ -976,9 +978,7 @@ void XMLScene::init()
 	glPopMatrix();
 	scene->defaultGraph = scene->graph;
 	char * host = "Leonel";
-	if(!(isConnected)){
 		connectToSocket(host);
-	}
 	setUpdatePeriod(30);
 	app->forceRefresh();
 	vector<Appearance*> appearancesStack;
@@ -986,7 +986,7 @@ void XMLScene::init()
 	//octi = new Game();
 	octi->createBoard();
 	octi->displayBoard();
-	app->setInterface(new TPinterface(octi,app));
+	
 }
 	
 
