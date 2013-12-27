@@ -124,6 +124,7 @@
 		<texture id="menuComputador" file="textures/menuComputador.jpg"/>
 		<texture id="jogador1Venceu" file="textures/menuJogador1Venceu.jpg"/>
 		<texture id="Jogador2Venceu" file="textures/menuJogador2Venceu.jpg"/>
+		<texture id="computadorVenceu" file="textures/menuComputadorVenceu.jpg"/>
 		<texture id="vidal" file="textures/rmv.jpg" />
 		
 
@@ -150,6 +151,16 @@
 					specular="1 1 1 1"
 					shininess="1"
 					textureref="jogador2Venceu"
+					texlength_s="1"
+					texlength_t="1"
+		        />
+		        <appearance id="appComputadorVenceu"
+					emissive="1 1 1 1"
+					ambient="1 1 1 1"
+					diffuse="1 1 1 1"
+					specular="1 1 1 1"
+					shininess="1"
+					textureref="computadorVenceu"
 					texlength_s="1"
 					texlength_t="1"
 		        />
