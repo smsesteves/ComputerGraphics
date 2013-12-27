@@ -7,7 +7,7 @@
 #define NAMS	64
 
 /**********************/
-int port = 52449;
+int port = 29214;
 /**********************/
 
 
@@ -68,6 +68,7 @@ int connectToSocket(char* hostname)
 	perror("Connecting stream socket");
 	exit(1);
 	}
+	isConnected = true;
 }
 
 void sendMessage(const char* buf){
@@ -85,5 +86,5 @@ char* readMessage(){
 void closeSocket(){
 	if (closesocket(sock) == SOCKET_ERROR)
 		perror("Closing message socket");
-	exit(0);
+	//exit(0);
 }

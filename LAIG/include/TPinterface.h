@@ -2,16 +2,17 @@
 #define TPinterface_H
 
 #include "CGFinterface.h"
+#include "CGFapplication.h"
 #include "XMLScene.h"
 #include "socket.h"
 #include <algorithm>
 
 class TPinterface: public CGFinterface {
 	public:
-		TPinterface(Game* game);
+		TPinterface(Game* game, CGFapplication* app);
 
 		Game* octi;
-
+		CGFapplication* application;
 
 		virtual void initGUI();
 		virtual void processGUI(GLUI_Control *ctrl);

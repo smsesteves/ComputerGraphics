@@ -7,6 +7,11 @@ Game::Game(){
 	idLastPick = -1;
 }
 
+void Game::setEnded(bool newBool){
+	ended = newBool;
+}
+
+
 void Game::setDificuldade(int dif){
 	this->dificuldade = dif;
 }
@@ -17,7 +22,7 @@ int Game::getDificuldade(){
 
 bool Game::getEnded()
 {
-	ended=gameBoard->checkend();
+	//ended=gameBoard->checkend();
 	return ended;
 }
 

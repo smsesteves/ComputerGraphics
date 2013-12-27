@@ -6,6 +6,7 @@
 #include "CGFscene.h"
 #include "Game.h"
 #include "socket.h"
+#include "TPinterface.h"
 
 
 class XMLScene: public CGFscene

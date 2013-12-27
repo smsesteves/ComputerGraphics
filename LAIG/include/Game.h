@@ -48,6 +48,8 @@ public:
 
 	void displayWin(int player){};
 	void play(int op,int player);
+
+	void setEnded(bool newValue);
 	
 
 };

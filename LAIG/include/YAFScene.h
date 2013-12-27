@@ -48,6 +48,7 @@ public:
 	vector<Cameras*> camerasComp;
 	vector<Texture*> texturesComp;
 	
+	Node* menuVitoria;
 	Node* envolente;
 	vector<Node*> redPods;
 	vector<Node*> bluePods;
@@ -58,6 +59,9 @@ public:
 
 	int nextTheme;
 	void switchTheme();
+
+	map<string,Node*> defaultGraph;
+	void resetScene();
 
 	int itActiveCamera;
 

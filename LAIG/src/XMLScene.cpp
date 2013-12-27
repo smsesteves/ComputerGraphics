@@ -945,13 +945,16 @@ XMLScene::XMLScene(char *filename,CGFapplication* app, Game* game)
 			if(no->getId() == "envolvente"){
 				scene->envolente = no;
 			}
-			
+			else if(no->getId() == "menuVitoria"){
+				scene->menuVitoria = no;
+			}
 
 			scene->graph.insert(std::pair<string,Node*>(no->getId(),no));
 			node=node->NextSiblingElement();
 		}
 	}
 
+	
 	//scene->setappearancesherity(scene->rootid);
 	printf("");
 	
@@ -971,15 +974,19 @@ void XMLScene::init()
 	glLoadIdentity();
 	scene->initposition(scene->rootid);
 	glPopMatrix();
-	char * host = "smsesteves";
-	connectToSocket(host);
+	scene->defaultGraph = scene->graph;
+	char * host = "Leonel";
+	if(!(isConnected)){
+		connectToSocket(host);
+	}
 	setUpdatePeriod(30);
 	app->forceRefresh();
 	vector<Appearance*> appearancesStack;
 	scene->createdisplays(scene->rootid,appearancesStack);
-	octi = new Game();
+	//octi = new Game();
 	octi->createBoard();
 	octi->displayBoard();
+	app->setInterface(new TPinterface(octi,app));
 }
 	
 

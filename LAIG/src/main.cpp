@@ -16,6 +16,7 @@ int main(int argc, char* argv[]) {
     CGFapplication* app = new CGFapplication();
 
 	Game* octi = new Game();
+	octi->setEnded(false);
 
     try {
 		app->width = 800;
@@ -33,7 +34,7 @@ int main(int argc, char* argv[]) {
 			
 			app->setScene(new XMLScene(argv[1],app,octi)); 
 		}
-        app->setInterface(new TPinterface(octi));
+        //app->setInterface(new TPinterface(octi,app));
         app->run();
     }
     catch(GLexception& ex) {

@@ -1148,7 +1148,7 @@
 		
 			<transforms>
 				<translate to="50 0 50"/>
-				<translate to="-0.3 0 0"/>
+				<translate to="0.3 0 0"/>
 			</transforms>
 			<children>
 				<noderef id="prongReferencia"/>	

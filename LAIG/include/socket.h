@@ -8,6 +8,7 @@
 #include <ctype.h>	// for tolower()...
 
 
+//bool estaConectado;
 int connectToSocket(char* hostname);
 void closeSocket();
 void sendMessage(const char* buf);

@@ -418,6 +418,17 @@ void YAFScene::initposition(string node)
 
 }
 
+void YAFScene::resetScene(){
+	this->graph = this->defaultGraph;
+	this->graphanimation.clear();
+
+	
+
+	vector<Appearance*> appearancesStack;
+	this->createdisplays(this->rootid,appearancesStack);
+	//octi = new Game();
+}
+
 void YAFScene::switchTheme(){
 	Appearance* aux_hl = new Appearance();
 	Appearance* aux_hl_outro = new Appearance();

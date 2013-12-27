@@ -1,6 +1,7 @@
 #include "TPinterface.h"
-TPinterface::TPinterface(Game* game){
+TPinterface::TPinterface(Game* game, CGFapplication* app){
 	this->octi = game;
+	this->application = app;
 }
 
 
@@ -108,15 +109,15 @@ void TPinterface::processHits(GLint hits, GLuint buffer[])
 
 
 void TPinterface::clickHandler(GLuint* selected, GLint nselected){
-		cout << endl << "ClickHandler: " << octi->turn << endl;
+		cout << endl << "Turno: " << octi->turn << endl;
 		GLint idpicado;
 		//octi->displayBoard(); cout << endl;
 
 		
 		for (int i=0; i<nselected; i++){
-			//printf("%d ",selected[i]);
+			printf("%d ",selected[i]);
 			idpicado = selected[i];
-			//printf("\n");
+			printf("\n");
 		}
 		
 
@@ -127,14 +128,28 @@ void TPinterface::clickHandler(GLuint* selected, GLint nselected){
 		// ****************************************
 		if(idpicado > 500 && idpicado < 505 || idpicado == 511){
 			if(idpicado == 501){
+				
+
+				// RESET CENA
+				
+				octi = new Game();
+				octi->createBoard();
+				octi->setEnded(false);
+				this->application->setScene(new XMLScene("octi1.xml",application,octi));
+				
+				
+
+
+				octi->setDificuldade(0);
 				vector<Cameras*> aux = ((XMLScene*) scene)->getScenePointer()->camerasComp;
 				for(unsigned int i= 0; i < aux.size(); i++){
-					if(aux.at(i)->getid() == "camTabuleiro"){
+					if(aux.at(i)->getid() == "camJogadorAzul"){
 						((XMLScene*) scene)->getScenePointer()->itActiveCamera = i;
 						((XMLScene*) scene)->refreshCameras();
 						break;
 					}
 				}
+				
 			}
 			if(idpicado == 502){
 				vector<Cameras*> aux = ((XMLScene*) scene)->getScenePointer()->camerasComp;
@@ -174,7 +189,7 @@ void TPinterface::clickHandler(GLuint* selected, GLint nselected){
 				cout << "Selected EASY" << endl;
 				vector<Cameras*> aux = ((XMLScene*) scene)->getScenePointer()->camerasComp;
 				for(unsigned int i= 0; i < aux.size(); i++){
-					if(aux.at(i)->getid() == "camTabuleiro"){
+					if(aux.at(i)->getid() == "camJogadorAzul"){
 						((XMLScene*) scene)->getScenePointer()->itActiveCamera = i;
 						((XMLScene*) scene)->refreshCameras();
 						break;
@@ -187,7 +202,7 @@ void TPinterface::clickHandler(GLuint* selected, GLint nselected){
 				cout << "Selected NORMAL" << endl;
 				vector<Cameras*> aux = ((XMLScene*) scene)->getScenePointer()->camerasComp;
 				for(unsigned int i= 0; i < aux.size(); i++){
-					if(aux.at(i)->getid() == "camTabuleiro"){
+					if(aux.at(i)->getid() == "camJogadorAzul"){
 						((XMLScene*) scene)->getScenePointer()->itActiveCamera = i;
 						((XMLScene*) scene)->refreshCameras();
 						break;
@@ -200,7 +215,7 @@ void TPinterface::clickHandler(GLuint* selected, GLint nselected){
 				cout << "Selected HARD" << endl;
 				vector<Cameras*> aux = ((XMLScene*) scene)->getScenePointer()->camerasComp;
 				for(unsigned int i= 0; i < aux.size(); i++){
-					if(aux.at(i)->getid() == "camTabuleiro"){
+					if(aux.at(i)->getid() == "camJogadorAzul"){
 						((XMLScene*) scene)->getScenePointer()->itActiveCamera = i;
 						((XMLScene*) scene)->refreshCameras();
 						break;
@@ -220,13 +235,14 @@ void TPinterface::clickHandler(GLuint* selected, GLint nselected){
 			}
 		}
 		if(idpicado == 541){
+			cout << "Acabou jogo!" << endl;
 			// Voltar
 			vector<Cameras*> aux = ((XMLScene*) scene)->getScenePointer()->camerasComp;
 			for(unsigned int i= 0; i < aux.size(); i++){
 				if(aux.at(i)->getid() == "camMenu"){
 					((XMLScene*) scene)->getScenePointer()->itActiveCamera = i;
 					((XMLScene*) scene)->refreshCameras();
-					break;
+					return;
 				}
 			}
 		}
@@ -527,10 +543,14 @@ void TPinterface::clickHandler(GLuint* selected, GLint nselected){
 						cout << "[MOVE_POD] INC X = " << incx << "; INCY = " << incy << ";" << endl;
 						octi->movepod(1,octi->idLastPick,x,y,incx,incy,((XMLScene* )scene)->getScenePointer());		
 						cout << "[MOVE_POD] '" << mensagem << "'" << endl;
-						readMessage();
-						cout << "[MOVE_POD] A logica nao respondeu nada\n";
+						char* mensagem2 = readMessage();
+						cout << "[MOVE_POD] Recebeu " << mensagem2 << endl;
+						if(strcmp(mensagem2,"666") == 0){
+							octi->setEnded(true);
+							//sendMessage("100000");
+						}
 
-					
+						
 						// UNHIGLIGHT DE TUDO
 						octi->unhighlightId(octi->idLastPick);
 						for(int i = 0; i < octi->idsReceived.size(); i++){
@@ -635,9 +655,13 @@ void TPinterface::clickHandler(GLuint* selected, GLint nselected){
 						//Knows increment
 
 						cout << "[MOVE_POD] '" << mensagem << "'" << endl;
-
-						readMessage();
-						cout << "[MOVE_POD] A logica nao respondeu nada\n";
+	
+						char* mensagem2 = readMessage();
+						cout << "[MOVE_POD] Recebeu " << mensagem2 << endl;
+						if(strcmp(mensagem2,"666") == 0){
+							octi->setEnded(true);
+							//sendMessage("100000");
+						}
 
 					
 						// UNHIGLIGHT DE TUDO
@@ -696,7 +720,60 @@ void TPinterface::clickHandler(GLuint* selected, GLint nselected){
 				}
 
 			}
-	}
+		}
+
+		cout << "END " << octi->getEnded() << endl;
+		if(octi->getEnded()){
+
+			Appearance* app;
+			
+			// GANHOU JOG 1
+			if(octi->turn == 2){
+			
+				for(int i = 0; i < ((XMLScene*) scene)->getScenePointer()->appearancesComp.size(); i++){
+					if( ((XMLScene*) scene)->getScenePointer()->appearancesComp[i]->getIdS() == "appJ1Venceu"){
+						app = ((XMLScene*) scene)->getScenePointer()->appearancesComp[i];
+						break;
+					}
+				}
+			}
+			// GANHOU JOG 2
+			else if(octi->turn == 1 && octi->getDificuldade() == 0){
+				Appearance* app;
+				for(int i = 0; i < ((XMLScene*) scene)->getScenePointer()->appearancesComp.size(); i++){
+					if( ((XMLScene*) scene)->getScenePointer()->appearancesComp[i]->getIdS() == "appJ2Venceu"){
+						app = ((XMLScene*) scene)->getScenePointer()->appearancesComp[i];
+						break;
+					}
+				}
+			}
+			// GANHOU COM
+			else if(octi->turn == 1 && octi->getDificuldade() > 0){
+				Appearance* app;
+				for(int i = 0; i < ((XMLScene*) scene)->getScenePointer()->appearancesComp.size(); i++){
+					if( ((XMLScene*) scene)->getScenePointer()->appearancesComp[i]->getIdS() == "appComputadorVenceu"){
+						app = ((XMLScene*) scene)->getScenePointer()->appearancesComp[i];
+						break;
+					}
+				}
+			}
+		
+			// MOSTRA VENCEDOR
+			((XMLScene*) scene)->getScenePointer()->menuVitoria->setAppearance(app);
+
+			vector<Cameras*> aux = ((XMLScene*) scene)->getScenePointer()->camerasComp;
+			for(unsigned int i= 0; i < aux.size(); i++){
+				if(aux.at(i)->getid() == "camVencedor"){
+					((XMLScene*) scene)->getScenePointer()->itActiveCamera = i;
+					((XMLScene*) scene)->refreshCameras();
+					break;
+				}
+			}
+		}	
+
+		
+
+		//TODO: RESET TABULEIRO
 }
 
 void TPinterface::initGUI()
