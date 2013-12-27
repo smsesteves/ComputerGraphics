@@ -80,3 +80,17 @@ void Pod::setY(int incY)
 {
 	y=incY;
 }
+
+void Pod::removeProng(string dir)
+{
+	for(int i=0;i<dirs.size();i++)
+	{
+		if(dirs[i]->getDir()==dir)
+		{
+			dirs.erase(dirs.begin()+i);
+			break;
+		}
+
+	}
+
+}

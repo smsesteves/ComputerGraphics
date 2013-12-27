@@ -29,6 +29,8 @@ private:
 	string anim;
 	GLint pickingid;
 public:
+
+	void removeChildren(string toRemove);
 	bool toanimate;
 
 	void addChildren(string toAdd)

@@ -27,6 +27,8 @@ public:
 	int getDirsSize();
 	Prong* getDirsAt(int pos);
 	void addProng(string dir);
+	void removeProng(string dir);
+
 	int getId();
 	void setId(int newid);
 };

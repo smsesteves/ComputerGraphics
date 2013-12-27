@@ -13,6 +13,9 @@ private:
 	bool ended;
 	Board* gameBoard;
 public:
+
+	vector<string> jogadas;
+
 	int dificuldade;
 	void setDificuldade(int dif);
 	int getDificuldade();
@@ -51,6 +54,14 @@ public:
 
 	void setEnded(bool newValue);
 	
+	void undoPlay(YAFScene* scene);
+
+	void removeProng(int podnumber,int dir,YAFScene* scene);
+
+	void unmovePod(int podnumber,int x, int y,int incx,int incy);
+	void removePod(int player,int podnumber);
+	void unaddPod (int podnumber,float xi,float yi,float xf,float yf);
+
 
 };
 

@@ -70,6 +70,20 @@ void Node::insertprimitive(Primitive* primitiva)
 	primitives.push_back(primitiva);
 }
 
+void Node::removeChildren(string toRemove)
+{
+	for(int i=0;i<children.size();i++)
+	{
+		if(children[i]==toRemove)
+		{
+			children.erase(children.begin()+i);
+			break;
+		}
+
+	}
+
+}
+
 
 void Node::move(Animation* aux,unsigned long t)
 {

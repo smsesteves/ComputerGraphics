@@ -32,6 +32,10 @@ public:
 	void addJogador2PodAt(int x,int y,int id);
 	int getXbyId(int player , int id);
 	int getYbyId(int player , int id);
+		void setXbyId(int player , int id, int newX);
+			void removeJogador1PodAt(int i);
+	void removeJogador2PodAt(int i);
+	void setYbyId(int player , int id, int newY);
 };
 
 #endif

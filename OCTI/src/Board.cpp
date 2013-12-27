@@ -251,3 +251,15 @@ int Board::getYbyId(int player , int id)
 	}
 
 }
+
+
+void Board::removeJogador1PodAt(int i)
+{
+	Jogador1.erase(Jogador1.begin()+i);
+}
+
+
+void Board::removeJogador2PodAt(int i)
+{
+	Jogador2.erase(Jogador2.begin()+i);
+}

@@ -270,11 +270,12 @@ void TPinterface::clickHandler(GLuint* selected, GLint nselected){
 				}
 				if(valid){
 					string mensagem;
-					mensagem = "1 " + intToString(idpicado);
+					mensagem = "1 " + to_string(idpicado);
 					int dir = octi->idLastPick % 10;
 					mensagem += " ";
-					mensagem += intToString(dir);
+					mensagem += to_string(dir);
 					sendMessage(mensagem.c_str());
+					octi->jogadas.push_back(mensagem);
 					cout << "[ADD_PRONG] '" << mensagem << "'" << endl;
 
 					readMessage();
@@ -350,13 +351,13 @@ void TPinterface::clickHandler(GLuint* selected, GLint nselected){
 				}
 				if(valid){
 					string mensagem;
-					mensagem = "1 " + intToString(idpicado);
+					mensagem = "1 " + to_string(idpicado);
 					int dir = octi->idLastPick % 10;
 					mensagem += " ";
-					mensagem += intToString(dir);
+					mensagem += to_string(dir);
 					sendMessage(mensagem.c_str());
 					cout << "[ADD_PRONG] '" << mensagem << "'" << endl;
-
+					octi->jogadas.push_back(mensagem);
 					readMessage();
 					cout << "[ADD_PRONG] A logica nao respondeu nada\n";
 
@@ -527,22 +528,39 @@ void TPinterface::clickHandler(GLuint* selected, GLint nselected){
 					}
 					if(valid){
 						string mensagem;
-						mensagem = "2 " + intToString(octi->idLastPick);
+						mensagem = "2 " + to_string(octi->idLastPick);
 						mensagem += " ";
 
 						int x=(idpicado-100)/10;
 						int y=(idpicado-100)%10;
-						mensagem += intToString(x);
+						mensagem += to_string(x);
 						mensagem += " ";
-						mensagem += intToString(y);
+						mensagem += to_string(y);
+
 						sendMessage(mensagem.c_str());
 
+						
+
 						int lastx=octi->getBoard()->getXbyId(1,octi->idLastPick%10);
+
 						int lasty=octi->getBoard()->getYbyId(1,octi->idLastPick%10);
+
 						int incx=x-lastx;
+
 						int incy=y-lasty;	
+
+
+						mensagem += " ";
+						mensagem += to_string(incx);
+						mensagem += " ";
+						mensagem += to_string(incy);
+
+
+						octi->jogadas.push_back(mensagem);
 						cout << "[MOVE_POD] INC X = " << incx << "; INCY = " << incy << ";" << endl;
-						octi->movepod(1,octi->idLastPick,x,y,incx,incy,((XMLScene* )scene)->getScenePointer());		
+
+						octi->movepod(1,octi->idLastPick,x,y,incx,incy,((XMLScene* )scene)->getScenePointer());	
+
 						cout << "[MOVE_POD] '" << mensagem << "'" << endl;
 						char* mensagem2 = readMessage();
 						cout << "[MOVE_POD] Recebeu " << mensagem2 << endl;
@@ -573,17 +591,39 @@ void TPinterface::clickHandler(GLuint* selected, GLint nselected){
 				else if(!isInGame){
 						cout << "o que querias 1" << endl;
 
-						// 3 IDPOD X Y
+						// 3 IDPOD X Y (xi yi xf yf)
 						string mensagem;
-						mensagem = "3 " + intToString(octi->idLastPick);
+						mensagem = "3 " + to_string(octi->idLastPick);
 						mensagem += " ";
 
 						int x=(idpicado-100)/10;
 						int y=(idpicado-100)%10;
-						mensagem += intToString(x);
+						mensagem += to_string(x);
 						mensagem += " ";
-						mensagem += intToString(y);
+						mensagem += to_string(y);
+
+
 						sendMessage(mensagem.c_str());
+						mensagem += " ";
+
+						//x inicial
+						
+						mensagem += to_string(octi->boardElements[octi->idLastPick]->getx()+50.0*1.0);
+						mensagem += " ";
+						//z inicial
+						mensagem += to_string(octi->boardElements[octi->idLastPick]->getz()+50.0*1.0);
+
+						mensagem += " ";
+						//x final
+						mensagem += to_string(octi->boardElements[idpicado]->getx()*1.0);
+
+						mensagem += " ";
+						mensagem += to_string(octi->boardElements[idpicado]->getz()*1.0);
+						
+						
+
+
+						octi->jogadas.push_back(mensagem);
 
 						octi->addpod(octi->idLastPick/10, octi->idLastPick%10, x,y);
 						octi->graph_addPod(octi->idLastPick, idpicado, ((XMLScene*)scene)->getScenePointer());
@@ -634,22 +674,34 @@ void TPinterface::clickHandler(GLuint* selected, GLint nselected){
 						// Envia Info pa Mover POD
 						// FORMATO : 2 IDPECA IDCELULA
 						string mensagem;
-						mensagem = "2 " + intToString(octi->idLastPick);
+						mensagem = "2 " + to_string(octi->idLastPick);
 						mensagem += " ";
 
 						int x=(idpicado-100)/10;
 						int y=(idpicado-100)%10;
 
-						mensagem += intToString(x);
+						mensagem += to_string(x);
 						mensagem += " ";
-						mensagem += intToString(y);
+						mensagem += to_string(y);
+
+
 
 						sendMessage(mensagem.c_str());
+
 
 						int lastx=octi->getBoard()->getXbyId(2,octi->idLastPick%10);
 						int lasty=octi->getBoard()->getYbyId(2,octi->idLastPick%10);
 						int incx=x-lastx;
 						int incy=y-lasty;
+
+						mensagem += " ";
+						mensagem += to_string(incx);
+						mensagem += " ";
+						mensagem += to_string(incy);
+
+						octi->jogadas.push_back(mensagem);
+
+
 						cout << "[MOVE_POD] INC X = " << incx << "; INCY = " << incy << ";" << endl;
 						octi->movepod(2,octi->idLastPick,x,y,incx,incy, ((XMLScene*)scene)->getScenePointer());
 				
@@ -687,16 +739,16 @@ void TPinterface::clickHandler(GLuint* selected, GLint nselected){
 
 						// 3 IDPOD X Y
 						string mensagem;
-						mensagem = "3 " + intToString(octi->idLastPick);
+						mensagem = "3 " + to_string(octi->idLastPick);
 						mensagem += " ";
 
 						int x=(idpicado-100)/10;
 						int y=(idpicado-100)%10;
-						mensagem += intToString(x);
+						mensagem += to_string(x);
 						mensagem += " ";
-						mensagem += intToString(y);
+						mensagem += to_string(y);
 						sendMessage(mensagem.c_str());
-
+						octi->jogadas.push_back(mensagem);
 						octi->addpod(octi->idLastPick/10, octi->idLastPick%10, x,y);
 						octi->graph_addPod(octi->idLastPick, idpicado, ((XMLScene*)scene)->getScenePointer());
 
@@ -804,7 +856,15 @@ void TPinterface::processGUI(GLUI_Control *ctrl)
 	}
 
 	if(ctrl->user_id == 1){
-		cout << "UNDO!" << endl;
+		if(octi->jogadas.size()>=1)
+		{
+			string toSend=octi->jogadas[octi->jogadas.size()-1];
+			toSend="-1 "+toSend;
+			sendMessage(toSend.c_str());
+			readMessage();
+			octi->undoPlay(((XMLScene*)scene)->getScenePointer());	
+			
+		}
 	}
 
 	if(ctrl->user_id == 2){

@@ -30,7 +30,12 @@ public:
 
 	string executaOperacao(vector<int> valoresRecebidos);
 	Board* getBoard();
+	void removeSomeCenas(vector<int> valores);
 
+
+	void removeProng(int player, int podnumber, int dir);
+	void unmovePod(int player, int podnumber, int incx, int incy);
+	void unaddPod(int player,int podnumber);
 	string checkAdd(int player, int id);
 };
 

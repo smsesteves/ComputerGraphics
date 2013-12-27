@@ -64,7 +64,7 @@ void Game::graph_addProngToPod(int idpicado,int dir,YAFScene* scene){
 	cout << "DIR     : " << dir << endl;
 
 	string s;
-			
+
 	Node* aux = new Node();
 
 	if(turn == 1){
@@ -107,8 +107,8 @@ void Game::graph_addProngToPod(int idpicado,int dir,YAFScene* scene){
 			scene->graph.insert(pair<string,Node*>(s,aux));
 			boardElements[idpicado]->addChildren(s);
 			aux->addChildren("prongAzulEste");
-		
-			
+
+
 			break;
 		case 4:
 
@@ -123,7 +123,7 @@ void Game::graph_addProngToPod(int idpicado,int dir,YAFScene* scene){
 			boardElements[idpicado]->addChildren(s);
 			aux->addChildren("prongAzulNordeste");
 
-			
+
 			break;
 		case 5:
 			s="ProngNorte"+intToString(idpicado);
@@ -160,8 +160,8 @@ void Game::graph_addProngToPod(int idpicado,int dir,YAFScene* scene){
 			scene->graph.insert(pair<string,Node*>(s,aux));
 			boardElements[idpicado]->addChildren(s);
 			aux->addChildren("prongAzulOeste");
-		
-		
+
+
 			break;
 		case 8:
 			s="ProngSudoeste"+intToString(idpicado);
@@ -173,8 +173,8 @@ void Game::graph_addProngToPod(int idpicado,int dir,YAFScene* scene){
 			scene->graph.insert(pair<string,Node*>(s,aux));
 			boardElements[idpicado]->addChildren(s);
 			aux->addChildren("prongAzulSudoeste");
-		
-			
+
+
 			break;
 		}
 	}
@@ -190,7 +190,7 @@ void Game::graph_addProngToPod(int idpicado,int dir,YAFScene* scene){
 			scene->graph.insert(pair<string,Node*>(s,aux));
 			boardElements[idpicado]->addChildren(s);
 			aux->addChildren("prongVermelhoSul");
-		
+
 			break;
 		case 2:
 			s="ProngSudeste"+intToString(idpicado);
@@ -214,7 +214,7 @@ void Game::graph_addProngToPod(int idpicado,int dir,YAFScene* scene){
 			scene->graph.insert(pair<string,Node*>(s,aux));
 			boardElements[idpicado]->addChildren(s);
 			aux->addChildren("prongVermelhoEste");
-	
+
 			break;
 		case 4:
 			s="ProngNordeste"+intToString(idpicado);
@@ -238,7 +238,7 @@ void Game::graph_addProngToPod(int idpicado,int dir,YAFScene* scene){
 			scene->graph.insert(pair<string,Node*>(s,aux));
 			boardElements[idpicado]->addChildren(s);
 			aux->addChildren("prongVermelhoNorte");
-		
+
 			break;
 		case 6:
 			s="ProngNoroeste"+intToString(idpicado);
@@ -250,7 +250,7 @@ void Game::graph_addProngToPod(int idpicado,int dir,YAFScene* scene){
 			scene->graph.insert(pair<string,Node*>(s,aux));
 			boardElements[idpicado]->addChildren(s);
 			aux->addChildren("prongVermelhoNoroeste");
-		
+
 			break;
 		case 7:
 			s="ProngOeste"+intToString(idpicado);
@@ -262,7 +262,7 @@ void Game::graph_addProngToPod(int idpicado,int dir,YAFScene* scene){
 			scene->graph.insert(pair<string,Node*>(s,aux));
 			boardElements[idpicado]->addChildren(s);
 			aux->addChildren("prongVermelhoOeste");
-	
+
 			break;
 		case 8:
 			s="ProngSudoeste"+intToString(idpicado);
@@ -284,14 +284,14 @@ void Game::graph_addProngToPod(int idpicado,int dir,YAFScene* scene){
 string Game::getDir(int dirI){
 	string dir;
 	switch(dirI){
-		case 1: dir="s";break;
-		case 2:dir="se";break;
-		case 3:dir="e";break;
-		case 4:dir="ne";break;
-		case 5:dir="n";break;
-		case 6:dir="no";break;
-		case 7:dir="o";break;
-		case 8:dir="so";break;
+	case 1: dir="s";break;
+	case 2:dir="se";break;
+	case 3:dir="e";break;
+	case 4:dir="ne";break;
+	case 5:dir="n";break;
+	case 6:dir="no";break;
+	case 7:dir="o";break;
+	case 8:dir="so";break;
 	}
 
 	return dir;
@@ -328,29 +328,29 @@ bool Game::addprong(int player, int podnumber, string dir)
 
 bool Game::movepod(int player, int podnumber, int x,int y, int incx, int incy, YAFScene* scene)
 {
-	
+
 	if(player==1)
 	{
 		for(int i=0;i<gameBoard->getJogador1Size();i++)
 		{
 			if(gameBoard->getJogador1PodAt(i)->getId()==podnumber%10)
 			{
-				
 
-						Pod * aux = gameBoard->getJogador1PodAt(i);
-						
-						aux->setX(x);
-						aux->setY(y);
 
-						graph_movePod(podnumber,incx,incy,scene);
+				Pod * aux = gameBoard->getJogador1PodAt(i);
 
-						return true;
-					
-				
-				
+				aux->setX(x);
+				aux->setY(y);
+
+				graph_movePod(podnumber,incx,incy,scene);
+
+				return true;
+
+
+
 			}
 		}
-	
+
 	}
 	else
 	{
@@ -358,18 +358,18 @@ bool Game::movepod(int player, int podnumber, int x,int y, int incx, int incy, Y
 		{
 			if(gameBoard->getJogador2PodAt(i)->getId()==podnumber%10)
 			{
-				
-				
-						Pod * aux = gameBoard->getJogador2PodAt(i);
-						aux->setX(x);
-						aux->setY(y);
-						
-						graph_movePod(podnumber,incx,incy,scene);
 
-						return true;
-					
-				
-				
+
+				Pod * aux = gameBoard->getJogador2PodAt(i);
+				aux->setX(x);
+				aux->setY(y);
+
+				graph_movePod(podnumber,incx,incy,scene);
+
+				return true;
+
+
+
 			}
 		}
 	}
@@ -395,17 +395,17 @@ void Game::graph_movePod(int podnumber,int incx,int incy, YAFScene* scene)
 	((LinearAnimation*)scene->animationsComp["movePod"])->started=false;
 	scene->graphanimation[scene->animationsComp["movePod"]].push_back(aux);
 
-	
+
 
 	return;
 }
 
 bool Game::addpod(int player, int idpod, int x,int y)
 {
-	
+
 	if(player==1)
 	{
-		
+
 		gameBoard->addJogador1PodAt(x,y,idpod);
 
 	}
@@ -450,4 +450,128 @@ void Game::graph_addPod(int podnumber, int idocti, YAFScene* scene){
 
 
 	return;
+}
+
+void Game::undoPlay(YAFScene* scene)
+{
+	vector<float> resultado=divideStringEmFloat(jogadas[jogadas.size()-1].c_str());
+
+	int a=resultado[0];
+
+	switch(a)
+	{
+	case 1: removeProng(resultado[1],resultado[2],scene); break;//anula prong
+	case 2: unmovePod(resultado[1],resultado[2],resultado[3],resultado[4],resultado[5]);break;//anula move
+	case 3: unaddPod(resultado[1],resultado[4],resultado[5],resultado[6],resultado[7]);break;              
+	}
+	jogadas.erase(jogadas.end()-1);
+}
+
+void Game::removeProng(int podnumber, int dir,YAFScene* scene)
+{
+	map<string,Node*>::iterator it;
+	string s;
+	int player= podnumber/10;
+	cout << "Entrou" << endl;
+	switch(dir){
+	case 1: 
+		s="ProngSul"+intToString(podnumber);
+		break;
+	case 2:
+		s="ProngSudeste"+intToString(podnumber);
+		break;
+	case 3:
+		s="ProngEste"+intToString(podnumber);
+		break;
+	case 4:
+		s="ProngNordeste"+intToString(podnumber);
+		break;
+	case 5:
+		s="ProngNorte"+intToString(podnumber);
+		break;
+	case 6:
+		s="ProngNoroeste"+intToString(podnumber);
+		break;
+	case 7:
+		s="ProngOeste"+intToString(podnumber);
+		break;
+	case 8:
+		s="ProngSudoeste"+intToString(podnumber);
+		break;
+	}
+	it=scene->graph.find(s);
+	scene->graph.erase(it);
+	boardElements[podnumber]->removeChildren(s);
+	this->turn=player;
+
+}
+
+void Game::unmovePod(int podnumber,int x, int y,int incx,int incy)
+{
+	int player= podnumber/10;
+	int id=podnumber%10;
+	glMatrixMode(GL_MODELVIEW); 
+	Node* aux=boardElements[podnumber];
+	float matrix[16];
+	glPushMatrix();
+	glLoadIdentity();
+	glTranslated(+incx*1.5,0,-incy*1.5);	
+	glMultMatrixf(aux->getmatrix());
+	glGetFloatv(GL_MODELVIEW_MATRIX, &matrix[0]);
+	aux->setmatrix(&matrix[0]);
+	glPopMatrix();
+
+	gameBoard->setXbyId(player , id, gameBoard->getXbyId(player,id)-incx);
+	gameBoard->setYbyId(player , id, gameBoard->getYbyId(player,id)-incy);
+
+	this->turn=player;
+}
+
+void Game::unaddPod (int podnumber,float xi,float yi,float xf,float yf)
+{
+		int player= podnumber/10;
+	glMatrixMode(GL_MODELVIEW); 
+	Node* pod = boardElements[podnumber];
+	float matrix[16];
+	glPushMatrix();
+	glLoadIdentity();
+	glTranslated(xi-xf,-1,yi-yf);
+	glMultMatrixf(pod->getmatrix());
+	glGetFloatv(GL_MODELVIEW_MATRIX, &matrix[0]);
+	pod->setmatrix(&matrix[0]);
+	glPopMatrix();
+
+	removePod(podnumber/10,podnumber%10);
+
+		this->turn=player;
+
+}
+
+
+
+void Game::removePod(int player,int podnumber)
+{
+	if(player==1)
+	{
+		for(int i=0;i<gameBoard->getJogador1Size();i++)
+		{
+			if(gameBoard->getJogador1PodAt(i)->getId()==podnumber)
+			{
+				gameBoard->removeJogador1PodAt(i);
+			}
+
+		}
+	}
+	else
+	{
+		for(int i=0;i<gameBoard->getJogador2Size();i++)
+		{
+			if(gameBoard->getJogador2PodAt(i)->getId()==podnumber)
+			{
+				gameBoard->removeJogador2PodAt(i);
+			}
+
+		}
+	}
+
 }

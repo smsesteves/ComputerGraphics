@@ -250,3 +250,68 @@ int Board::getYbyId(int player , int id)
 	}
 
 }
+
+
+
+void Board::setXbyId(int player, int id, int newX)
+{
+	if(player==1)
+	{
+		for(int i=0;i<Jogador1.size();i++)
+		{
+			if(getJogador1PodAt(i)->getId() == id)
+			{
+				getJogador1PodAt(i)->setX(newX);
+			}
+
+		}
+	}
+	else
+	{
+		for(int i=0;i<Jogador2.size();i++)
+		{
+			if(getJogador2PodAt(i)->getId() == id)
+			{
+				getJogador2PodAt(i)->setX(newX);
+			}
+		}
+	}
+}
+
+void Board::setYbyId(int player , int id, int newY)
+{
+	if(player==1)
+	{
+		for(int i=0;i<Jogador1.size();i++)
+		{
+			if(getJogador1PodAt(i)->getId() == id )
+			{
+				getJogador1PodAt(i)->setY(newY);
+			}
+
+		}
+	}
+	else
+	{
+		for(int i=0;i<Jogador2.size();i++)
+		{
+			if(getJogador2PodAt(i)->getId() == id)
+			{
+				getJogador2PodAt(i)->setY(newY);
+			}
+		}
+	}
+
+}
+
+
+void Board::removeJogador1PodAt(int i)
+{
+	Jogador1.erase(Jogador1.begin()+i);
+}
+
+
+void Board::removeJogador2PodAt(int i)
+{
+	Jogador2.erase(Jogador2.begin()+i);
+}

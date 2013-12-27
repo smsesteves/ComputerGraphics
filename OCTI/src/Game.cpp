@@ -35,9 +35,9 @@ string Game::executaOperacao(vector<int> valoresRecebidos){
 
 
 		player = valoresRecebidos[1]/10;
-		
+
 		pod = valoresRecebidos[1]%10;
-		
+
 		d = valoresRecebidos[2];	
 
 		switch(d)
@@ -52,7 +52,7 @@ string Game::executaOperacao(vector<int> valoresRecebidos){
 		case 8:dir="so";break;
 		}
 
-		
+
 		addprong(player,pod,dir);
 		//possible switch
 		break;
@@ -77,7 +77,7 @@ string Game::executaOperacao(vector<int> valoresRecebidos){
 		resposta = checkMovimentos(player,pod);
 		cout << resposta << endl;
 		break;
-	
+
 
 	case 11:
 		player = valoresRecebidos[1];
@@ -102,7 +102,14 @@ string Game::executaOperacao(vector<int> valoresRecebidos){
 	case 12:
 		player = valoresRecebidos[1];
 		d = valoresRecebidos[1];
+
+	case -1:
+		removeSomeCenas(valoresRecebidos);
+
 	}
+
+
+
 	return resposta;
 }
 
@@ -136,25 +143,25 @@ bool Game::addprong(int player, int podnumber, string dir)
 
 bool Game::movepod(int player, int podnumber, int x,int y)
 {
-	
+
 	if(player==1)
 	{
 		for(int i=0;i<gameBoard->getJogador1Size();i++)
 		{
 			if(gameBoard->getJogador1PodAt(i)->getId()==podnumber)
 			{
-				
 
-						Pod * aux = gameBoard->getJogador1PodAt(i);
-						
-						aux->setX(x);
-						aux->setY(y);
 
-						return true;
-		
+				Pod * aux = gameBoard->getJogador1PodAt(i);
+
+				aux->setX(x);
+				aux->setY(y);
+
+				return true;
+
 			}
 		}
-	
+
 	}
 	else
 	{
@@ -162,10 +169,10 @@ bool Game::movepod(int player, int podnumber, int x,int y)
 		{
 			if(gameBoard->getJogador2PodAt(i)->getId()==podnumber)
 			{
-						Pod * aux = gameBoard->getJogador2PodAt(i);
-						aux->setX(x);
-						aux->setY(y);
-						return true;
+				Pod * aux = gameBoard->getJogador2PodAt(i);
+				aux->setX(x);
+				aux->setY(y);
+				return true;
 			}
 		}
 	}
@@ -174,10 +181,10 @@ bool Game::movepod(int player, int podnumber, int x,int y)
 
 bool Game::addpod(int player, int idpod, int x,int y)
 {
-	
+
 	if(player==1)
 	{
-		
+
 		gameBoard->addJogador1PodAt(x,y,idpod);
 
 	}
@@ -509,7 +516,7 @@ string Game::checkMovimentos(int player,int id)
 
 				}
 
-				
+
 			}
 			if(!encontra1)
 			{
@@ -543,7 +550,7 @@ string Game::checkMovimentos(int player,int id)
 				{
 					if(aux->getDirsAt(j)->getDir()=="n")
 					{
-						
+
 
 						if(aux->getX()>=2)
 						{
@@ -816,7 +823,7 @@ string Game::checkMovimentos(int player,int id)
 		if(!podfound)
 		{
 
-			
+
 			cout<<"NAO ENCONTROU TURNO 2"<<endl;
 
 			bool encontra1=false;
@@ -843,7 +850,7 @@ string Game::checkMovimentos(int player,int id)
 
 				}
 
-				
+
 			}
 			if(!encontra1)
 			{
@@ -922,7 +929,7 @@ string Game::checkandAdd(int player, int id)
 	vector<int> resultado;
 	if(player==1)
 	{
-		
+
 		resultado.push_back(122);
 		resultado.push_back(124);
 		resultado.push_back(126);
@@ -931,7 +938,7 @@ string Game::checkandAdd(int player, int id)
 		{
 			if(gameBoard->getJogador1PodAt(i)->getX() == 2 && (gameBoard->getJogador1PodAt(i)->getY()==2 || gameBoard->getJogador1PodAt(i)->getY()==4 || gameBoard->getJogador1PodAt(i)->getY()==6))
 			{
-				
+
 				for(int z=0;z<resultado.size();z++)
 				{
 					if(resultado[i] == 100+(gameBoard->getJogador1PodAt(i)->getX()*10)+gameBoard->getJogador1PodAt(i)->getY())
@@ -941,11 +948,11 @@ string Game::checkandAdd(int player, int id)
 				}
 			}
 		}
-		
+
 	}
 	else
 	{
-		
+
 		resultado.push_back(162);
 		resultado.push_back(164);
 		resultado.push_back(166);
@@ -954,7 +961,7 @@ string Game::checkandAdd(int player, int id)
 		{
 			if(gameBoard->getJogador2PodAt(i)->getX() == 2 && (gameBoard->getJogador2PodAt(i)->getY()==2 || gameBoard->getJogador2PodAt(i)->getY()==4 || gameBoard->getJogador2PodAt(i)->getY()==6))
 			{
-				
+
 				for(int z=0;z<resultado.size();z++)
 				{
 					if(resultado[i] == 100+(gameBoard->getJogador2PodAt(i)->getX()*10)+gameBoard->getJogador2PodAt(i)->getY())
@@ -965,7 +972,7 @@ string Game::checkandAdd(int player, int id)
 
 			}
 		}
-		
+
 	}
 
 	return criastring(resultado);
@@ -1018,3 +1025,129 @@ void Game::processaDir(Pod* aux,string dir,int player)
 	}
 }
 
+void Game::removeSomeCenas(vector<int> valores)
+{
+	switch(valores[1])
+	{
+	case 1: removeProng(valores[2]/10,valores[2]%10,valores[3]); break;//removeProng
+	case 2: unmovePod(valores[2]/10,valores[2]%10, valores[5],valores[6]); break;//remove modePod
+	case 3: unaddPod(valores[2]/10,valores[2]%10);break;//anula pod
+	}
+
+}
+
+void Game::unmovePod(int player, int podnumber, int incx, int incy)
+{
+
+	if(player==1)
+	{
+		for(int i=0;i<gameBoard->getJogador1Size();i++)
+		{
+			if(gameBoard->getJogador1PodAt(i)->getId()==podnumber)
+			{
+				gameBoard->getJogador1PodAt(i)->setX(gameBoard->getJogador1PodAt(i)->getX()-incx);
+				gameBoard->getJogador1PodAt(i)->setY(gameBoard->getJogador1PodAt(i)->getY()-incy);
+
+			}
+
+		}
+	}
+	else
+	{
+		for(int i=0;i<gameBoard->getJogador2Size();i++)
+		{
+			if(gameBoard->getJogador2PodAt(i)->getId()==podnumber)
+			{
+				gameBoard->getJogador2PodAt(i)->setX(gameBoard->getJogador2PodAt(i)->getX()-incx);
+				gameBoard->getJogador2PodAt(i)->setY(gameBoard->getJogador2PodAt(i)->getY()-incy);
+			}
+
+		}
+
+	}
+
+
+
+
+}
+
+
+
+void Game::removeProng(int player, int podnumber, int s)
+{
+	string dir;
+	if(player==1)
+	{
+		for(int i=0;i<gameBoard->getJogador1Size();i++)
+		{
+			if(gameBoard->getJogador1PodAt(i)->getId()==podnumber)
+			{
+				switch(s)
+				{
+				case 1:dir="s";break;
+				case 2:dir="se";break;
+				case 3:dir="e";break;
+				case 4:dir="ne";break;
+				case 5:dir="n";break;
+				case 6:dir="no";break;
+				case 7:dir="o";break;
+				case 8:dir="so";break;
+				}
+				gameBoard->getJogador1PodAt(i)->removeProng(dir);
+			}
+
+		}
+	}
+	else
+	{
+		for(int i=0;i<gameBoard->getJogador2Size();i++)
+		{
+			if(gameBoard->getJogador2PodAt(i)->getId()==podnumber)
+			{
+				switch(s)
+				{
+				case 1:dir="s";break;
+				case 2:dir="se";break;
+				case 3:dir="e";break;
+				case 4:dir="ne";break;
+				case 5:dir="n";break;
+				case 6:dir="no";break;
+				case 7:dir="o";break;
+				case 8:dir="so";break;
+				}
+				gameBoard->getJogador2PodAt(i)->removeProng(dir);
+			}
+
+		}
+
+	}
+
+
+}
+
+void Game::unaddPod(int player,int podnumber)
+{
+	if(player==1)
+	{
+		for(int i=0;i<gameBoard->getJogador1Size();i++)
+		{
+			if(gameBoard->getJogador1PodAt(i)->getId()==podnumber)
+			{
+				gameBoard->removeJogador1PodAt(i);
+			}
+
+		}
+	}
+	else
+	{
+		for(int i=0;i<gameBoard->getJogador2Size();i++)
+		{
+			if(gameBoard->getJogador2PodAt(i)->getId()==podnumber)
+			{
+				gameBoard->removeJogador2PodAt(i);
+			}
+
+		}
+	}
+
+}
