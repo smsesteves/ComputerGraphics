@@ -529,7 +529,6 @@ string Game::checkMovimentos(int player,int id)
 	else
 	{
 
-		cout<<"NAO ENCONTROU TURNO 2"<<endl;
 
 		bool podfound=false;
 		int size=gameBoard->getJogador2Size();
@@ -816,6 +815,10 @@ string Game::checkMovimentos(int player,int id)
 
 		if(!podfound)
 		{
+
+			
+			cout<<"NAO ENCONTROU TURNO 2"<<endl;
+
 			bool encontra1=false;
 			bool encontra2=false;
 			bool encontra3=false;

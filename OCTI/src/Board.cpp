@@ -88,7 +88,7 @@ bool Board::checkadd(int player)
 		int count=0;
 		for(unsigned int z=0;z<Jogador1.size();z++)
 		{
-			if(Jogador1[z]->getX()==1 && (Jogador1[z]->getY()==1 || Jogador1[z]->getY()==3 || Jogador1[z]->getY()==5))
+			if(Jogador1[z]->getX()==6 && (Jogador1[z]->getY()==2 || Jogador1[z]->getY()==4 || Jogador1[z]->getY()==6))
 			{
 				count++;
 			}
@@ -104,7 +104,7 @@ bool Board::checkadd(int player)
 		int count=0;
 		for(unsigned int z=0;z<Jogador2.size();z++)
 		{
-			if(Jogador2[z]->getX()==5 && (Jogador2[z]->getY()==1 || Jogador2[z]->getY()==3 || Jogador2[z]->getY()==5))
+			if(Jogador2[z]->getX()==2 && (Jogador2[z]->getY()==2 || Jogador2[z]->getY()==4 || Jogador2[z]->getY()==6))
 			{
 				count++;
 			}
@@ -162,7 +162,7 @@ bool Board::checkend()
 	}
 	for(unsigned int z=0;z<Jogador2.size();z++)
 	{
-		if(Jogador2[z]->getX()==6 && (Jogador2[z]->getY()==2 || Jogador2[z]->getY()==4 || Jogador2[z]->getY()==6))
+		if(Jogador2[z]->getX()==2 && (Jogador2[z]->getY()==2 || Jogador2[z]->getY()==4 || Jogador2[z]->getY()==6))
 		{
 			return true;
 		}
