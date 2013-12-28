@@ -18,19 +18,23 @@ int main()
 	vector<int> valoresRecebidos;
 
 	recebido=leMensagem();
-	cout << "PRIMEIRA RECECAO: " << recebido << endl;
+	cout << "P: " << recebido << endl;
 
 	int dificuldade;
 
 	if(strcmp(recebido,"PP")==0)
 	{
 		dificuldade = -1;
-	}else if(strcmp(recebido,"PC")==0)
+		enviaMensagem("recebidopp");
+	}
+	else if(strcmp(recebido,"PC")==0)
 	{
+		enviaMensagem("recebidopc");
 		srand (time(NULL));
 		recebido=leMensagem();
 		cout << "DIFICULDADE: " << recebido << endl;
 		dificuldade=divideStringEmInt(recebido)[0];
+		enviaMensagem("recebidodif");
 	}
 	
 	int count=0;
@@ -64,6 +68,7 @@ int main()
 		//TODO: nao possibilidade 
 		if(dificuldade != -1 && (valoresRecebidos[0] == 1 || valoresRecebidos[0] == 2 || valoresRecebidos[0] == 3)){
 			char* recebido2=leMensagem();
+
 			cout << "PRIMEIRA RECECAO: " << recebido2 << endl;
 			
 			bool one=g1.checkcomprong();
@@ -128,10 +133,21 @@ int main()
 				toSend=criastring(resultados);
 				break;
 			}
-			system("cls");
+			//system("cls");
 			enviaMensagem(toSend.c_str());
 			cout<<"O COM SUGERE:"<<toSend.c_str()<<endl;
 
+			if(first==2){
+				string aEnviar2 = "";
+				if(g1.getBoard()->checkend())
+				{
+					aEnviar2="666";
+					
+					//g1=Game();
+					//g1.createBoard();
+				}
+				enviaMensagem(aEnviar2.c_str());
+			}
 			valoresRecebidos = divideStringEmInt(toSend.c_str());
 			aEnviar = g1.executaOperacao(valoresRecebidos);
 		}

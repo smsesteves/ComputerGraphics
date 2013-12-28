@@ -23,6 +23,7 @@ class TPinterface: public CGFinterface {
 		void processHits(GLint hits, GLuint buffer[]); 
 		void clickHandler(GLuint* selected, GLint nselected);
 		virtual void processKeyboard(unsigned char key, int x, int y);
+		virtual void processPassiveMouseMoved (int x, int y);
 
 		int testVar;
 };

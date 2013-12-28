@@ -7,6 +7,7 @@ Game::Game(){
 	ended = false;
 	pickedAnything = false;
 	idLastPick = -1;
+	idsReceived.clear();
 }
 
 void Game::rotateCamera(YAFScene* scene, int turn){
@@ -608,12 +609,15 @@ void Game::comHandler(vector<float> valores,YAFScene* scene){
 	int op = valores[0];
 
 	switch(op){
-	case 1:
+	case 1: // add prong 
 		com_addProng(valores, scene);
-		break; // add prong 
-	case 2: break; // move pod
-	case 3: break; // add pod
-
+		break; 
+	case 2:  // move pod
+		com_movePod(valores, scene);
+		break; 
+	case 3:  // add pod
+		com_addPod(valores, scene);
+		break;
 
 	}
 
@@ -630,4 +634,132 @@ void Game::com_addProng(vector<float> valores, YAFScene* scene){
 	
 	pickedAnything = false;
 	idLastPick = -1;
+}
+
+
+void Game::com_movePod(vector<float> valores, YAFScene* scene){
+	
+		// 2 IDPOD CELX CELY INCX INCY
+
+		movepod(2,valores[1],valores[2],valores[3],valores[4],valores[5], scene);
+				
+	
+}
+
+void Game::com_addPod(vector<float> valores, YAFScene* scene){
+
+	
+	addpod(valores[1]/10, (int)valores[1]%10, valores[2],valores[3]);
+	graph_addPod(valores[1], 100 + valores[2] * 10 + valores[3], scene);
+
+
+	//readMessage();
+	//cout << "[ADD_POD] A logica nao respondeu nada\n";
+
+
+				
+		pickedAnything = false;
+		idLastPick = -1;
+		turn = 1; // muda de turno
+}
+
+
+// ****************************************
+//    COMPUTADOR A JOGAR
+// ****************************************
+void Game::comTurn(YAFScene* scene){
+
+	if(dificuldade > 0 && turn == 2){
+
+		if(turn==2 && getDificuldade() > 0){
+			cout << "COMPUTADOR !! " << endl;
+			// COMPUTADOR A JOGAR
+			string mensagem1;
+			mensagem1 = "gerar";
+			sendMessage(mensagem1.c_str());
+			char* resposta = readMessage();
+
+
+			if(resposta[0] == '2'){
+
+
+				// 2 IDPOD X Y
+				vector<float> respostas = divideStringEmFloat(resposta);
+				string resposta1(resposta);
+
+				int xf= respostas[2];
+				int yf= respostas[3];
+
+				int xi=getBoard()->getXbyId(2,(int)respostas[1]%10);
+				int yi=getBoard()->getYbyId(2,(int)respostas[1]%10%10);
+
+
+				int incx=xf-xi;
+				int incy=yf-yi;
+
+
+				resposta1 += " ";
+				resposta1 += to_string(incx);
+				resposta1 += " ";
+				resposta1 += to_string(incy);
+
+				jogadas.push_back(resposta1);
+				comHandler(divideStringEmFloat(resposta1.c_str()), scene);
+
+				char* mensagem2 = readMessage();
+				cout << "[MOVE_POD] Recebeu " << mensagem2 << endl;
+				if(strcmp(mensagem2,"666") == 0){
+					setEnded(true);
+					//sendMessage("100000");
+				}
+
+				pickedAnything = false;
+				idLastPick = -1;
+				turn = 1; // muda de turno
+			}
+			else if(resposta[0] == '3'){
+				// 3 IDPOD X Y
+				vector<float> respostas = divideStringEmFloat(resposta);
+				string resposta1(resposta);
+
+				resposta1 = "3 " + to_string(respostas[1]);
+				resposta1 += " ";
+
+				int x= respostas[2];
+				int y= respostas[3];
+
+				resposta1 += to_string(x);
+				resposta1 += " ";
+				resposta1 += to_string(y);
+
+				resposta1 += " ";
+
+				//x inicial
+
+				resposta1 += to_string(boardElements[respostas[1]]->getx()+50.0*1.0);
+				resposta1 += " ";
+				//z inicial
+				resposta1 += to_string(boardElements[respostas[1]]->getz()+50.0*1.0);
+				resposta1 += " ";
+				//x final
+				resposta1 += to_string(boardElements[100 + respostas[2] * 10 + respostas[3]]->getx()*1.0);
+				resposta1 += " ";
+				resposta1 += to_string(boardElements[100 + respostas[2] * 10 + respostas[3]]->getz()*1.0);
+
+				jogadas.push_back(resposta1);
+				
+				comHandler(divideStringEmFloat(resposta1.c_str()), scene);
+				
+			}
+			else{
+				jogadas.push_back(resposta);
+				comHandler(divideStringEmFloat(resposta), scene);
+				cout << "Jogada: '" << resposta << "'" << endl;
+
+			}
+			turn = 1;
+			//TODO : verifcar end
+		}
+
+	}
 }

@@ -6,6 +6,7 @@
 #include <map>
 #include "node.h"
 #include "YAFScene.h"
+#include "socket.h"
 
 
 
@@ -41,7 +42,10 @@ public:
 	// PC
 	void comHandler(vector<float> valores,YAFScene* scene);
 	void com_addProng(vector<float> valores,YAFScene* scene);
+	void com_movePod(vector<float> valores, YAFScene* scene);
+	void com_addPod(vector<float> valores, YAFScene* scene);
 
+	void comTurn(YAFScene* scene);
 
 	// Logical
 	string getDir(int dir);

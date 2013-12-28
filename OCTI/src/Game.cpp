@@ -919,7 +919,12 @@ string Game::checkProngs(int player, string dir)
 		}
 
 	}
-	return criastring(res);
+	if(res.size() > 0){
+		return criastring(res);
+	}
+	else{
+		return "-1";
+	}
 }
 
 string Game::checkandAdd(int player, int id)
@@ -972,8 +977,13 @@ string Game::checkandAdd(int player, int id)
 		}
 
 	}
-
-	return criastring(resultado);
+	if(resultado.size() > 0){
+		return criastring(resultado);
+	}
+	else{
+		return "-1";
+	}
+	
 }
 
 

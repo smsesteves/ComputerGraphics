@@ -1116,7 +1116,7 @@ void XMLScene::display(){
 
 	
 	// Draw axis
-	axis.draw();
+	//axis.draw();
 
 	
 	vector<Appearance*> appearancesStack;
