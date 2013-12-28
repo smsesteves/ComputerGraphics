@@ -57,7 +57,7 @@ void Board::display()
 	cout<<endl<<"Player 1 Pods"<<endl;
 	for(unsigned int z=0;z<Jogador1.size();z++)
 	{
-		cout<<endl<<"Pod "<<z+1<<" x: "<<Jogador1[z]->getX()<<" y: "<<Jogador1[z]->getY()<<endl;
+		cout<<endl<<"Pod "<<Jogador1[z]->getId()<<" x: "<<Jogador1[z]->getX()<<" y: "<<Jogador1[z]->getY()<<endl;
 
 		cout<<"\tProngs: ";
 		for(unsigned int i=0;i<Jogador1[z]->getDirsSize();i++)
@@ -70,7 +70,7 @@ void Board::display()
 	cout<<endl<<"\nPlayer 2 Pods"<<endl;
 	for(unsigned int z=0;z<Jogador2.size();z++)
 	{
-		cout<<endl<<"Pod "<<z+1<<" x: "<<Jogador2[z]->getX()<<" y: "<<Jogador2[z]->getY()<<endl;
+		cout<<endl<<"Pod "<<Jogador2[z]->getId()<<" x: "<<Jogador2[z]->getX()<<" y: "<<Jogador2[z]->getY()<<endl;
 		cout<<"\tProngs: ";
 		for(unsigned int i=0;i<Jogador2[z]->getDirsSize();i++)
 		{

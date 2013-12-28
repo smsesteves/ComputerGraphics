@@ -61,7 +61,7 @@ string criastring(vector<int> vec){
 	return res;
 }
 
-vector<int> divideStringEmInt(char* mensagem){
+vector<int> divideStringEmInt(const char* mensagem){
 	vector<int> res;
 
 	int posi = 0;
@@ -91,4 +91,10 @@ vector<int> divideStringEmInt(char* mensagem){
 	}
 
 	return res;
+}
+
+
+int geraRandom(vector<int> resultados)
+{
+	return resultados[(rand() % resultados.size())]; 
 }

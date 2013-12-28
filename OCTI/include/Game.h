@@ -3,7 +3,7 @@
 
 #include "Board.h"
 #include "utils.h"
-
+#include <algorithm>
 class Game{
 private:
 	bool ended;
@@ -27,7 +27,7 @@ public:
 	string checkMovimentos(int player, int id);
 	string checkProngs(int player, string dir);
 	string checkandAdd(int player, int id);
-
+	vector<int> getOctiPlaces();
 	string executaOperacao(vector<int> valoresRecebidos);
 	Board* getBoard();
 	void removeSomeCenas(vector<int> valores);
@@ -37,6 +37,20 @@ public:
 	void unmovePod(int player, int podnumber, int incx, int incy);
 	void unaddPod(int player,int podnumber);
 	string checkAdd(int player, int id);
+
+	vector<int> getPodsToAddProng();
+	vector<int> getDirsToAddProng(int pod);
+	vector<int> getPodsToAdd();
+
+	bool checkcomprong();
+	bool checkcommove();
+	bool checkcomadd();
+
+
+	vector<int> getPodsWithProng();
+
+	vector<int> getHousesToMove(int podnumber);
+
 };
 
 #endif

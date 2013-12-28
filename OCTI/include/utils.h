@@ -19,7 +19,9 @@ Position processaComer(Board* board, Pod* aux, string dir);
 
 string criastring(vector<int> resultados);
 
-vector<int> divideStringEmInt(char* mensagem);
+vector<int> divideStringEmInt(const char* mensagem);
+
+int geraRandom(vector<int> resultados);
 
 
 
