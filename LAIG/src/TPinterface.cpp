@@ -98,7 +98,7 @@ void TPinterface::processHits(GLint hits, GLuint buffer[])
 	}
 	
 	// if there were hits, the one selected is in "selected", and it consist of nselected "names" (integer ID's)
-	if (selected!=NULL)
+	if (selected!=NULL && !((XMLScene*) scene)->doinganimations())
 	{
 		clickHandler(selected, nselected);
 	}
@@ -301,7 +301,10 @@ void TPinterface::clickHandler(GLuint* selected, GLint nselected){
 					octi->pickedAnything = false;
 					octi->idLastPick = -1;
 					octi->turn = 2; // muda de turno
-					octi->rotateCamera(((XMLScene*) scene)->getScenePointer(), 2);
+
+		
+
+					
 					cout << "----------------- Fim do Turno de 1 -------------------" << endl;
 				}
 				else{
@@ -377,7 +380,10 @@ void TPinterface::clickHandler(GLuint* selected, GLint nselected){
 					octi->pickedAnything = false;
 					octi->idLastPick = -1;
 					octi->turn = 1; // muda de turno
-					octi->rotateCamera(((XMLScene*) scene)->getScenePointer(), 1);
+
+
+
+
 					cout << "----------------- Fim do Turno de 2 -------------------" << endl;
 				}
 				else{
@@ -590,7 +596,7 @@ void TPinterface::clickHandler(GLuint* selected, GLint nselected){
 						octi->pickedAnything = false;
 						octi->idLastPick = -1;
 						octi->turn = 2; // muda de turno
-						octi->rotateCamera(((XMLScene*) scene)->getScenePointer(), 2);
+					
 						cout << "----------------- Fim do Turno de 1 -------------------" << endl;
 					}
 					else{
@@ -654,7 +660,7 @@ void TPinterface::clickHandler(GLuint* selected, GLint nselected){
 						octi->pickedAnything = false;
 						octi->idLastPick = -1;
 						octi->turn = 2; // muda de turno
-						octi->rotateCamera(((XMLScene*) scene)->getScenePointer(), 2);
+					
 						cout << "----------------- Fim do Turno de 1 -------------------" << endl;
 					
 
@@ -739,7 +745,7 @@ void TPinterface::clickHandler(GLuint* selected, GLint nselected){
 						octi->pickedAnything = false;
 						octi->idLastPick = -1;
 						octi->turn = 1; // muda de turno
-						octi->rotateCamera(((XMLScene*) scene)->getScenePointer(), 1);
+				
 						cout << "----------------- Fim do Turno de 2 -------------------" << endl;
 
 					}
@@ -781,7 +787,7 @@ void TPinterface::clickHandler(GLuint* selected, GLint nselected){
 						octi->pickedAnything = false;
 						octi->idLastPick = -1;
 						octi->turn = 1; // muda de turno
-						octi->rotateCamera(((XMLScene*) scene)->getScenePointer(), 1);
+				
 						cout << "----------------- Fim do Turno de 2 -------------------" << endl;
 
 				}
@@ -877,6 +883,9 @@ void TPinterface::processGUI(GLUI_Control *ctrl)
 			sendMessage(toSend.c_str());
 			readMessage();
 			octi->undoPlay(((XMLScene*)scene)->getScenePointer());	
+
+			octi->rotateCamera(((XMLScene*) scene)->getScenePointer(),octi->turn);
+
 			
 		}
 	}

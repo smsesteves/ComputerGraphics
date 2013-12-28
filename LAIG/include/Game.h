@@ -19,7 +19,7 @@ public:
 	int dificuldade;
 	void setDificuldade(int dif);
 	int getDificuldade();
-
+	int lastturn;
 	int turn;
 	int idLastPick;
 	

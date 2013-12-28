@@ -3,6 +3,7 @@
 Game::Game(){
 	createBoard();
 	turn = 1;
+	lastturn =1;
 	ended = false;
 	pickedAnything = false;
 	idLastPick = -1;
@@ -304,6 +305,7 @@ void Game::graph_addProngToPod(int idpicado,int dir,YAFScene* scene){
 			break;
 		}
 	}
+
 
 }
 

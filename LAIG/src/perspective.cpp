@@ -26,23 +26,20 @@ void Perspective::updateProjectionMatrix(int width, int height) {
 void Perspective::update(int turn){
 
 	if(turn == 1){
-		if(rotation[CG_CGFcamera_AXIS_Y] <= 360){
+		if(rotation[CG_CGFcamera_AXIS_Y] < 360){
 			this->setRotation(CG_CGFcamera_AXIS_Y, rotation[CG_CGFcamera_AXIS_Y] + 20);
 			glMatrixMode(GL_MODELVIEW);
 			glPushMatrix();
 			glLoadIdentity();
-
 			glRotated(20,0,1,0);
 			glTranslated(position[0],position[1],position[2]);
 
 			float matrix[16];
 			glGetFloatv(GL_MODELVIEW_MATRIX,matrix);
 
-			
-			position[0] = ( matrix[0] + matrix[4] + matrix[8] + matrix[12] );
-			//position[1] = ( matrix[1] + matrix[5] + matrix[9] + matrix[13] );
-			position[2] = ( matrix[2] + matrix[6] + matrix[10]+ matrix[14] );
-        
+			position[0] = ( matrix[12] );
+			position[1] = ( matrix[13] );
+			position[2] = ( matrix[14] );
 			cout << "Positions: " << endl;
 			cout << position[0] << endl;
 			cout << position[1] << endl;
@@ -54,13 +51,32 @@ void Perspective::update(int turn){
 		else{
 			this->setRotation(CG_CGFcamera_AXIS_Y, 0);
 			toanimate = false;
-			angle = -angle;
 		}
 	}
 
 	if(turn == 2){
 		if(rotation[CG_CGFcamera_AXIS_Y] < 180){
 			this->setRotation(CG_CGFcamera_AXIS_Y, rotation[CG_CGFcamera_AXIS_Y] + 20);
+			glMatrixMode(GL_MODELVIEW);
+			glPushMatrix();
+			glLoadIdentity();
+			glRotated(20,0,1,0);
+			
+			glTranslated(position[0],position[1],position[2]);
+			float matrix[16];
+			glGetFloatv(GL_MODELVIEW_MATRIX,matrix);
+			
+			position[0] = ( matrix[12] );
+			position[1] = ( matrix[13] );
+			position[2] = ( matrix[14] );
+        
+        
+			cout << "Positions: " << endl;
+			cout << position[0] << endl;
+			cout << position[1] << endl;
+			cout << position[2] << endl << endl;
+
+			glPopMatrix();
 			std::cout << "VAI EM " << rotation[CG_CGFcamera_AXIS_Y] << endl;
 		}
 		else{

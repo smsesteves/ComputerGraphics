@@ -978,8 +978,8 @@ void XMLScene::init()
 	scene->initposition(scene->rootid);
 	glPopMatrix();
 	scene->defaultGraph = scene->graph;
-	char * host = "Leonel";
-	//connectToSocket(host);
+	char * host = "smsesteves";
+	connectToSocket(host);
 	setUpdatePeriod(30);
 	app->forceRefresh();
 	vector<Appearance*> appearancesStack;
@@ -994,7 +994,7 @@ void XMLScene::init()
 void XMLScene::update(unsigned long	tempo)
 {
 		
-	
+	bool doingcenas=false;
 	vector<Appearance*> appearancesStack;
 	
 
@@ -1008,6 +1008,7 @@ void XMLScene::update(unsigned long	tempo)
 			if(it->second[i]->toanimate)
 			{
 				it->second[i]->move(it->first,tempo);
+				doingcenas=true;
 			}
 			else
 			{
@@ -1018,13 +1019,21 @@ void XMLScene::update(unsigned long	tempo)
 		}
 		
 	}
-	
+
+
+	if(!doingcenas && octi->lastturn!=octi->turn)
+	{
+		 octi->rotateCamera(getScenePointer(), octi->turn);
+		 octi->lastturn=octi->turn;
+
+	}
 	for(int i = 0; i < scene->camerasComp.size(); i++){
 		if(scene->camerasComp[i]->getid() == "camJogadorAzul"){
 			if(((Perspective *)scene->camerasComp[i])->toanimate == true){
 				cout << octi->turn << endl;
 				((Perspective *)scene->camerasComp[i])->update(octi->turn);
 				scene->itActiveCamera = i;
+				
 				//cout << "Encontrei! " << endl;
 			}
 		}
@@ -1145,4 +1154,48 @@ TiXmlElement *XMLScene::findChildByAttribute(TiXmlElement *parent,const char * a
 			child=child->NextSiblingElement();
 
 	return child;
+}
+
+
+
+
+bool XMLScene::doinganimations()
+{
+		
+	bool doingcenas=false;
+	vector<Appearance*> appearancesStack;
+	
+
+	for (map<Animation*,vector<Node*> >::iterator it=scene->graphanimation.begin(); it!=scene->graphanimation.end(); ++it)
+	{
+		for(unsigned int i=0;i<it->second.size();i++)
+		{
+			//cout<<"X "<<((LinearAnimation*)it->first)->x<<"Y "<<((LinearAnimation*)it->first)->y<<"Z "<<((LinearAnimation*)it->first)->z<<endl;
+			//cout<<"VX "<<((LinearAnimation*)it->first)->vx<<"VY "<<((LinearAnimation*)it->first)->vy<<"VZ "<<((LinearAnimation*)it->first)->vz<<endl;
+			//cout<<"Control Point "<<((LinearAnimation*)it->first)->numbercontrol<<endl;
+			if(it->second[i]->toanimate)
+			{
+				
+				return true;
+			}
+
+			
+		}
+		
+	}
+	
+
+	for(int i = 0; i < scene->camerasComp.size(); i++){
+		if(scene->camerasComp[i]->getid() == "camJogadorAzul"){
+			if(((Perspective *)scene->camerasComp[i])->toanimate == true){
+				return true;
+				
+				//cout << "Encontrei! " << endl;
+			}
+		}
+	}
+	
+	return false;
+
+
 }

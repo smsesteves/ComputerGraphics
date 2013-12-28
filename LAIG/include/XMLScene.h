@@ -23,6 +23,8 @@ public:
 	void setLightState(int pos);
 	void update(unsigned long tempo);
 	int initSocket(char* host, int port);
+bool doinganimations();
+	int needConnection;
 	
 protected:
 	
@@ -40,8 +42,7 @@ protected:
 
 	YAFScene* scene;
 
-public:
-	int needConnection;
+
 };
 
 #endif
