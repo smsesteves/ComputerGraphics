@@ -603,3 +603,31 @@ void Game::removePod(int player,int podnumber)
 	}
 
 }
+
+void Game::comHandler(vector<float> valores,YAFScene* scene){
+	int op = valores[0];
+
+	switch(op){
+	case 1:
+		com_addProng(valores, scene);
+		break; // add prong 
+	case 2: break; // move pod
+	case 3: break; // add pod
+
+
+	}
+
+}
+
+void Game::com_addProng(vector<float> valores, YAFScene* scene){
+
+	
+	int dir = valores[2];
+	
+	addprong(2, (int)valores[1] %10 , getDir(dir));
+
+	graph_addProngToPod(valores[1],dir,scene);
+	
+	pickedAnything = false;
+	idLastPick = -1;
+}

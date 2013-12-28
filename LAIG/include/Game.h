@@ -8,6 +8,7 @@
 #include "YAFScene.h"
 
 
+
 class Game{
 private:
 	bool ended;
@@ -36,6 +37,10 @@ public:
 	void graph_movePod(int podnumber,int incx,int incy, YAFScene* scene);
 	void graph_addPod(int podnumber, int idocti, YAFScene* scene);
 	void rotateCamera(YAFScene* scene,int turn);
+
+	// PC
+	void comHandler(vector<float> valores,YAFScene* scene);
+	void com_addProng(vector<float> valores,YAFScene* scene);
 
 
 	// Logical

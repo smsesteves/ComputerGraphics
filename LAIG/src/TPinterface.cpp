@@ -98,7 +98,7 @@ void TPinterface::processHits(GLint hits, GLuint buffer[])
 	}
 	
 	// if there were hits, the one selected is in "selected", and it consist of nselected "names" (integer ID's)
-	if (selected!=NULL && !((XMLScene*) scene)->doinganimations())
+	if (selected!=NULL && !((XMLScene*) scene)->doinganimations() && octi->dificuldade == -1 || octi->turn == 1)
 	{
 		clickHandler(selected, nselected);
 	}
@@ -128,7 +128,10 @@ void TPinterface::clickHandler(GLuint* selected, GLint nselected){
 		// ****************************************
 		if(idpicado > 500 && idpicado < 505 || idpicado == 511){
 			if(idpicado == 501){
-				
+				string mensagem;
+				mensagem = "PP";
+				sendMessage(mensagem.c_str());
+				cout << "Enviou : " << mensagem << endl;
 
 				// RESET CENA
 				//octi = new Game();
@@ -148,6 +151,11 @@ void TPinterface::clickHandler(GLuint* selected, GLint nselected){
 				
 			}
 			if(idpicado == 502){
+				string mensagem;
+				mensagem = "PC";
+				sendMessage(mensagem.c_str());
+				cout << "Enviou : " << mensagem << endl;
+
 				vector<Cameras*> aux = ((XMLScene*) scene)->getScenePointer()->camerasComp;
 				for(unsigned int i= 0; i < aux.size(); i++){
 					if(aux.at(i)->getid() == "camComputador"){
@@ -158,8 +166,6 @@ void TPinterface::clickHandler(GLuint* selected, GLint nselected){
 				}
 			}
 			if(idpicado == 503){
-				
-				
 				vector<Cameras*> aux = ((XMLScene*) scene)->getScenePointer()->camerasComp;
 				for(unsigned int i= 0; i < aux.size(); i++){
 					if(aux.at(i)->getid() == "camRegras"){
@@ -186,6 +192,12 @@ void TPinterface::clickHandler(GLuint* selected, GLint nselected){
 				// EASY
 				octi->setDificuldade(1);
 				cout << "Selected EASY" << endl;
+
+				string mensagem2;
+				mensagem2 = "3";
+				sendMessage(mensagem2.c_str());
+				cout << "Enviou : " << mensagem2 << endl;
+
 				vector<Cameras*> aux = ((XMLScene*) scene)->getScenePointer()->camerasComp;
 				for(unsigned int i= 0; i < aux.size(); i++){
 					if(aux.at(i)->getid() == "camJogadorAzul"){
@@ -199,6 +211,11 @@ void TPinterface::clickHandler(GLuint* selected, GLint nselected){
 				// Normal
 				octi->setDificuldade(2);
 				cout << "Selected NORMAL" << endl;
+
+				string mensagem2;
+				mensagem2 = "2";
+				sendMessage(mensagem2.c_str());
+				cout << "Enviou : " << mensagem2 << endl;
 
 				// RESET CENA
 				//octi = new Game();
@@ -219,6 +236,11 @@ void TPinterface::clickHandler(GLuint* selected, GLint nselected){
 				// Dificil
 				octi->setDificuldade(3);
 				cout << "Selected HARD" << endl;
+
+				string mensagem2;
+				mensagem2 = "3";
+				sendMessage(mensagem2.c_str());
+				cout << "Enviou : " << mensagem2 << endl;
 
 				// RESET CENA
 				//octi = new Game();
@@ -259,7 +281,9 @@ void TPinterface::clickHandler(GLuint* selected, GLint nselected){
 				}
 			}
 		}
-		//cout << "Comecar handler de cliques no jogo - turno: "<< octi->turn << endl;
+		
+		
+		
 		// ****************************************
 		// UTILIZADOR CLICOU EM PECA DO JOGADOR 1
 		// ****************************************
@@ -450,6 +474,7 @@ void TPinterface::clickHandler(GLuint* selected, GLint nselected){
 				mensagem += to_string(octi->turn);
 				mensagem += " " + to_string(idpicado%10);
 				cout << "[CHECK_ADD_PRONG] Enviou '" << mensagem << "'" << endl;
+				cout << octi->turn << endl;
 				sendMessage(mensagem.c_str());
 
 				char* resposta = readMessage();
@@ -795,7 +820,6 @@ void TPinterface::clickHandler(GLuint* selected, GLint nselected){
 			}
 		}
 
-		cout << "END " << octi->getEnded() << endl;
 		if(octi->getEnded()){
 
 			Appearance* app = new Appearance();
@@ -843,6 +867,35 @@ void TPinterface::clickHandler(GLuint* selected, GLint nselected){
 				}
 			}
 		}	
+
+		// ****************************************
+		//    COMPUTADOR A JOGAR
+		// ****************************************
+		if(octi->dificuldade > 0 && octi->turn == 2){
+
+			if(octi->turn==2 && octi->getDificuldade() > 0){
+				cout << "COMPUTADOR !! " << endl;
+				// COMPUTADOR A JOGAR
+				string mensagem1;
+				mensagem1 = "gerar";
+				sendMessage(mensagem1.c_str());
+				char* resposta = readMessage();
+				octi->jogadas.push_back(resposta);
+				// TODO: Calcular incrementos
+
+				cout << "Jogada: '" << resposta << "'" << endl;
+				octi->comHandler(divideStringEmFloat(resposta), ((XMLScene*) scene)->getScenePointer());
+
+				octi->turn = 1;
+				//TODO : verifcar end
+			}
+
+		}
+
+		
+
+		//cout << "END " << octi->getEnded() << endl;
+		
 }
 
 void TPinterface::initGUI()
@@ -884,7 +937,7 @@ void TPinterface::processGUI(GLUI_Control *ctrl)
 			readMessage();
 			octi->undoPlay(((XMLScene*)scene)->getScenePointer());	
 
-			octi->rotateCamera(((XMLScene*) scene)->getScenePointer(),octi->turn);
+			if(octi->dificuldade == -1) octi->rotateCamera(((XMLScene*) scene)->getScenePointer(),octi->turn);
 
 			
 		}

@@ -978,7 +978,7 @@ void XMLScene::init()
 	scene->initposition(scene->rootid);
 	glPopMatrix();
 	scene->defaultGraph = scene->graph;
-	char * host = "smsesteves";
+	char * host = "Leonel";
 	connectToSocket(host);
 	setUpdatePeriod(30);
 	app->forceRefresh();
@@ -986,7 +986,7 @@ void XMLScene::init()
 	scene->createdisplays(scene->rootid,appearancesStack);
 	//octi = new Game();
 	octi->createBoard();
-	octi->displayBoard();
+	//octi->displayBoard();
 	
 }
 	
@@ -1023,8 +1023,10 @@ void XMLScene::update(unsigned long	tempo)
 
 	if(!doingcenas && octi->lastturn!=octi->turn)
 	{
-		 octi->rotateCamera(getScenePointer(), octi->turn);
-		 octi->lastturn=octi->turn;
+		if(octi->dificuldade == -1){
+			octi->rotateCamera(getScenePointer(), octi->turn);
+			octi->lastturn=octi->turn;
+		}
 
 	}
 	for(int i = 0; i < scene->camerasComp.size(); i++){
