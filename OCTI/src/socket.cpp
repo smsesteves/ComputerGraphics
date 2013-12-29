@@ -49,6 +49,10 @@ int criarSocket()
 	}
 	//setbuf(stdout, NULL);	// do not buffer output - DEBUGING!!
 
+
+
+
+
 	/* Name socket as suggested by the system */
 	server.sin_family = AF_INET;
 	server.sin_addr.s_addr = INADDR_ANY;
