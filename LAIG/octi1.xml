@@ -1,7 +1,7 @@
 <yaf>
 	<animations> 
 	<animation id="moveProng" span="0.5" type="linear">
-		<controlpoint xx="0" yy="3.5" zz="0" />
+				<controlpoint xx="0" yy="3.5" zz="0" />
                 <controlpoint xx="0" yy="0" zz="0" />
        
                 
@@ -125,6 +125,8 @@
 		<texture id="forest_haste" file="textures/forest/forest_haste.jpg"/>
 
 		<texture id="teste" file="textures/teste_triangulo.jpg"/>
+		<texture id="board" file="textures/board.jpg"/>
+		<texture id="rr" file="textures/black.png"/>
 
 		
 		<texture id="casaocti1" file="textures/black.png" />
@@ -177,6 +179,26 @@
 					specular="1 1 1 1"
 					shininess="1"
 					textureref="computadorVenceu"
+					texlength_s="1"
+					texlength_t="1"
+		        />
+		        <appearance id="appBoard"
+					emissive="1 1 1 1"
+					ambient="1 1 1 1"
+					diffuse="1 1 1 1"
+					specular="1 1 1 1"
+					shininess="1"
+					textureref="board"
+					texlength_s="1"
+					texlength_t="1"
+		        />
+		         <appearance id="appRR"
+					emissive="1 1 1 1"
+					ambient="1 1 1 1"
+					diffuse="1 1 1 1"
+					specular="1 1 1 1"
+					shininess="1"
+					textureref="rr"
 					texlength_s="1"
 					texlength_t="1"
 		        />
@@ -484,8 +506,31 @@
 				<noderef id="pods"/>
 				<noderef id="prongs"/>
 				<noderef id="envolvente"/>
+				<noderef id="quadro"/>
+				<noderef id="quadrodummie"/>
 				
 				<!-- <noderef id="chao"/> -->
+			</children>
+		</node>
+
+		<node id="quadro">
+			<transforms>
+				<translate to="0 4 7.5"/>
+				<scale factor="5 3 0.1"/>
+			</transforms>
+			<appearanceref id="appBoard"/>
+			<children>
+				<noderef id="cube"/>
+			</children>
+		</node>
+		<node id="quadrodummie">
+			<transforms>
+				<translate to="0 4 7.65"/>
+				<scale factor="5 3 0.2"/>
+			</transforms>
+			<appearanceref id="appRR"/>
+			<children>
+				<noderef id="cube"/>
 			</children>
 		</node>
 
