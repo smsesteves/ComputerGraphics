@@ -978,7 +978,7 @@ void XMLScene::init()
 	scene->initposition(scene->rootid);
 	glPopMatrix();
 	scene->defaultGraph = scene->graph;
-	char * host = "Leonel";
+	char * host = "smsesteves";
 	connectToSocket(host);
 	setUpdatePeriod(30);
 	app->forceRefresh();
@@ -1021,7 +1021,7 @@ void XMLScene::update(unsigned long	tempo)
 	}
 
 
-	if(!doingcenas && octi->lastturn!=octi->turn)
+	if(!doingcenas && octi->lastturn!=octi->turn && !octi->getEnded())
 	{
 		if(octi->dificuldade == -1){
 			octi->rotateCamera(getScenePointer(), octi->turn);

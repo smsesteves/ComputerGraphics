@@ -104,6 +104,8 @@ public:
 	Appearance* getAppearance(){return app;};
 	string getAnimationid(){return anim;};
 	
+	void removeAllProngs();
+
 	vector<Primitive*> getprimitives()
 	{
 		return primitives;

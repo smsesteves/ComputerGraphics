@@ -21,6 +21,23 @@ Node::Node()
 
 }
 
+void Node::removeAllProngs()
+{
+	for(int i=0;i<children.size();i++)
+	{
+		if(children[i]=="podReferenciaAzul" || children[i]=="podReferenciaVermelho")
+		{
+			
+		}
+		else
+		{
+			children.erase(children.begin()+i);
+			i--;
+		}
+	}
+
+}
+
 
 string Node::getId()
 {

@@ -763,3 +763,9 @@ void Game::comTurn(YAFScene* scene){
 
 	}
 }
+
+
+void Game::reset(YAFScene* scene)
+{
+	
+}

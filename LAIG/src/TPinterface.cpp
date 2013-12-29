@@ -143,13 +143,24 @@ void TPinterface::clickHandler(GLuint* selected, GLint nselected){
 
 			// RESET CENA
 			// BoardElements
-			// octi->reset()
+
 			//octi = new Game();
 			while(!octi->jogadas.empty()){
 				octi->undoPlay(((XMLScene*)scene)->getScenePointer());
 			}
+
+			octi->reset( ((XMLScene*) scene)->getScenePointer());
+
 			octi->createBoard();
 			octi->dificuldade = -1;
+			octi->setEnded(false);
+			octi->turn = 1;
+			octi->lastturn =1;
+		
+			octi->pickedAnything = false;
+			octi->idLastPick = -1;
+			octi->idsReceived.clear();
+
 
 			// Coloca Camera
 			vector<Cameras*> aux = ((XMLScene*) scene)->getScenePointer()->camerasComp;
@@ -157,6 +168,8 @@ void TPinterface::clickHandler(GLuint* selected, GLint nselected){
 				if(aux.at(i)->getid() == "camJogadorAzul"){
 					((XMLScene*) scene)->getScenePointer()->itActiveCamera = i;
 					((XMLScene*) scene)->refreshCameras();
+					((Perspective *)((XMLScene* )scene)->getScenePointer()->camerasComp[i])->toanimate = true;
+
 					break;
 				}
 			}
@@ -169,6 +182,26 @@ void TPinterface::clickHandler(GLuint* selected, GLint nselected){
 			cout << "Enviou : " << mensagem << endl;
 
 			readMessage();
+
+
+
+			while(!octi->jogadas.empty()){
+				octi->undoPlay(((XMLScene*)scene)->getScenePointer());
+			}
+
+			octi->reset( ((XMLScene*) scene)->getScenePointer());
+
+			octi->createBoard();
+			octi->setEnded(false);
+			octi->turn = 1;
+			octi->lastturn=1;
+		
+			octi->pickedAnything = false;
+			octi->idLastPick = -1;
+			octi->idsReceived.clear();
+
+
+
 
 			vector<Cameras*> aux = ((XMLScene*) scene)->getScenePointer()->camerasComp;
 			for(unsigned int i= 0; i < aux.size(); i++){
@@ -624,7 +657,9 @@ void TPinterface::clickHandler(GLuint* selected, GLint nselected){
 					cout << "[MOVE_POD] Recebeu " << mensagem2 << endl;
 					if(strcmp(mensagem2,"666") == 0){
 						octi->setEnded(true);
-						//sendMessage("100000");
+						
+					
+							//sendMessage("100000");
 					}
 
 
@@ -765,6 +800,9 @@ void TPinterface::clickHandler(GLuint* selected, GLint nselected){
 					cout << "[MOVE_POD] Recebeu " << mensagem2 << endl;
 					if(strcmp(mensagem2,"666") == 0){
 						octi->setEnded(true);
+
+						
+					
 						//sendMessage("100000");
 					}
 
@@ -850,6 +888,15 @@ void TPinterface::clickHandler(GLuint* selected, GLint nselected){
 
 		Appearance* app = new Appearance();
 
+
+		for(int i = 0; i < ((XMLScene* )scene)->getScenePointer()->camerasComp.size(); i++){
+							if(((XMLScene* )scene)->getScenePointer()->camerasComp[i]->getid() == "camJogadorAzul"){
+								((Perspective *)((XMLScene* )scene)->getScenePointer()->camerasComp[i])->toanimate = false;
+								
+							}
+						}
+
+
 		// GANHOU JOG 1
 		if(octi->turn == 2){
 
@@ -894,7 +941,7 @@ void TPinterface::clickHandler(GLuint* selected, GLint nselected){
 		}
 	}	
 
-	
+
 
 
 

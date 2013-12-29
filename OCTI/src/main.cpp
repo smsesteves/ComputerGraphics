@@ -53,8 +53,8 @@ int main()
 		if(g1.getBoard()->checkend() && valoresRecebidos[0]==2)
 		{
 			aEnviar="666";
-			//g1=Game();
-			//g1.createBoard();
+			g1=Game();
+			g1.createBoard();
 		}
 		cout<<aEnviar<<endl;
 		enviaMensagem(aEnviar.c_str());
@@ -143,8 +143,8 @@ int main()
 				{
 					aEnviar2="666";
 					
-					//g1=Game();
-					//g1.createBoard();
+					g1=Game();
+					g1.createBoard();
 				}
 				enviaMensagem(aEnviar2.c_str());
 			}

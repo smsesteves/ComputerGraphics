@@ -73,6 +73,8 @@ public:
 	void unaddPod (int podnumber,float xi,float yi,float xf,float yf);
 
 
+	void reset(YAFScene* scene);
+
 };
 
 #endif
