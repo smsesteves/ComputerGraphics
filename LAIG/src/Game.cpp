@@ -11,7 +11,7 @@ Game::Game(){
 }
 
 void Game::rotateCamera(YAFScene* scene, int turn){
-	cout << "Rotating Camera " << endl;
+	//cout << "Rotating Camera " << endl;
 
 	if(turn == 1){
 
@@ -88,15 +88,15 @@ void Game::unhighlightAll(){
 }
 
 void Game::graph_addProngToPod(int idpicado,int dir,YAFScene* scene){
-	cout << "IDPICADO: " << idpicado << endl;
-	cout << "DIR     : " << dir << endl;
+	//cout << "IDPICADO: " << idpicado << endl;
+	//cout << "DIR     : " << dir << endl;
 
 	string s;
 
 	Node* aux = new Node();
 
 	if(turn == 1){
-		cout << "Entrou" << endl;
+		//cout << "Entrou" << endl;
 		switch(dir){
 		case 1: 
 			s="ProngSul"+intToString(idpicado);
@@ -448,7 +448,7 @@ bool Game::addpod(int player, int idpod, int x,int y)
 
 
 void Game::graph_addPod(int podnumber, int idocti, YAFScene* scene){
-	cout << "POD " << podnumber << " para pos " << idocti << endl;
+	//cout << "POD " << podnumber << " para pos " << idocti << endl;
 	glMatrixMode(GL_MODELVIEW); 
 	Node* pod = boardElements[podnumber];
 	Node* celula = boardElements[idocti];
@@ -501,7 +501,7 @@ void Game::removeProng(int podnumber, int dir,YAFScene* scene)
 	map<string,Node*>::iterator it;
 	string s;
 	int player= podnumber/10;
-	cout << "Entrou" << endl;
+	//cout << "Entrou" << endl;
 	switch(dir){
 	case 1: 
 		s="ProngSul"+intToString(podnumber);
@@ -672,7 +672,7 @@ void Game::comTurn(YAFScene* scene){
 	if(dificuldade > 0 && turn == 2){
 
 		if(turn==2 && getDificuldade() > 0){
-			cout << "COMPUTADOR !! " << endl;
+			//cout << "COMPUTADOR !! " << endl;
 			// COMPUTADOR A JOGAR
 			string mensagem1;
 			mensagem1 = "gerar";
@@ -707,7 +707,7 @@ void Game::comTurn(YAFScene* scene){
 				comHandler(divideStringEmFloat(resposta1.c_str()), scene);
 
 				char* mensagem2 = readMessage();
-				cout << "[MOVE_POD] Recebeu " << mensagem2 << endl;
+				//cout << "[MOVE_POD] Recebeu " << mensagem2 << endl;
 				if(strcmp(mensagem2,"666") == 0){
 					setEnded(true);
 					//sendMessage("100000");
@@ -754,7 +754,7 @@ void Game::comTurn(YAFScene* scene){
 			else{
 				jogadas.push_back(resposta);
 				comHandler(divideStringEmFloat(resposta), scene);
-				cout << "Jogada: '" << resposta << "'" << endl;
+				//cout << "Jogada: '" << resposta << "'" << endl;
 
 			}
 			turn = 1;

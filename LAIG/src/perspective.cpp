@@ -40,13 +40,13 @@ void Perspective::update(int turn){
 			position[0] = ( matrix[12] );
 			position[1] = ( matrix[13] );
 			position[2] = ( matrix[14] );
-			cout << "Positions: " << endl;
-			cout << position[0] << endl;
-			cout << position[1] << endl;
-			cout << position[2] << endl << endl;
+		//	cout << "Positions: " << endl;
+			//cout << position[0] << endl;
+			//cout << position[1] << endl;
+			//cout << position[2] << endl << endl;
 
 			glPopMatrix();
-			std::cout << "VAI EM " << rotation[CG_CGFcamera_AXIS_Y] << endl;
+		//	std::cout << "VAI EM " << rotation[CG_CGFcamera_AXIS_Y] << endl;
 		}
 		else{
 			this->setRotation(CG_CGFcamera_AXIS_Y, 0);
@@ -71,13 +71,13 @@ void Perspective::update(int turn){
 			position[2] = ( matrix[14] );
         
         
-			cout << "Positions: " << endl;
-			cout << position[0] << endl;
-			cout << position[1] << endl;
-			cout << position[2] << endl << endl;
+		//	cout << "Positions: " << endl;
+		//	cout << position[0] << endl;
+		//	cout << position[1] << endl;
+		//	cout << position[2] << endl << endl;
 
 			glPopMatrix();
-			std::cout << "VAI EM " << rotation[CG_CGFcamera_AXIS_Y] << endl;
+		//	std::cout << "VAI EM " << rotation[CG_CGFcamera_AXIS_Y] << endl;
 		}
 		else{
 			this->setRotation(CG_CGFcamera_AXIS_Y, 180);

@@ -115,7 +115,7 @@ void TPinterface::processHits(GLint hits, GLuint buffer[])
 
 
 void TPinterface::clickHandler(GLuint* selected, GLint nselected){
-	cout << endl << "Turno: " << octi->turn << endl;
+//	cout << endl << "Turno: " << octi->turn << endl;
 	GLint idpicado;
 	//octi->displayBoard(); cout << endl;
 
@@ -137,9 +137,9 @@ void TPinterface::clickHandler(GLuint* selected, GLint nselected){
 			string mensagem;
 			mensagem = "PP";
 			sendMessage(mensagem.c_str());
-			cout << "Enviou : " << mensagem << endl;
+			//cout << "Enviou : " << mensagem << endl;
 			octi->dificuldade = -1;
-			cout <<	"Recebeu: " << readMessage() << endl;;
+			//cout <<	"Recebeu: " << readMessage() << endl;;
 
 			// RESET CENA
 			// BoardElements
@@ -179,7 +179,7 @@ void TPinterface::clickHandler(GLuint* selected, GLint nselected){
 			string mensagem;
 			mensagem = "PC";
 			sendMessage(mensagem.c_str());
-			cout << "Enviou : " << mensagem << endl;
+			//cout << "Enviou : " << mensagem << endl;
 
 			readMessage();
 
@@ -238,12 +238,12 @@ void TPinterface::clickHandler(GLuint* selected, GLint nselected){
 		if(idpicado == 521){
 			// EASY
 			octi->setDificuldade(1);
-			cout << "Selected EASY" << endl;
+			//cout << "Selected EASY" << endl;
 
 			string mensagem2;
 			mensagem2 = "3";
 			sendMessage(mensagem2.c_str());
-			cout << "Enviou : " << mensagem2 << endl;
+			//cout << "Enviou : " << mensagem2 << endl;
 			readMessage();
 
 			vector<Cameras*> aux = ((XMLScene*) scene)->getScenePointer()->camerasComp;
@@ -258,12 +258,12 @@ void TPinterface::clickHandler(GLuint* selected, GLint nselected){
 		if(idpicado == 522){
 			// Normal
 			octi->setDificuldade(2);
-			cout << "Selected NORMAL" << endl;
+			//cout << "Selected NORMAL" << endl;
 
 			string mensagem2;
 			mensagem2 = "2";
 			sendMessage(mensagem2.c_str());
-			cout << "Enviou : " << mensagem2 << endl;
+			//cout << "Enviou : " << mensagem2 << endl;
 			readMessage();
 
 			// RESET CENA
@@ -284,12 +284,12 @@ void TPinterface::clickHandler(GLuint* selected, GLint nselected){
 		if(idpicado == 523){
 			// Dificil
 			octi->setDificuldade(3);
-			cout << "Selected HARD" << endl;
+			//cout << "Selected HARD" << endl;
 
 			string mensagem2;
 			mensagem2 = "3";
 			sendMessage(mensagem2.c_str());
-			cout << "Enviou : " << mensagem2 << endl;
+			//cout << "Enviou : " << mensagem2 << endl;
 			readMessage();
 
 			// RESET CENA
@@ -320,7 +320,7 @@ void TPinterface::clickHandler(GLuint* selected, GLint nselected){
 		}
 	}
 	if(idpicado == 541){
-		cout << "Acabou jogo!" << endl;
+		//cout << "Acabou jogo!" << endl;
 		// Voltar
 		vector<Cameras*> aux = ((XMLScene*) scene)->getScenePointer()->camerasComp;
 		for(unsigned int i= 0; i < aux.size(); i++){
@@ -340,7 +340,7 @@ void TPinterface::clickHandler(GLuint* selected, GLint nselected){
 	if(idpicado > 10 && idpicado < 18){
 		// TURNO ERRADO
 		if(octi->turn == 2){
-			cout << "Turno Errado. Turno atual e 1\n";
+			//cout << "Turno Errado. Turno atual e 1\n";
 			octi->pickedAnything = false;
 			octi->unhighlightAll();
 			octi->idLastPick = -1;
@@ -362,10 +362,10 @@ void TPinterface::clickHandler(GLuint* selected, GLint nselected){
 				mensagem += to_string(dir);
 				sendMessage(mensagem.c_str());
 				octi->jogadas.push_back(mensagem);
-				cout << "[ADD_PRONG] '" << mensagem << "'" << endl;
+				//cout << "[ADD_PRONG] '" << mensagem << "'" << endl;
 
 				readMessage();
-				cout << "[ADD_PRONG] A logica nao respondeu nada\n";
+				//cout << "[ADD_PRONG] A logica nao respondeu nada\n";
 				octi->addprong(1,idpicado%10,octi->getDir(dir));
 
 				//prongReferencia
@@ -379,10 +379,10 @@ void TPinterface::clickHandler(GLuint* selected, GLint nselected){
 
 
 
-				cout << "----------------- Fim do Turno de 1 -------------------" << endl;
+				//cout << "----------------- Fim do Turno de 1 -------------------" << endl;
 			}
 			else{
-				cout << "Click num POD possivel\n";
+				//cout << "Click num POD possivel\n";
 			}
 		}
 		// MOSTRA PARA ONDE SE PODE MOVER - NAO TEM NADA PICADO OU TEM OUTRA PECA PICADA
@@ -396,11 +396,11 @@ void TPinterface::clickHandler(GLuint* selected, GLint nselected){
 			string mensagem = "10 ";
 			mensagem += to_string(idpicado);
 			mensagem += " ";
-			cout << "[MOVE POD] Enviou '" << mensagem << "'\n";
+			//cout << "[MOVE POD] Enviou '" << mensagem << "'\n";
 			sendMessage(mensagem.c_str());
 
 			char* resposta = readMessage();
-			cout << "[MOVE POD] Logica respondeu '" << resposta << "'" << endl;
+			//cout << "[MOVE POD] Logica respondeu '" << resposta << "'" << endl;
 
 			octi->idsReceived = divideStringEmInt(resposta);
 
@@ -425,7 +425,7 @@ void TPinterface::clickHandler(GLuint* selected, GLint nselected){
 			octi->pickedAnything = false;
 			octi->unhighlightAll();
 			octi->idLastPick = -1;
-			cout << "Turno Invalido. Turno atual e 2\n";
+			//cout << "Turno Invalido. Turno atual e 2\n";
 		}
 		// JA TEM SELCCIONADO UMA DIRECAO - ADICIONAR PRONG
 		else if(octi->pickedAnything && octi->idLastPick > 220 && octi->idLastPick < 229){
@@ -442,10 +442,10 @@ void TPinterface::clickHandler(GLuint* selected, GLint nselected){
 				mensagem += " ";
 				mensagem += to_string(dir);
 				sendMessage(mensagem.c_str());
-				cout << "[ADD_PRONG] '" << mensagem << "'" << endl;
+				//cout << "[ADD_PRONG] '" << mensagem << "'" << endl;
 				octi->jogadas.push_back(mensagem);
 				readMessage();
-				cout << "[ADD_PRONG] A logica nao respondeu nada\n";
+				//cout << "[ADD_PRONG] A logica nao respondeu nada\n";
 
 				octi->addprong(2,idpicado%10,octi->getDir(dir));
 				octi->graph_addProngToPod(idpicado,dir,((XMLScene*) scene)->getScenePointer());
@@ -458,10 +458,10 @@ void TPinterface::clickHandler(GLuint* selected, GLint nselected){
 
 
 
-				cout << "----------------- Fim do Turno de 2 -------------------" << endl;
+				//cout << "----------------- Fim do Turno de 2 -------------------" << endl;
 			}
 			else{
-				cout << "Click num POD possivel\n";
+				//cout << "Click num POD possivel\n";
 			}
 
 		}
@@ -475,11 +475,11 @@ void TPinterface::clickHandler(GLuint* selected, GLint nselected){
 			string mensagem = "10 ";
 			mensagem += to_string(idpicado);
 			mensagem += " ";
-			cout << "[MOVE POD] Enviou '" << mensagem << "'\n";
+			//cout << "[MOVE POD] Enviou '" << mensagem << "'\n";
 			sendMessage(mensagem.c_str());
 
 			char* resposta = readMessage();
-			cout << "[MOVE POD] Logica respondeu '" << resposta << "'" << endl;
+			//cout << "[MOVE POD] Logica respondeu '" << resposta << "'" << endl;
 
 			octi->idsReceived = divideStringEmInt(resposta);
 
@@ -499,7 +499,7 @@ void TPinterface::clickHandler(GLuint* selected, GLint nselected){
 			octi->pickedAnything = false;
 			octi->unhighlightAll();
 			octi->idLastPick = -1;
-			cout << "Nao pode clicar no Oct do adversario. Turno atual e 1\n";
+			//cout << "Nao pode clicar no Oct do adversario. Turno atual e 1\n";
 		}
 		// HIGHLIGHT DOS PODS POSSIVEIS - TEM OUTRO PRONG SELCCIONADO OU NAO TEM NADA SELECCIONADO
 		else if(octi->pickedAnything == false || 
@@ -523,17 +523,17 @@ void TPinterface::clickHandler(GLuint* selected, GLint nselected){
 				string mensagem = "11 ";
 				mensagem += to_string(octi->turn);
 				mensagem += " " + to_string(idpicado%10);
-				cout << "[CHECK_ADD_PRONG] Enviou '" << mensagem << "'" << endl;
-				cout << octi->turn << endl;
+				//cout << "[CHECK_ADD_PRONG] Enviou '" << mensagem << "'" << endl;
+				//cout << octi->turn << endl;
 				sendMessage(mensagem.c_str());
 
 				char* resposta = readMessage();
-				cout << "[CHECK_ADD_PRONG] Resposta '" << resposta << "'" << endl;
+				//cout << "[CHECK_ADD_PRONG] Resposta '" << resposta << "'" << endl;
 
 				// Highlight dos ids que recebeu
 				octi->idsReceived = divideStringEmInt(resposta);
 				for(int i = 0; i < octi->idsReceived.size(); i++){
-					cout << octi->idsReceived[i] << endl;
+					//cout << octi->idsReceived[i] << endl;
 					octi->highlightId(octi->idsReceived[i]);
 				}
 		}
@@ -548,7 +548,7 @@ void TPinterface::clickHandler(GLuint* selected, GLint nselected){
 			octi->pickedAnything = false;
 			octi->unhighlightAll();
 			octi->idLastPick = -1;
-			cout << "Nao pode clicar no Oct do adversario. Turno atual e 2\n";
+			//cout << "Nao pode clicar no Oct do adversario. Turno atual e 2\n";
 		}
 		// HIGHLIGHT DOS PODS POSSIVEIS - TEM OUTRO PRONG SELCCIONADO OU NAO TEM NADA SELECCIONADO
 		else if(octi->pickedAnything == false ||
@@ -572,16 +572,16 @@ void TPinterface::clickHandler(GLuint* selected, GLint nselected){
 				string mensagem = "11 ";
 				mensagem += to_string(octi->turn);
 				mensagem += " " + to_string(idpicado%10);
-				cout << "[CHECK_ADD_PRONG] Enviou '" << mensagem << "'" << endl;
+				//cout << "[CHECK_ADD_PRONG] Enviou '" << mensagem << "'" << endl;
 				sendMessage(mensagem.c_str());
 
 				char* resposta = readMessage();
-				cout << "[CHECK_ADD_PRONG] Resposta '" << resposta << "'" << endl;
+				//cout << "[CHECK_ADD_PRONG] Resposta '" << resposta << "'" << endl;
 
 				// Highlight dos ids que recebeu
 				octi->idsReceived = divideStringEmInt(resposta);
 				for(int i = 0; i < octi->idsReceived.size(); i++){
-					cout << octi->idsReceived[i] << endl;
+					//cout << octi->idsReceived[i] << endl;
 					octi->highlightId(octi->idsReceived[i]);
 				}
 		}
@@ -592,7 +592,7 @@ void TPinterface::clickHandler(GLuint* selected, GLint nselected){
 	// UTILIZADOR CLICOU EM CELULA
 	// ****************************************
 	if(idpicado > 110 && idpicado < 178){
-		cout << "[CELULA HANDLER] Cliclou em celula]"<<endl;
+		//cout << "[CELULA HANDLER] Cliclou em celula]"<<endl;
 		if(octi->pickedAnything == false){
 			octi->pickedAnything = false;
 			octi->unhighlightAll();
@@ -648,13 +648,13 @@ void TPinterface::clickHandler(GLuint* selected, GLint nselected){
 
 
 					octi->jogadas.push_back(mensagem);
-					cout << "[MOVE_POD] INC X = " << incx << "; INCY = " << incy << ";" << endl;
+					//cout << "[MOVE_POD] INC X = " << incx << "; INCY = " << incy << ";" << endl;
 
 					octi->movepod(1,octi->idLastPick,x,y,incx,incy,((XMLScene* )scene)->getScenePointer());	
 
-					cout << "[MOVE_POD] '" << mensagem << "'" << endl;
+					//cout << "[MOVE_POD] '" << mensagem << "'" << endl;
 					char* mensagem2 = readMessage();
-					cout << "[MOVE_POD] Recebeu " << mensagem2 << endl;
+					//cout << "[MOVE_POD] Recebeu " << mensagem2 << endl;
 					if(strcmp(mensagem2,"666") == 0){
 						octi->setEnded(true);
 						
@@ -674,16 +674,16 @@ void TPinterface::clickHandler(GLuint* selected, GLint nselected){
 					octi->idLastPick = -1;
 					octi->turn = 2; // muda de turno
 
-					cout << "----------------- Fim do Turno de 1 -------------------" << endl;
+					//cout << "----------------- Fim do Turno de 1 -------------------" << endl;
 				}
 				else{
 
-					cout << "Jogada Invalida!" << endl;
+					//cout << "Jogada Invalida!" << endl;
 				}
 				// Clicou em peca que ta ao lado
 			}
 			else if(!isInGame){
-				cout << "o que querias 1" << endl;
+				//cout << "o que querias 1" << endl;
 
 				// 3 IDPOD X Y (xi yi xf yf)
 				string mensagem;
@@ -717,9 +717,9 @@ void TPinterface::clickHandler(GLuint* selected, GLint nselected){
 				octi->addpod(octi->idLastPick/10, octi->idLastPick%10, x,y);
 				octi->graph_addPod(octi->idLastPick, idpicado, ((XMLScene*)scene)->getScenePointer());
 
-				cout << "[ADD_POD] '" << mensagem << "'" << endl;
+				//cout << "[ADD_POD] '" << mensagem << "'" << endl;
 				readMessage();
-				cout << "[ADD_POD] A logica nao respondeu nada\n";
+				//cout << "[ADD_POD] A logica nao respondeu nada\n";
 
 
 				// UNHIGLIGHT DE TUDO
@@ -733,7 +733,7 @@ void TPinterface::clickHandler(GLuint* selected, GLint nselected){
 				octi->idLastPick = -1;
 				octi->turn = 2; // muda de turno
 
-				cout << "----------------- Fim do Turno de 1 -------------------" << endl;
+				//cout << "----------------- Fim do Turno de 1 -------------------" << endl;
 
 
 			}
@@ -789,15 +789,15 @@ void TPinterface::clickHandler(GLuint* selected, GLint nselected){
 					octi->jogadas.push_back(mensagem);
 
 
-					cout << "[MOVE_POD] INC X = " << incx << "; INCY = " << incy << ";" << endl;
+					//cout << "[MOVE_POD] INC X = " << incx << "; INCY = " << incy << ";" << endl;
 					octi->movepod(2,octi->idLastPick,x,y,incx,incy, ((XMLScene*)scene)->getScenePointer());
 
 					//Knows increment
 
-					cout << "[MOVE_POD] '" << mensagem << "'" << endl;
+					//cout << "[MOVE_POD] '" << mensagem << "'" << endl;
 
 					char* mensagem2 = readMessage();
-					cout << "[MOVE_POD] Recebeu " << mensagem2 << endl;
+					//cout << "[MOVE_POD] Recebeu " << mensagem2 << endl;
 					if(strcmp(mensagem2,"666") == 0){
 						octi->setEnded(true);
 
@@ -818,12 +818,12 @@ void TPinterface::clickHandler(GLuint* selected, GLint nselected){
 					octi->idLastPick = -1;
 					octi->turn = 1; // muda de turno
 
-					cout << "----------------- Fim do Turno de 2 -------------------" << endl;
+					//cout << "----------------- Fim do Turno de 2 -------------------" << endl;
 
 				}
 				else{
 
-					cout << "Jogada Invalida!" << endl;
+				//	cout << "Jogada Invalida!" << endl;
 				}
 			}
 			else if(!isInGame){
@@ -861,9 +861,9 @@ void TPinterface::clickHandler(GLuint* selected, GLint nselected){
 				octi->graph_addPod(octi->idLastPick, idpicado, ((XMLScene*)scene)->getScenePointer());
 
 
-				cout << "[ADD_POD] '" << mensagem << "'" << endl;
+			//	cout << "[ADD_POD] '" << mensagem << "'" << endl;
 				readMessage();
-				cout << "[ADD_POD] A logica nao respondeu nada\n";
+			//	cout << "[ADD_POD] A logica nao respondeu nada\n";
 
 
 				// UNHIGLIGHT DE TUDO
@@ -877,7 +877,7 @@ void TPinterface::clickHandler(GLuint* selected, GLint nselected){
 				octi->idLastPick = -1;
 				octi->turn = 1; // muda de turno
 
-				cout << "----------------- Fim do Turno de 2 -------------------" << endl;
+				//cout << "----------------- Fim do Turno de 2 -------------------" << endl;
 
 			}
 
@@ -995,7 +995,7 @@ void TPinterface::processGUI(GLUI_Control *ctrl)
 	}
 
 	if(ctrl->user_id == 2){
-		cout << "ROTATE CAMERA!" << endl;
+		//cout << "ROTATE CAMERA!" << endl;
 	}
 }
 

@@ -108,7 +108,7 @@ void Node::move(Animation* aux,unsigned long t)
 	if(!((LinearAnimation*)aux)->started)
 	{
 		aux->init(t);
-		cout<<"Started"<<endl;
+		//cout<<"Started"<<endl;
 		aux->updatePosition(t);
 	}
 	else if(((LinearAnimation*)aux)->animationEnded)

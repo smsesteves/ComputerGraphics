@@ -291,7 +291,7 @@ public:
 
 	void init(unsigned long t)
 	{
-		cout<<"FEZ INIT"<<endl;
+		//cout<<"FEZ INIT"<<endl;
 		numbercontrol=0;
 		x=controlPoints.at(0).x*1.0;
 		y=controlPoints.at(0).y*1.0;

@@ -647,7 +647,7 @@ XMLScene::XMLScene(char *filename,CGFapplication* app, Game* game, int connectin
 
 						glTranslated(x,y,z); 
 
-						cout<<"Saí"<<endl;
+						//cout<<"Saí"<<endl;
 
 						printf("\tEncontrou Translate\n");
 					}
@@ -1032,7 +1032,7 @@ void XMLScene::update(unsigned long	tempo)
 	for(int i = 0; i < scene->camerasComp.size(); i++){
 		if(scene->camerasComp[i]->getid() == "camJogadorAzul"){
 			if(((Perspective *)scene->camerasComp[i])->toanimate == true){
-				cout << octi->turn << endl;
+				//cout << octi->turn << endl;
 				((Perspective *)scene->camerasComp[i])->update(octi->turn);
 				scene->itActiveCamera = i;
 				
@@ -1050,7 +1050,7 @@ void XMLScene::update(unsigned long	tempo)
 
 void XMLScene::refreshCameras(){
 
-	cout<<"Alterou Camera: "<<scene->itActiveCamera<<endl;
+	//cout<<"Alterou Camera: "<<scene->itActiveCamera<<endl;
 	activeCamera = scene->camerasComp.at(scene->itActiveCamera);
 	
 }
