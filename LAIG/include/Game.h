@@ -17,6 +17,7 @@ private:
 public:
 
 	vector<string> jogadas;
+	vector<string> jogadasMovie;
 
 	int dificuldade;
 	void setDificuldade(int dif);
@@ -24,6 +25,9 @@ public:
 	int lastturn;
 	int turn;
 	int idLastPick;
+	bool gameStarted;
+
+	int movieAux;
 	
 	map<int,Node*> boardElements;
 	vector<int> idsReceived;
@@ -38,6 +42,8 @@ public:
 	void graph_movePod(int podnumber,int incx,int incy, YAFScene* scene);
 	void graph_addPod(int podnumber, int idocti, YAFScene* scene);
 	void rotateCamera(YAFScene* scene,int turn);
+	void playMovie(YAFScene* scene);
+	bool movieAction(YAFScene* scene);
 
 	// PC
 	void comHandler(vector<float> valores,YAFScene* scene);
@@ -72,8 +78,6 @@ public:
 	void removePod(int player,int podnumber);
 	void unaddPod (int podnumber,float xi,float yi,float xf,float yf);
 
-
-	void reset(YAFScene* scene);
 
 };
 

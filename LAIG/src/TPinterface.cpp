@@ -16,7 +16,7 @@ void TPinterface::processMouse(int button, int state, int x, int y)
 	// do picking on mouse press (GLUT_DOWN)
 	// this could be more elaborate, e.g. only performing picking when there is a click (DOWN followed by UP) on the same place
 
-	if (button == GLUT_LEFT_BUTTON && state == GLUT_DOWN){
+	if (button == GLUT_LEFT_BUTTON && state == GLUT_DOWN && !((XMLScene*) scene)->doinganimations() && !((XMLScene*)scene)->inMovie){
 		//cout << "Clicou em (" << x << ", " << y << ")\n";
 		performPicking(x,y);
 	}
@@ -109,6 +109,9 @@ void TPinterface::processHits(GLint hits, GLuint buffer[])
 		clickHandler(selected, nselected);
 	}
 	else{
+		octi->pickedAnything = false;
+		octi->unhighlightAll();
+		octi->idLastPick = -1;
 		printf("Nothing selected while picking \n");	
 	}
 }
@@ -139,8 +142,9 @@ void TPinterface::clickHandler(GLuint* selected, GLint nselected){
 			sendMessage(mensagem.c_str());
 			//cout << "Enviou : " << mensagem << endl;
 			octi->dificuldade = -1;
+		
 			//cout <<	"Recebeu: " << readMessage() << endl;;
-
+			readMessage();
 			// RESET CENA
 			// BoardElements
 
@@ -148,14 +152,19 @@ void TPinterface::clickHandler(GLuint* selected, GLint nselected){
 			while(!octi->jogadas.empty()){
 				octi->undoPlay(((XMLScene*)scene)->getScenePointer());
 			}
+			octi->jogadas = octi->jogadasMovie;
+			octi->jogadasMovie.clear();
+			while(!octi->jogadas.empty()){
+				octi->undoPlay(((XMLScene*)scene)->getScenePointer());
+			}
 
-			octi->reset( ((XMLScene*) scene)->getScenePointer());
 
 			octi->createBoard();
 			octi->dificuldade = -1;
 			octi->setEnded(false);
 			octi->turn = 1;
 			octi->lastturn =1;
+			octi->gameStarted = true;
 		
 			octi->pickedAnything = false;
 			octi->idLastPick = -1;
@@ -188,18 +197,21 @@ void TPinterface::clickHandler(GLuint* selected, GLint nselected){
 			while(!octi->jogadas.empty()){
 				octi->undoPlay(((XMLScene*)scene)->getScenePointer());
 			}
-
-			octi->reset( ((XMLScene*) scene)->getScenePointer());
+			octi->jogadas = octi->jogadasMovie;
+			octi->jogadasMovie.clear();
+			while(!octi->jogadas.empty()){
+				octi->undoPlay(((XMLScene*)scene)->getScenePointer());
+			}
 
 			octi->createBoard();
+			octi->dificuldade = -1;
 			octi->setEnded(false);
 			octi->turn = 1;
-			octi->lastturn=1;
+			octi->lastturn =1;
 		
 			octi->pickedAnything = false;
 			octi->idLastPick = -1;
 			octi->idsReceived.clear();
-
 
 
 
@@ -238,6 +250,7 @@ void TPinterface::clickHandler(GLuint* selected, GLint nselected){
 		if(idpicado == 521){
 			// EASY
 			octi->setDificuldade(1);
+			octi->gameStarted = true;
 			//cout << "Selected EASY" << endl;
 
 			string mensagem2;
@@ -258,6 +271,7 @@ void TPinterface::clickHandler(GLuint* selected, GLint nselected){
 		if(idpicado == 522){
 			// Normal
 			octi->setDificuldade(2);
+			octi->gameStarted = true;
 			//cout << "Selected NORMAL" << endl;
 
 			string mensagem2;
@@ -267,10 +281,6 @@ void TPinterface::clickHandler(GLuint* selected, GLint nselected){
 			readMessage();
 
 			// RESET CENA
-			//octi = new Game();
-			while(!octi->jogadas.empty()){
-				octi->undoPlay(((XMLScene*)scene)->getScenePointer());
-			}
 
 			vector<Cameras*> aux = ((XMLScene*) scene)->getScenePointer()->camerasComp;
 			for(unsigned int i= 0; i < aux.size(); i++){
@@ -284,6 +294,7 @@ void TPinterface::clickHandler(GLuint* selected, GLint nselected){
 		if(idpicado == 523){
 			// Dificil
 			octi->setDificuldade(3);
+			octi->gameStarted = true;
 			//cout << "Selected HARD" << endl;
 
 			string mensagem2;
@@ -319,6 +330,7 @@ void TPinterface::clickHandler(GLuint* selected, GLint nselected){
 			}
 		}
 	}
+	// VOLTAR
 	if(idpicado == 541){
 		//cout << "Acabou jogo!" << endl;
 		// Voltar
@@ -330,6 +342,19 @@ void TPinterface::clickHandler(GLuint* selected, GLint nselected){
 				return;
 			}
 		}
+	}
+	// FILME
+	if(idpicado == 542){
+		
+		vector<Cameras*> aux = ((XMLScene*) scene)->getScenePointer()->camerasComp;
+		for(unsigned int i= 0; i < aux.size(); i++){
+			if(aux.at(i)->getid() == "camJogadorAzul"){
+				((XMLScene*) scene)->getScenePointer()->itActiveCamera = i;
+				((XMLScene*) scene)->refreshCameras();
+			}
+		}
+		octi->playMovie( ((XMLScene*) scene)->getScenePointer() );
+		((XMLScene*) scene)->inMovie = true;
 	}
 
 
@@ -890,16 +915,15 @@ void TPinterface::clickHandler(GLuint* selected, GLint nselected){
 
 
 		for(int i = 0; i < ((XMLScene* )scene)->getScenePointer()->camerasComp.size(); i++){
-							if(((XMLScene* )scene)->getScenePointer()->camerasComp[i]->getid() == "camJogadorAzul"){
-								((Perspective *)((XMLScene* )scene)->getScenePointer()->camerasComp[i])->toanimate = false;
+			if(((XMLScene* )scene)->getScenePointer()->camerasComp[i]->getid() == "camJogadorAzul"){
+				((Perspective *)((XMLScene* )scene)->getScenePointer()->camerasComp[i])->toanimate = false;
 								
-							}
-						}
+			}
+		}
 
 
 		// GANHOU JOG 1
 		if(octi->turn == 2){
-
 			for(int i = 0; i < ((XMLScene*) scene)->getScenePointer()->appearancesComp.size(); i++){
 				if( ((XMLScene*) scene)->getScenePointer()->appearancesComp[i]->getIdS() == "appJ1Venceu"){
 					app = ((XMLScene*) scene)->getScenePointer()->appearancesComp[i];
@@ -908,8 +932,7 @@ void TPinterface::clickHandler(GLuint* selected, GLint nselected){
 			}
 		}
 		// GANHOU JOG 2
-		else if(octi->turn == 1 && octi->getDificuldade() == 0){
-			Appearance* app;
+		else if(octi->turn == 1 && octi->getDificuldade() <= 0){
 			for(int i = 0; i < ((XMLScene*) scene)->getScenePointer()->appearancesComp.size(); i++){
 				if( ((XMLScene*) scene)->getScenePointer()->appearancesComp[i]->getIdS() == "appJ2Venceu"){
 					app = ((XMLScene*) scene)->getScenePointer()->appearancesComp[i];
@@ -919,7 +942,6 @@ void TPinterface::clickHandler(GLuint* selected, GLint nselected){
 		}
 		// GANHOU COM
 		else if(octi->turn == 1 && octi->getDificuldade() > 0){
-			Appearance* app;
 			for(int i = 0; i < ((XMLScene*) scene)->getScenePointer()->appearancesComp.size(); i++){
 				if( ((XMLScene*) scene)->getScenePointer()->appearancesComp[i]->getIdS() == "appComputadorVenceu"){
 					app = ((XMLScene*) scene)->getScenePointer()->appearancesComp[i];
@@ -954,9 +976,15 @@ void TPinterface::initGUI()
 	GLUI_Panel *painel1= addPanel("Accoes", 2);
 	addButtonToPanel(painel1,"Anular Jogada",1);
 
-	GLUI_Panel *painel2= addPanel("Cameras", 2);
-	addButtonToPanel(painel2,"Rodar Camara",2);
-
+	addColumnToPanel(painel1);
+	
+	//GLUI_Panel *painel2= addPanel("Tempo de Jogada", 4);
+	addPanelToPanel(painel1,"Tempo de Jogada");
+	GLUI_RadioGroup * group2=addRadioGroupToPanel(painel1,&(((XMLScene*) scene)->seleccao),21);
+	addRadioButtonToGroup(group2,"8");
+	addRadioButtonToGroup(group2,"12");
+	addRadioButtonToGroup(group2,"18");
+	
 
 	// Check CGFinterface.h and GLUI documentation for the types of controls available
 	GLUI_Panel *varPanel= addPanel("Configuracoes", 1);
@@ -994,8 +1022,18 @@ void TPinterface::processGUI(GLUI_Control *ctrl)
 		}
 	}
 
-	if(ctrl->user_id == 2){
+	if(ctrl->user_id == 21){
+		
 		//cout << "ROTATE CAMERA!" << endl;
+
+		switch(((XMLScene*) scene)->seleccao){
+		case 0: ((XMLScene*) scene)->tempoJogada = 8; break;
+		case 1: ((XMLScene*) scene)->tempoJogada = 12; break;
+		case 2: ((XMLScene*) scene)->tempoJogada = 16; break;
+		default:break;
+		}
+
+		cout << "Tempo: " << (((XMLScene*) scene)->tempoJogada) << endl;
 	}
 }
 

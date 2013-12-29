@@ -5,10 +5,14 @@ using namespace std;
 
 XMLScene::XMLScene(char *filename,CGFapplication* app, Game* game, int connecting)
 {
+	seleccao = 0;
+	tempoJogada = 8;
+	ultimoTempo = -1;
 	needConnection = connecting;
-
+	inMovie = false;
 	this->octi=game;
 	this->app=app;
+	
 	glMatrixMode(GL_MODELVIEW); 
 
 	GLfloat transformationMatrix[16];
@@ -927,10 +931,10 @@ XMLScene::XMLScene(char *filename,CGFapplication* app, Game* game, int connectin
 
 			
 			int pickingId = (int)no->getPicking();
-			if(pickingId > 10 && pickingId < 20){
+			if((pickingId > 10 && pickingId < 20) || (pickingId > 210 && pickingId < 220)){
 				scene->bluePods.push_back(no);
 			}
-			else if(pickingId > 20 && pickingId < 30){
+			else if(pickingId > 20 && pickingId < 30 || (pickingId > 220 && pickingId < 230)){
 				scene->redPods.push_back(no);
 			}
 			else if(pickingId == 122 || pickingId == 124 || pickingId == 126 || pickingId == 162 || pickingId == 164 || pickingId == 166){
@@ -978,7 +982,7 @@ void XMLScene::init()
 	scene->initposition(scene->rootid);
 	glPopMatrix();
 	scene->defaultGraph = scene->graph;
-	char * host = "smsesteves";
+	char * host = "Leonel";
 	connectToSocket(host);
 	setUpdatePeriod(30);
 	app->forceRefresh();
@@ -993,7 +997,28 @@ void XMLScene::init()
 
 void XMLScene::update(unsigned long	tempo)
 {
-		
+	if(octi->dificuldade < 0){
+		if(ultimoTempo == -1 && octi->gameStarted == true){
+			ultimoTempo = tempo;
+			numeroJogadas = octi->jogadas.size();
+		}
+		else if(numeroJogadas == octi->jogadas.size() && (tempo-ultimoTempo)/1000 > tempoJogada && octi->gameStarted == true){
+			cout << "ACABOU O TEMPO! TROCA DE TURNO!" << endl;
+			if(octi->turn == 1){
+				octi->turn = 2;
+				octi->unhighlightAll();
+			}
+			else if(octi->turn == 2){
+				octi->turn = 1;
+				octi->unhighlightAll();
+			}
+			ultimoTempo = tempo;
+		}
+		else if(octi->gameStarted == true){
+			numeroJogadas = octi->jogadas.size();
+		}
+	}
+
 	bool doingcenas=false;
 	vector<Appearance*> appearancesStack;
 	
@@ -1012,7 +1037,7 @@ void XMLScene::update(unsigned long	tempo)
 			}
 			else
 			{
-				//cout<<"ELIMINOU"<<endl;
+				//cout<<"ELIMINOU"<<endl			
 				it->second.erase(it->second.begin()+i);
 			}
 			
@@ -1041,6 +1066,23 @@ void XMLScene::update(unsigned long	tempo)
 		}
 	}
 	
+	// MOVIE
+	if(this->inMovie && !doinganimations()){
+		inMovie = octi->movieAction(this->getScenePointer());
+		if(inMovie == false){
+			vector<Cameras*> aux = getScenePointer()->camerasComp;
+			for(unsigned int i= 0; i < aux.size(); i++){
+				if(aux.at(i)->getid() == "camMenu"){
+					getScenePointer()->itActiveCamera = i;
+					refreshCameras();
+					return;
+				}
+			}
+		}
+	}
+
+
+
 	scene->draw(scene->rootid,appearancesStack);
 
 
@@ -1094,15 +1136,7 @@ void XMLScene::display(){
 
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
-	//Lights Processing
-	std::vector<Light*>::iterator it = scene->lightsComp.begin();
-	for(it; it != scene->lightsComp.end(); it++){
-		if((*it)->getEnabled() == true){
-			(*it)->enable();
-			(*it)->draw();
-		}
-		(*it)->update();
-	}
+	
 
 
 	scene->camerasComp.at(scene->itActiveCamera)->applyView();
@@ -1111,7 +1145,15 @@ void XMLScene::display(){
 	//cout << "IT    : " << scene->itActiveCamera << endl;
 	//cout << "CAMARA: " << scene->camerasComp.at(scene->itActiveCamera)->getid() << endl;
 	
-	
+	//Lights Processing
+	std::vector<Light*>::iterator it = scene->lightsComp.begin();
+	for(it; it != scene->lightsComp.end(); it++){
+		if((*it)->getEnabled() == true){
+			(*it)->enable();
+			//(*it)->draw();
+		}
+		(*it)->update();
+	}
 	
 
 	

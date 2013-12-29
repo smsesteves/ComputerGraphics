@@ -2,6 +2,7 @@
 
 Game::Game(){
 	createBoard();
+	gameStarted = false;
 	turn = 1;
 	lastturn =1;
 	ended = false;
@@ -37,6 +38,10 @@ void Game::rotateCamera(YAFScene* scene, int turn){
 
 void Game::setEnded(bool newBool){
 	ended = newBool;
+
+	if(newBool == false){
+		gameStarted = false;
+	}
 }
 
 
@@ -463,9 +468,9 @@ void Game::graph_addPod(int podnumber, int idocti, YAFScene* scene){
 	glPopMatrix();
 
 
-	vector<ControlPoint> c1;
-	c1.push_back(ControlPoint(50+pod->getx()-celula->getx(),-1,50+pod->getz()-celula->getz()));
-	c1.push_back(ControlPoint(0,1,0));
+	 vector<ControlPoint> c1;
+	 c1.push_back(ControlPoint(50+pod->getx()-celula->getx(),-1,50+pod->getz()-celula->getz()));
+	 c1.push_back(ControlPoint(0,1,0));
 
 
 	LinearAnimation* l1= new LinearAnimation("addPod",1,c1);
@@ -628,7 +633,7 @@ void Game::com_addProng(vector<float> valores, YAFScene* scene){
 	
 	int dir = valores[2];
 	
-	addprong(2, (int)valores[1] %10 , getDir(dir));
+	addprong(valores[1]/10, (int)valores[1] %10 , getDir(dir));
 
 	graph_addProngToPod(valores[1],dir,scene);
 	
@@ -641,7 +646,7 @@ void Game::com_movePod(vector<float> valores, YAFScene* scene){
 	
 		// 2 IDPOD CELX CELY INCX INCY
 
-		movepod(2,valores[1],valores[2],valores[3],valores[4],valores[5], scene);
+		movepod(valores[1]/10,valores[1],valores[2],valores[3],valores[4],valores[5], scene);
 				
 	
 }
@@ -764,8 +769,34 @@ void Game::comTurn(YAFScene* scene){
 	}
 }
 
-
-void Game::reset(YAFScene* scene)
-{
+bool Game::movieAction(YAFScene* scene){
 	
+	if(jogadasMovie.size() > movieAux){
+		vector<float> jogada = divideStringEmFloat(jogadasMovie.at(movieAux).c_str());
+		comHandler(jogada,scene);
+		//jogadasMovie.erase(jogadasMovie.begin());
+		movieAux++;
+		return true;
+	}
+	return false;
+}
+
+void Game::playMovie(YAFScene* scene){
+	jogadasMovie = jogadas;
+	movieAux = 0;
+
+	while(!jogadas.empty()){
+		undoPlay(scene);
+	}
+
+
+	createBoard();
+	dificuldade = -1;
+	setEnded(false);
+	turn = 1;
+	lastturn =1;
+	pickedAnything = false;
+	idLastPick = -1;
+	idsReceived.clear();
+
 }

@@ -1,10 +1,11 @@
 <yaf>
 	<animations> 
 	<animation id="moveProng" span="0.5" type="linear">
-                            
-                <controlpoint xx="0" yy="3.5" zz="0" />
+		<controlpoint xx="0" yy="3.5" zz="0" />
                 <controlpoint xx="0" yy="0" zz="0" />
-
+       
+                
+                
     </animation>
     <animation id="movePod" span="0.5" type="linear"> 
 				
@@ -48,33 +49,43 @@
 	</cameras>
 
 
-	<lighting doublesided="true" local="true" enabled="true" ambient="0.5 0.5 0.5 1" > 
-            
-            <omni id="light1" enabled="true" 
-                location="25 15 0" 
-                ambient="0.1 0.03 0.03 0.03" 
-                diffuse="0.5 0.6 0.8 1" 
-                specular="0.2 0.2 0.3 1" 
+	<lighting doublesided="false" local="false" enabled="true" ambient="0.6 0.6 0.6 1">
+			<omni id="menu1" enabled="true" 
+                location="50 10 0" 
+                ambient="0 0 0 1" 
+                diffuse="1 1 1 1" 
+                specular="1 1 1 1" 
             /> 
+             
+
+            <omni id="tabuleiro1" enabled="true" 
+                location="0 2 0" 
+                ambient="0 0 0 0" 
+                diffuse="0.5 0.5 0.5 1" 
+                specular="0.5 0.5 0.5 1" 
+            /> 
+               <!--
+
             <omni id="light2" enabled="true" 
                  location="-25 15 0" 
-                ambient="0.1 0.03 0.03 0.03" 
+                ambient="0.1 0.5 0.5 1" 
                 diffuse="0.5 0.6 0.8 1" 
                 specular="0.2 0.2 0.3 1" 
             /> 
-			<omni id="light3" enabled="true" 
-                location="55 30 0" 
-                ambient="0.1 0.03 0.03 0.03" 
-                diffuse="0.5 0.6 0.8 1" 
-                specular="0.2 0.2 0.3 1" 
-            /> 
+			
             <omni id="light4" enabled="true" 
                 location="0 1 15" 
-                ambient="0.1 0.03 0.03 0.03" 
+                ambient="0.1 0.5 0.5 1" 
                 diffuse="0.5 0.6 0.8 1" 
                 specular="0.2 0.2 0.3 1" 
             /> 
-            <!--
+            <omni id="light5" enabled="true" 
+                location="0 5 0" 
+                ambient="1 1 1 1" 
+                diffuse="1 1 1 1" 
+                specular="1 1 1 1" 
+            /> 
+         
             <omni id="light5" enabled="true" 
                 location="0 1 -15" 
                 ambient="0.1 0.03 0.03 0.03" 
@@ -128,7 +139,7 @@
 		<texture id="regras" file="textures/menu_regras.jpg" />
 		<texture id="menuComputador" file="textures/menuComputador.jpg"/>
 		<texture id="jogador1Venceu" file="textures/menuJogador1Venceu.jpg"/>
-		<texture id="Jogador2Venceu" file="textures/menuJogador2Venceu.jpg"/>
+		<texture id="jogador2Venceu" file="textures/menuJogador2Venceu.jpg"/>
 		<texture id="computadorVenceu" file="textures/menuComputadorVenceu.jpg"/>
 		<texture id="vidal" file="textures/rmv.jpg" />
 		
@@ -201,10 +212,10 @@
 		        />
         <!-- FOREST THEME -->
 		        <appearance id="bg_Forest"
-					emissive="0.8 0.8 0.8 1"
-					ambient="1 1 1 1"
-					diffuse="1 1 1 1"
-					specular="0.5 0.5 0.5 1"
+					emissive="1 1 1 1" 
+		        	ambient="1 1 1 1" 
+		        	diffuse="1 1 1 1"  
+		        	specular="1 1 1 1" 
 					shininess="1"
 					textureref="forest"
 					texlength_s="1"
@@ -255,10 +266,10 @@
 					texlength_t="1"
 		        />
 		        <appearance id="forest_red"
-					emissive="0.8 0.8 0.8 1"
+					emissive="1 1 1 1"
 					ambient="1 1 1 1"
 					diffuse="1 1 1 1"
-					specular="0.5 0.5 0.5 1"
+					specular="1 1 1 1"
 					shininess="1"
 					textureref="forest_red"
 					texlength_s="1"
@@ -277,10 +288,10 @@
 
 		<!-- COBBLE THEME -->
 				<appearance id="bg_Cobble"
-					emissive="0.8 0.8 0.8 1"
-					ambient="1 1 1 1"
-					diffuse="1 1 1 1"
-					specular="0.5 0.5 0.5 1"
+					emissive="1 1 1 1" 
+		        	ambient="1 1 1 1" 
+		        	diffuse="1 1 1 1" 
+		        	specular="1 1 1 1" 
 					shininess="1"
 					textureref="cbble_bg"
 					texlength_s="1"
@@ -790,7 +801,7 @@
 			<node id="tr_pick_a_1" pickingid="211">
 				<transforms>
 				</transforms>
-				<appearanceref id="appPecaAzul"/>
+				<appearanceref id="cbble_appPecaAzul"/>
 				<children>
 					<noderef id="trianguloBase"/>
 				</children>
@@ -800,7 +811,7 @@
 				<transforms>
 					<rotate axis="y" angle="45"/>
 				</transforms>
-				<appearanceref id="appPecaAzul"/>
+				<appearanceref id="cbble_appPecaAzul"/>
 				<children>
 					<noderef id="trianguloBase"/>
 				</children>
@@ -810,7 +821,7 @@
 				<transforms>
 					<rotate axis="y" angle="90"/>
 				</transforms>
-				<appearanceref id="appPecaAzul"/>
+				<appearanceref id="cbble_appPecaAzul"/>
 				<children>
 					<noderef id="trianguloBase"/>
 				</children>
@@ -820,7 +831,7 @@
 				<transforms>
 					<rotate axis="y" angle="135"/>
 				</transforms>
-				<appearanceref id="appPecaAzul"/>
+				<appearanceref id="cbble_appPecaAzul"/>
 				<children>
 					<noderef id="trianguloBase"/>
 				</children>
@@ -830,7 +841,7 @@
 				<transforms>
 					<rotate axis="y" angle="180"/>
 				</transforms>
-				<appearanceref id="appPecaAzul"/>
+				<appearanceref id="cbble_appPecaAzul"/>
 				<children>
 					<noderef id="trianguloBase"/>
 				</children>
@@ -840,7 +851,7 @@
 				<transforms>
 					<rotate axis="y" angle="225"/>
 				</transforms>
-				<appearanceref id="appPecaAzul"/>
+				<appearanceref id="cbble_appPecaAzul"/>
 				<children>
 					<noderef id="trianguloBase"/>
 				</children>
@@ -850,7 +861,7 @@
 				<transforms>
 					<rotate axis="y" angle="270"/>
 				</transforms>
-				<appearanceref id="appPecaAzul"/>
+				<appearanceref id="cbble_appPecaAzul"/>
 				<children>
 					<noderef id="trianguloBase"/>
 				</children>
@@ -860,7 +871,7 @@
 				<transforms>
 					<rotate axis="y" angle="315"/>
 				</transforms>
-				<appearanceref id="appPecaAzul"/>
+				<appearanceref id="cbble_appPecaAzul"/>
 				<children>
 					<noderef id="trianguloBase"/>
 				</children>

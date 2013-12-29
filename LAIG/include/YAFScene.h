@@ -61,7 +61,6 @@ public:
 	void switchTheme();
 
 	map<string,Node*> defaultGraph;
-	void resetScene();
 
 	int itActiveCamera;
 

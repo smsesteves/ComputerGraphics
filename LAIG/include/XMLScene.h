@@ -23,8 +23,13 @@ public:
 	void setLightState(int pos);
 	void update(unsigned long tempo);
 	int initSocket(char* host, int port);
-bool doinganimations();
+	bool doinganimations();
+	bool inMovie; 
 	int needConnection;
+	int seleccao;
+	int tempoJogada;
+	int ultimoTempo; 
+	int numeroJogadas;
 	
 protected:
 	

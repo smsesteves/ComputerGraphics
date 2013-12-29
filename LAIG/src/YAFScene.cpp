@@ -18,7 +18,7 @@ void YAFScene::initLights(){
 	globalAmbientLight[2]=lightConfig->getLightingAmbient().c;
 	globalAmbientLight[3]=lightConfig->getLightingAmbient().d;
 	glLightModelfv(GL_LIGHT_MODEL_AMBIENT, globalAmbientLight);
-	
+
 	//doublesided
 	if(lightConfig->getDoublesided()){
 		glLightModelf(GL_LIGHT_MODEL_TWO_SIDE, GL_TRUE);
@@ -70,18 +70,12 @@ void YAFScene::draw(string node,vector<Appearance*> &appstack)
 			float incx=((LinearAnimation*)animationsComp[graph[node]->getAnimationid()])->x;
 			float incy=((LinearAnimation*)animationsComp[graph[node]->getAnimationid()])->y;
 			float incz=((LinearAnimation*)animationsComp[graph[node]->getAnimationid()])->z;
-		
+
 
 			float matrix[16] ;
 			glGetFloatv(GL_MODELVIEW_MATRIX, &matrix[0]);
 			glTranslated(incx,incy,incz);
 		}
-
-		//glTranslated(-graph[node]->getx(),-graph[node]->gety(),-graph[node]->getz());
-
-		//cout<<" X: "<<graph[node]->getx()<<" Y: "<<graph[node]->gety()<<" Z: "<<graph[node]->getz()<<endl;
-		//cout<<" Angle: "<<((LinearAnimation*)animationsComp[graph[node]->getAnimationid()])->ry<<endl;
-		//cout<<" X: "<<incx<<" Y: "<<incy<<" Z: "<<incz<<endl;
 	}
 	if(graph[node]->getIsDL())
 	{
@@ -97,12 +91,12 @@ void YAFScene::draw(string node,vector<Appearance*> &appstack)
 		appstack.push_back(graph[node]->getAppearance());
 		newAppearance = true;
 	}
-	
+
 	if(!appstack.empty())
 	{
 		appstack[appstack.size() - 1]->apply();
 	}
-	
+
 	int i = 0;
 	vector<Primitive*>::iterator it = graph[node]->primitives.begin();
 	for(it; it !=  graph[node]->primitives.end(); it++){
@@ -112,7 +106,7 @@ void YAFScene::draw(string node,vector<Appearance*> &appstack)
 
 	for(unsigned int i=0;i<children.size();i++)
 	{
-		
+
 		if((int)graph[children[i]]->getPicking() > -1){
 			glPushName(graph[children[i]]->getPicking());
 			draw(graph[children[i]]->getId(),appstack);
@@ -123,12 +117,12 @@ void YAFScene::draw(string node,vector<Appearance*> &appstack)
 			draw(graph[children[i]]->getId(),appstack);
 		}
 	}
-	
+
 	if (newAppearance && !appstack.empty())
 		appstack.pop_back();
-	
+
 	glPopMatrix();
-	
+
 	return;
 }
 
@@ -136,18 +130,18 @@ void YAFScene::resetvisited()
 {
 	/*
 	for (auto& x: graph) {
-		x.second->setvisited(false);
+	x.second->setvisited(false);
 	}
 	*/
 	for (std::map<string,Node*>::iterator it=graph.begin(); it!=graph.end(); ++it){
 		(*it).second->setvisited(false);
 	}
-	 
+
 }
 
 void YAFScene::initGlobals(){
 
-	
+
 	string cFace = globalsComp.getCullface();
 	if(cFace != "none"){
 		glEnable(GL_CULL_FACE);
@@ -157,19 +151,19 @@ void YAFScene::initGlobals(){
 	}
 	else glDisable(GL_CULL_FACE);
 
-	
+
 	string cOrder = globalsComp.getCullorder();
 	if(cOrder == "CCW") glFrontFace(GL_CCW);
 	else if(cOrder == "CW") glFrontFace(GL_CW);
-	
 
 
-	
+
+
 	string cShade = globalsComp.getShading();
 	if(cShade == "flat") glShadeModel(GL_FLAT);
 	else if(cShade == "smooth") glShadeModel(GL_SMOOTH);
 
-	
+
 	string cDMode = globalsComp.getDMode();
 	if(cDMode == "fill"){
 		glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
@@ -191,7 +185,7 @@ void YAFScene::initGlobals(){
 
 void YAFScene::createdisplays(string node,vector<Appearance*>appstack)
 {
-	
+
 	int maxChil=graph[node]->getchildren().size();
 
 	bool newAppearance = false;
@@ -200,7 +194,7 @@ void YAFScene::createdisplays(string node,vector<Appearance*>appstack)
 		appstack.push_back(graph[node]->getAppearance());
 		newAppearance = true;
 	}
-	
+
 	if(!graph[node]->getIsDL())
 	{
 		glMultMatrixf(graph[node]->getmatrix());
@@ -267,7 +261,7 @@ void YAFScene::createdisplays(string node,vector<Appearance*>appstack)
 					glPopMatrix();
 				}
 				glPopMatrix();
-				
+
 				graph[node]->displayid= glGenLists(1) ;
 				glNewList(graph[node]->displayid, GL_COMPILE);
 				graph[node]->hasdisplaylist=true;
@@ -277,12 +271,12 @@ void YAFScene::createdisplays(string node,vector<Appearance*>appstack)
 				{
 					appstack[appstack.size() - 1]->apply();
 				}
-				
+
 				it = graph[node]->primitives.begin();
 				for(it; it !=  graph[node]->primitives.end(); it++){
 					(*it)->draw();	
 				}
-				
+
 				children=graph[node]->getchildren();
 
 				for(unsigned int i=0;i<children.size();i++)
@@ -330,7 +324,7 @@ void YAFScene::initAnimations()
 
 				//Verifica se existe
 				bool encontra=false;
-			
+
 				for(map<Animation*,vector<Node*> >::iterator novo=graphanimation.begin(); novo!=graphanimation.end();++novo)
 				{
 					if(novo->first==it->second)
@@ -338,26 +332,26 @@ void YAFScene::initAnimations()
 						encontra=true;
 						break;
 					}
-					
+
 				}
 				if(!encontra)
 				{
 					if(it->second->animationType() == 0){
-			
 
-						
+
+
 						float tempoTotal = it->second->getSpan();
 						float distanciatotal=0;
 						vector<ControlPoint> aux= ((LinearAnimation*)(it->second))->controlPoints;
 						for(unsigned int j = 0; j < ((LinearAnimation*)(it->second))->controlPoints.size() -1 ; j++){
 							//cout << "\tde " << j << " a " << j+1 << endl;
 							distanciatotal+=distanciapontos(aux[j].x,aux[j].y,aux[j].z,aux[j+1].x,aux[j+1].y,aux[j+1].z);
-							
+
 						}
 
 
 
-						
+
 						for(unsigned int j = 0; j < ((LinearAnimation*)(it->second))->controlPoints.size() -1 ; j++){
 							//cout << "\tde " << j << " a " << j+1 << endl;
 							velocidadescomp v1;
@@ -367,15 +361,15 @@ void YAFScene::initAnimations()
 							v1.vx=abs(aux[j+1].x-aux[j].x)/v1.time;
 							v1.vy=abs(aux[j+1].y-aux[j].y)/v1.time;
 							v1.vz=abs(aux[j+1].z-aux[j].z)/v1.time;
-							
+
 							((LinearAnimation*)(it->second))->velocidades.push_back(v1);
 						}
-						
+
 						vector<Node*> aux2;
 						aux2.push_back(it2->second);
 						graphanimation.insert(pair<Animation*,vector<Node*> >(it->second,aux2));	
 					}
-			
+
 				}
 				else
 				{
@@ -389,44 +383,33 @@ void YAFScene::initAnimations()
 
 void YAFScene::initposition(string node)
 {       
-	
-		vector<string> children=graph[node]->getchildren();
-        for(unsigned int i=0;i<children.size();i++)
-        {
-			glPushMatrix();
-                initposition(graph[children[i]]->getId());
-			glPopMatrix();
-        }
+
+	vector<string> children=graph[node]->getchildren();
+	for(unsigned int i=0;i<children.size();i++)
+	{
+		glPushMatrix();
+		initposition(graph[children[i]]->getId());
+		glPopMatrix();
+	}
 
 
-        glMultMatrixf(graph[node]->getmatrix());
-        float matrix[16] ;//=graph[node]->getmatrix();
-        glGetFloatv(GL_MODELVIEW_MATRIX, &matrix[0]);
+	glMultMatrixf(graph[node]->getmatrix());
+	float matrix[16] ;//=graph[node]->getmatrix();
+	glGetFloatv(GL_MODELVIEW_MATRIX, &matrix[0]);
 
-        float resX = graph[node]->incposx( matrix[0], matrix[4], matrix[8], matrix[12] );
-        float resY = graph[node]->incposy( matrix[1], matrix[5], matrix[9], matrix[13] );
-        float resZ = graph[node]->incposz( matrix[2], matrix[6], matrix[10], matrix[14] );
-        
+	float resX = graph[node]->incposx( matrix[0], matrix[4], matrix[8], matrix[12] );
+	float resY = graph[node]->incposy( matrix[1], matrix[5], matrix[9], matrix[13] );
+	float resZ = graph[node]->incposz( matrix[2], matrix[6], matrix[10], matrix[14] );
 
-        graph[node]->setx(resX);
-        graph[node]->sety(resY);
-        graph[node]->setz(resZ);
 
-        
+	graph[node]->setx(resX);
+	graph[node]->sety(resY);
+	graph[node]->setz(resZ);
 
-        return;
 
-}
 
-void YAFScene::resetScene(){
-	this->graph = this->defaultGraph;
-	this->graphanimation.clear();
+	return;
 
-	
-
-	vector<Appearance*> appearancesStack;
-	this->createdisplays(this->rootid,appearancesStack);
-	//octi = new Game();
 }
 
 void YAFScene::switchTheme(){

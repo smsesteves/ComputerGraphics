@@ -37,6 +37,7 @@ int main()
 		enviaMensagem("recebidodif");
 	}
 	
+	bool entrou = false;
 	int count=0;
 	while(1)
 	{
@@ -55,6 +56,8 @@ int main()
 			aEnviar="666";
 			g1=Game();
 			g1.createBoard();
+			entrou = true;
+
 		}
 		cout<<aEnviar<<endl;
 		enviaMensagem(aEnviar.c_str());
@@ -66,7 +69,7 @@ int main()
 		string toSend;
 
 		//TODO: nao possibilidade 
-		if(dificuldade != -1 && (valoresRecebidos[0] == 1 || valoresRecebidos[0] == 2 || valoresRecebidos[0] == 3)){
+		if(dificuldade != -1 && (valoresRecebidos[0] == 1 || valoresRecebidos[0] == 2 || valoresRecebidos[0] == 3) && !entrou){
 			char* recebido2=leMensagem();
 
 			cout << "PRIMEIRA RECECAO: " << recebido2 << endl;
@@ -145,6 +148,7 @@ int main()
 					
 					g1=Game();
 					g1.createBoard();
+					entrou = false;
 				}
 				enviaMensagem(aEnviar2.c_str());
 			}

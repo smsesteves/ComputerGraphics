@@ -14,14 +14,15 @@ using namespace std;
 int main(int argc, char* argv[]) {
   
     CGFapplication* app = new CGFapplication();
-
 	Game* octi = new Game();
 	octi->setEnded(false);
+	
 
     try {
 		app->width = 800;
 		app->height = 400;
 		//app->xy_aspect = 2;
+		glutInitWindowSize(800, 400);
         app->init(&argc, argv);
 
 		
