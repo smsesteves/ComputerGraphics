@@ -1023,8 +1023,11 @@ void XMLScene::update(unsigned long	tempo)
 			}
 			else
 			{
+
+
 				//cout<<"ELIMINOU"<<endl			
 				it->second.erase(it->second.begin()+i);
+				
 			}
 			
 		}

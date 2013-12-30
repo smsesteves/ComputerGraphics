@@ -985,6 +985,8 @@ void TPinterface::initGUI()
 	addRadioButtonToGroup(group2,"12");
 	addRadioButtonToGroup(group2,"18");
 	
+	addStaticText("Prima 'T' para alterar o tema");
+
 	/*
 
 	// Check CGFinterface.h and GLUI documentation for the types of controls available
