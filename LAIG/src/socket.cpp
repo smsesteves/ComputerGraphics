@@ -7,7 +7,7 @@
 #define NAMS	64
 
 /**********************/
-int port = 9961;
+int port = 5000;
 /**********************/
 
 
@@ -21,10 +21,9 @@ char buf[256];
 SOCKET sock;
 
 
-int connectToSocket(char* hostname)
+int connectToSocket()
 {
-	//std::cout << "Insere a porta " << std::endl;
-	//std::cin >> sock;
+	std::cout << "Connecting to Logic Socket...\n";
 	WORD wVersionRequested = MAKEWORD(1,1);	// request Winsock 1.1
 	WSADATA wsaData;
 	struct sockaddr_in server;
@@ -33,9 +32,9 @@ int connectToSocket(char* hostname)
 	int i;	// loop counter
 
 	// Initialize Winsockets
-	if (WSAStartup(wVersionRequested, &wsaData) == 0)	// allways needed
-		printf("\nVersion allowed: %d.%d\n",
-			LOBYTE(wsaData.wHighVersion),HIBYTE(wsaData.wHighVersion));
+	if (WSAStartup(wVersionRequested, &wsaData) == 0){}	// allways needed
+		//printf("\nVersion allowed: %d.%d\n",
+			//LOBYTE(wsaData.wHighVersion),HIBYTE(wsaData.wHighVersion));
 	else
 		{
 		fprintf(stderr,"\n Wrong version\n");
@@ -54,7 +53,7 @@ int connectToSocket(char* hostname)
 
 	/* Connect socket using server name indicated in the command line */
 	server.sin_family = AF_INET;
-	hp = gethostbyname(hostname);
+	hp = gethostbyname("127.0.0.1");
 	if (hp == NULL)
 		{
 		perror("Trying to get host by name");
@@ -68,6 +67,7 @@ int connectToSocket(char* hostname)
 	perror("Connecting stream socket");
 	exit(1);
 	}
+	std::cout << "Connection Established with success!\n";
 }
 
 void sendMessage(const char* buf){

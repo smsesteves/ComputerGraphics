@@ -985,18 +985,18 @@ void TPinterface::initGUI()
 	addRadioButtonToGroup(group2,"12");
 	addRadioButtonToGroup(group2,"18");
 	
+	/*
 
 	// Check CGFinterface.h and GLUI documentation for the types of controls available
 	GLUI_Panel *varPanel= addPanel("Configuracoes", 1);
-
 	addColumnToPanel(varPanel);
-
+	
 	GLUI_RadioGroup * group1=addRadioGroupToPanel(varPanel,&(((XMLScene*) scene)->getScenePointer()->itActiveCamera),11);
 	string cameraName;
 	for(unsigned int i = 0; i < (((XMLScene*) scene)->getScenePointer()->camerasComp.size()); i++){
 		cameraName = "Camera " + (((XMLScene*) scene)->getScenePointer()->camerasComp.at(i)->getid());
 		addRadioButtonToGroup(group1,(char *)cameraName.c_str());
-	}
+	}*/
 
 }
 void TPinterface::processGUI(GLUI_Control *ctrl)

@@ -11,6 +11,8 @@
 using namespace std;  
   
   
+
+
 int main(int argc, char* argv[]) {
   
     CGFapplication* app = new CGFapplication();
@@ -22,8 +24,8 @@ int main(int argc, char* argv[]) {
 		app->width = 800;
 		app->height = 400;
 		//app->xy_aspect = 2;
-		glutInitWindowSize(800, 400);
         app->init(&argc, argv);
+		glutReshapeWindow(800,550);
 
 		
         if(argc == 1)

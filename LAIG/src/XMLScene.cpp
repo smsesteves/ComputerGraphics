@@ -29,6 +29,7 @@ XMLScene::XMLScene(char *filename,CGFapplication* app, Game* game, int connectin
 		system("pause");
 		exit( 1 );
 	}
+	printf("Loading Files...\n");
 
 	TiXmlElement* yafElement= doc->FirstChildElement( "yaf" );
 
@@ -50,12 +51,12 @@ XMLScene::XMLScene(char *filename,CGFapplication* app, Game* game, int connectin
 		printf("Animations block not found!\n");
 	else
 	{
-		printf("Processing Animations:\n");
+		printf("Processing Animations...\n");
 		TiXmlElement* singleAnimationElement = animationsElement->FirstChildElement("animation");
 
 		while(singleAnimationElement){
 
-			printf("A new animation was found!\n");
+			//printf("A new animation was found!\n");
 
 			string id, type;
 			float span;
@@ -67,11 +68,12 @@ XMLScene::XMLScene(char *filename,CGFapplication* app, Game* game, int connectin
 				id = singleAnimationElement->Attribute("id");
 				type = singleAnimationElement->Attribute("type");
 
+				/*
 				printf("\tAnimation attributes:\n");
 				printf("\t\t id: %s\n", id.c_str());
 				printf("\t\t type: %s\n", type.c_str());
 				printf("\t\t span: %f\n", span);
-
+				*/
 				if(type=="linear"){
 					
 					TiXmlElement* controlPointElement = singleAnimationElement->FirstChildElement("controlpoint");
@@ -109,7 +111,7 @@ XMLScene::XMLScene(char *filename,CGFapplication* app, Game* game, int connectin
 		printf("Globals block not found!\n");
 	else
 	{
-		printf("Processing Globals:\n");
+		printf("Processing Globals...\n");
 
 		string background, drawmode, cullface, shading, cullorder;
 
@@ -125,23 +127,23 @@ XMLScene::XMLScene(char *filename,CGFapplication* app, Game* game, int connectin
 			float a,b,c,d;
 			sscanf(background.c_str(),"%f %f %f %f", &a, &b, &c, &d);
 			scene->globalsComp.setBackground(a,b,c,d);
-			printf("\tBackground: %s \n", background.c_str());
+			//printf("\tBackground: %s \n", background.c_str());
 
 			drawmode=globalsElement->Attribute("drawmode");
 			scene->globalsComp.setDrawmode(drawmode);
-			printf("\tDrawmode: %s \n", drawmode.c_str());
+			//printf("\tDrawmode: %s \n", drawmode.c_str());
 
 			cullface=globalsElement->Attribute("cullface");
 			scene->globalsComp.setCullface(cullface);
-			printf("\tCullface: %s \n", cullface.c_str());
+			//printf("\tCullface: %s \n", cullface.c_str());
 
 			cullorder=globalsElement->Attribute("cullorder");
 			scene->globalsComp.setCullorder(cullorder);
-			printf("\tCullorder: %s \n", cullorder.c_str());
+			//printf("\tCullorder: %s \n", cullorder.c_str());
 
 			shading=globalsElement->Attribute("shading");
 			scene->globalsComp.setShading(shading);
-			printf("\tShading: %s \n", shading.c_str());
+			//printf("\tShading: %s \n", shading.c_str());
 
 		}
 		else
@@ -155,14 +157,14 @@ XMLScene::XMLScene(char *filename,CGFapplication* app, Game* game, int connectin
 		printf("Cameras block not found!\n");
 	else
 	{
-		printf("Processing Cameras:\n");
+		printf("Processing Cameras...\n");
 
 		string initial;
 		if (camerasElement->Attribute("initial")!=NULL)
 		{
 			// TODO: Verificacoes dos valores de entrada
 			initial=camerasElement->Attribute("initial");
-			printf("\tInitial: %s \n", initial.c_str());
+			//printf("\tInitial: %s \n", initial.c_str());
 		}
 
 		TiXmlElement* cameraElement = camerasElement->FirstChildElement();
@@ -191,9 +193,9 @@ XMLScene::XMLScene(char *filename,CGFapplication* app, Game* game, int connectin
 
 						if(initial==id)
 							perspectiveAux->setCInitial(true);
-						printf("\tPerspective attributes:\n");
-						printf("\t\tnear: %f far: %f angle: %f \n", near, far, angle);
-						printf("\t\tpos: %s target: %s id: %s\n", pos.c_str(), target.c_str(),id.c_str());
+						//printf("\tPerspective attributes:\n");
+						//printf("\t\tnear: %f far: %f angle: %f \n", near, far, angle);
+						//printf("\t\tpos: %s target: %s id: %s\n", pos.c_str(), target.c_str(),id.c_str());
 
 						float pa,pb,pc;
 						float ta,tb,tc;
@@ -233,11 +235,12 @@ XMLScene::XMLScene(char *filename,CGFapplication* app, Game* game, int connectin
 					cameraElement->Attribute("id") != NULL
 					){
 						id = cameraElement->Attribute("id");
+						/*
 						printf("\tOrtho attributes:\n");
 						printf("\t\tnear: %f, far: %f, angle: %f \n", near, far, left);
 						printf("\t\tpos: %f, target: %f, bottom: %f\n", right, top, bottom);
 						printf("\t\tid: %s\n", id.c_str());
-
+						*/
 						if(initial==id)
 							orthoAux->setCInitial(true);
 						orthoAux->setCPrimary(id,near,far);
@@ -269,7 +272,7 @@ XMLScene::XMLScene(char *filename,CGFapplication* app, Game* game, int connectin
 		printf("Lighting block not found!\n");
 	else
 	{
-		printf("Processing Lighting:\n");
+		printf("Processing Lights...\n");
 
 		string doublesided, local, enabled; //boolean
 		string ambient;
@@ -313,11 +316,12 @@ XMLScene::XMLScene(char *filename,CGFapplication* app, Game* game, int connectin
 			lightingConfig->setLightingAmbient(x,y,z,p);
 
 			scene->setLightConfig(lightingConfig);
-
+			/*
 			printf("\tDoublesided: %s \n", doublesided.c_str());
 			printf("\tLocal: %s \n", local.c_str());
 			printf("\tEnabled: %s \n", enabled.c_str());
 			printf("\tAmbient: %s \n", ambient.c_str());
+			*/
 		}
 
 		int lightId = GL_LIGHT0;
@@ -459,7 +463,7 @@ XMLScene::XMLScene(char *filename,CGFapplication* app, Game* game, int connectin
 		printf("Textures block not found!\n");
 	else
 	{
-		printf("Processing Textures:\n");
+		printf("Processing Textures...\n");
 		TiXmlElement* textureElement = texturesElement->FirstChildElement("texture");
 		while(textureElement)
 		{
@@ -469,8 +473,8 @@ XMLScene::XMLScene(char *filename,CGFapplication* app, Game* game, int connectin
 				){
 					id = textureElement->Attribute("id");
 					file = textureElement->Attribute("file");
-					printf("\tTexture attributes:\n");
-					printf("\t\tId: %s\n\t\tFile: %s\n", id.c_str(), file.c_str());
+					//printf("\tTexture attributes:\n");
+					//printf("\t\tId: %s\n\t\tFile: %s\n", id.c_str(), file.c_str());
 
 					//Texture* textureAux = new Texture();
 					//ofstream fin("ola.txt");
@@ -495,7 +499,7 @@ XMLScene::XMLScene(char *filename,CGFapplication* app, Game* game, int connectin
 		printf("Appearances block not found!\n");
 	else
 	{
-		printf("Processing Appearances:\n");
+		printf("Processing Appearances...\n");
 		TiXmlElement* appearanceElement = appearancesElement->FirstChildElement("appearance");
 		while (appearanceElement)
 		{
@@ -562,11 +566,11 @@ XMLScene::XMLScene(char *filename,CGFapplication* app, Game* game, int connectin
 						}
 					}
 
-					printf("\tApearance attributes:\n");
-					printf("\t\tId: %s \n\t\tEmissive: %s \n\t\tAmbient: %s\n", id.c_str(), emissiveS.c_str(), ambientS.c_str());
-					printf("\t\tDiffuse: %s \n\t\tSpecular: %s \n\t\tTextureRef: %s \n\t\tShininess: %f\n", diffuseS.c_str(), specularS.c_str(), textureref.c_str(), shininess);
-					if(textureref.length()==0)
-						printf("\t\tTexLength S: %f \n\t\tTexLength T: %f\n", texlength_s, texlength_t);
+					//printf("\tApearance attributes:\n");
+					//printf("\t\tId: %s \n\t\tEmissive: %s \n\t\tAmbient: %s\n", id.c_str(), emissiveS.c_str(), ambientS.c_str());
+					//printf("\t\tDiffuse: %s \n\t\tSpecular: %s \n\t\tTextureRef: %s \n\t\tShininess: %f\n", diffuseS.c_str(), specularS.c_str(), textureref.c_str(), shininess);
+					if(textureref.length()==0){}
+						//printf("\t\tTexLength S: %f \n\t\tTexLength T: %f\n", texlength_s, texlength_t);
 
 					scene->appearancesComp.push_back(ap);
 
@@ -599,13 +603,13 @@ XMLScene::XMLScene(char *filename,CGFapplication* app, Game* game, int connectin
 				no->setId(id);
 
 
-				printf("Node: %s\n", id.c_str());
+				//printf("Node: %s\n", id.c_str());
 			}
 			if(node->Attribute("pickingid") != NULL){
 				picking = node->Attribute("pickingid");
 				int idInt = atoi(picking.c_str());
 				no->setPicking(idInt);
-				printf("\t %s\n", picking.c_str());
+				//printf("\t %s\n", picking.c_str());
 
 				
 				std::vector<Appearance*>::iterator it = scene->appearancesComp.begin();
@@ -624,7 +628,7 @@ XMLScene::XMLScene(char *filename,CGFapplication* app, Game* game, int connectin
 				flagDL = node->Attribute("displaylist");
 				if(flagDL == "true") no->setIsDL(true);
 
-				cout << "DL: " << no->getIsDL() << endl;
+				//cout << "DL: " << no->getIsDL() << endl;
 			}
 
 			// Transformacoes
@@ -653,7 +657,7 @@ XMLScene::XMLScene(char *filename,CGFapplication* app, Game* game, int connectin
 
 						//cout<<"Saí"<<endl;
 
-						printf("\tEncontrou Translate\n");
+						//printf("\tEncontrou Translate\n");
 					}
 					else if((string)infoTrans->Value() == "rotate"){
 
@@ -680,7 +684,7 @@ XMLScene::XMLScene(char *filename,CGFapplication* app, Game* game, int connectin
 							break;
 						}
 
-						printf("\tEncontrou Rotation\n");
+						//printf("\tEncontrou Rotation\n");
 					}
 					else if((string)infoTrans->Value() == "scale"){
 
@@ -690,7 +694,7 @@ XMLScene::XMLScene(char *filename,CGFapplication* app, Game* game, int connectin
 						sscanf(aux.c_str(),"%f %f %f",&x,&y,&z);	
 
 						glScaled(x,y,z); 
-						printf("\tEncontrou Scale\n");
+						//printf("\tEncontrou Scale\n");
 					}
 
 					infoTrans = infoTrans->NextSiblingElement();
@@ -715,7 +719,7 @@ XMLScene::XMLScene(char *filename,CGFapplication* app, Game* game, int connectin
 						no->notHighlighted = (*it);
 					}
 				}                     
-				printf("\tAppearance: %s\n", idAppearance.c_str());
+				//printf("\tAppearance: %s\n", idAppearance.c_str());
 			}
 
 			//Animation
@@ -724,7 +728,7 @@ XMLScene::XMLScene(char *filename,CGFapplication* app, Game* game, int connectin
 				TiXmlElement* animationRef = node->FirstChildElement("animationref");
 				idAnimation = animationRef->Attribute("id");
 				no->setAnimationid(idAnimation);
-				printf("\tAnimation: %s\n", idAnimation.c_str());
+				//printf("\tAnimation: %s\n", idAnimation.c_str());
 			}
 
 			//Children
@@ -736,11 +740,11 @@ XMLScene::XMLScene(char *filename,CGFapplication* app, Game* game, int connectin
 						string idChild;
 						idChild = infoChild->Attribute("id");
 						no->insertstring(idChild);
-						printf("\tInseriu RefNode: %s\n", idChild.c_str());
+						//printf("\tInseriu RefNode: %s\n", idChild.c_str());
 					}
 					 //<plane parts=”ii” />
 					else if((string)infoChild->Value() == "plane"){
-						printf("\tEncontrou Plano\n");
+						//printf("\tEncontrou Plano\n");
 						string partsAux;
 						float parts;
 						partsAux = infoChild->Attribute("parts");
@@ -751,7 +755,7 @@ XMLScene::XMLScene(char *filename,CGFapplication* app, Game* game, int connectin
 						
 					}
 					else if((string)infoChild->Value() == "vehicle"){
-						printf("\tEncontrou Veiculo\n");
+						//printf("\tEncontrou Veiculo\n");
 						Primitive* v1 = new Vehicle();
 						no->insertprimitive(v1);
 						
@@ -792,7 +796,7 @@ XMLScene::XMLScene(char *filename,CGFapplication* app, Game* game, int connectin
 								controlPointElement->QueryFloatAttribute("y",&y)==TIXML_SUCCESS &&
 								controlPointElement->QueryFloatAttribute("z",&z)==TIXML_SUCCESS)
 							{
-								cout << x << y << z << endl;
+								//cout << x << y << z << endl;
 								ControlPoint pontoAux(x,y,z);
 								auxPoints.push_back(pontoAux);
 							}
@@ -805,7 +809,7 @@ XMLScene::XMLScene(char *filename,CGFapplication* app, Game* game, int connectin
 					}
 					else if((string)infoChild->Value() == "hexagon"){
 
-						printf("\tEncontrou Hexagono\n");
+						//printf("\tEncontrou Hexagono\n");
 
 						//Primitive* h1 = new Hexagon();
 
@@ -814,7 +818,7 @@ XMLScene::XMLScene(char *filename,CGFapplication* app, Game* game, int connectin
 					}
 					else if((string)infoChild->Value() == "triangle"){
 
-						printf("\tEncontrou Triangulo\n");
+						//printf("\tEncontrou Triangulo\n");
 
 						float p1x, p1y, p1z;
 						string ponto1;
@@ -838,7 +842,7 @@ XMLScene::XMLScene(char *filename,CGFapplication* app, Game* game, int connectin
 					}
 					else if((string)infoChild->Value() == "cylinder"){
 
-						printf("\tEncontrou Cilindro\n");
+						//printf("\tEncontrou Cilindro\n");
 						// TODO: IF's
 
 						float base, top, height, slices, stacks;
@@ -863,18 +867,18 @@ XMLScene::XMLScene(char *filename,CGFapplication* app, Game* game, int connectin
 
 					}
 					else if((string)infoChild->Value() == "rectangle"){
-						printf("\tEncontrou Rectangulo\n");
+						//printf("\tEncontrou Rectangulo\n");
 						float x1, y1, x2, y2;
 						string p1, p2;
 						p1 = infoChild->Attribute("xy1");
 						p2 = infoChild->Attribute("xy2");
 
-						cout<<"P1: "<<p1<<" P2: "<<p2<<endl;
+						//cout<<"P1: "<<p1<<" P2: "<<p2<<endl;
 
 						sscanf(p1.c_str(), "%f %f", &x1, &y1);
 						sscanf(p2.c_str(), "%f %f", &x2, &y2);
 
-						cout<<"X1: "<<x1<<" X2: "<<x2<<" Y1: "<<y1<<" y2: "<<y2<<endl;
+						//cout<<"X1: "<<x1<<" X2: "<<x2<<" Y1: "<<y1<<" y2: "<<y2<<endl;
 
 						Primitive* r1 = new Rectangle(x1,y1,x2,y2);
 						no->insertprimitive(r1);
@@ -982,9 +986,8 @@ void XMLScene::init()
 	scene->initposition(scene->rootid);
 	glPopMatrix();
 	scene->defaultGraph = scene->graph;
-	char * host = "Leonel";
-	connectToSocket(host);
-	setUpdatePeriod(30);
+	connectToSocket();
+	setUpdatePeriod(20);
 	app->forceRefresh();
 	vector<Appearance*> appearancesStack;
 	scene->createdisplays(scene->rootid,appearancesStack);
@@ -1006,16 +1009,25 @@ void XMLScene::update(unsigned long	tempo)
 			cout << "ACABOU O TEMPO! TROCA DE TURNO!" << endl;
 			if(octi->turn == 1){
 				octi->turn = 2;
-				octi->unhighlightAll();
+				octi->lastturn=1;
 			}
 			else if(octi->turn == 2){
 				octi->turn = 1;
-				octi->unhighlightAll();
+				octi->lastturn=2;
 			}
+			
+			octi->unhighlightAll();
+			octi->idsReceived.clear();
+			octi->idLastPick = -1;
+			octi->pickedAnything = false;
 			ultimoTempo = tempo;
 		}
 		else if(octi->gameStarted == true){
+			if(numeroJogadas < octi->jogadas.size()){
+				ultimoTempo = tempo;
+			}
 			numeroJogadas = octi->jogadas.size();
+			
 		}
 	}
 

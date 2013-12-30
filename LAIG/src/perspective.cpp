@@ -27,11 +27,11 @@ void Perspective::update(int turn){
 
 	if(turn == 1){
 		if(rotation[CG_CGFcamera_AXIS_Y] < 360){
-			this->setRotation(CG_CGFcamera_AXIS_Y, rotation[CG_CGFcamera_AXIS_Y] + 20);
+			this->setRotation(CG_CGFcamera_AXIS_Y, rotation[CG_CGFcamera_AXIS_Y] + 15);
 			glMatrixMode(GL_MODELVIEW);
 			glPushMatrix();
 			glLoadIdentity();
-			glRotated(20,0,1,0);
+			glRotated(15,0,1,0);
 			glTranslated(position[0],position[1],position[2]);
 
 			float matrix[16];
@@ -56,11 +56,11 @@ void Perspective::update(int turn){
 
 	if(turn == 2){
 		if(rotation[CG_CGFcamera_AXIS_Y] < 180){
-			this->setRotation(CG_CGFcamera_AXIS_Y, rotation[CG_CGFcamera_AXIS_Y] + 20);
+			this->setRotation(CG_CGFcamera_AXIS_Y, rotation[CG_CGFcamera_AXIS_Y] + 15);
 			glMatrixMode(GL_MODELVIEW);
 			glPushMatrix();
 			glLoadIdentity();
-			glRotated(20,0,1,0);
+			glRotated(15,0,1,0);
 			
 			glTranslated(position[0],position[1],position[2]);
 			float matrix[16];

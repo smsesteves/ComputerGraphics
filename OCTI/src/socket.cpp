@@ -56,7 +56,7 @@ int criarSocket()
 	/* Name socket as suggested by the system */
 	server.sin_family = AF_INET;
 	server.sin_addr.s_addr = INADDR_ANY;
-	server.sin_port = 0;	/* system will suggest port number */
+	server.sin_port = htons(5000);	/* system will suggest port number */
 	if (bind(sock, (struct sockaddr *)&server, sizeof server) == SOCKET_ERROR)
 	{
 		perror("Binding stream socket");

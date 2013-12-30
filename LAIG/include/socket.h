@@ -9,7 +9,7 @@
 
 
 //bool estaConectado;
-int connectToSocket(char* hostname);
+int connectToSocket();
 void closeSocket();
 void sendMessage(const char* buf);
 char* readMessage();
