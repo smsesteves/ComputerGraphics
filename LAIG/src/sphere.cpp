@@ -1,5 +1,5 @@
 #include "sphere.h"
-
+// HAAAANDS
 Sphere::Sphere(float radius,int slices,int stacks)
 {
 		this->radius=radius;
