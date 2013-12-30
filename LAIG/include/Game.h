@@ -42,6 +42,7 @@ public:
 	void graph_movePod(int podnumber,int incx,int incy, YAFScene* scene);
 	void graph_addPod(int podnumber, int idocti, YAFScene* scene);
 	void rotateCamera(YAFScene* scene,int turn);
+	void rotateCamera(YAFScene* scene,int turn,int lastturn);
 	void playMovie(YAFScene* scene);
 	bool movieAction(YAFScene* scene);
 

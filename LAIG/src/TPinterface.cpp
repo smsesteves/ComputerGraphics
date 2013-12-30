@@ -214,7 +214,7 @@ void TPinterface::clickHandler(GLuint* selected, GLint nselected){
 			octi->idsReceived.clear();
 
 
-
+			
 			vector<Cameras*> aux = ((XMLScene*) scene)->getScenePointer()->camerasComp;
 			for(unsigned int i= 0; i < aux.size(); i++){
 				if(aux.at(i)->getid() == "camComputador"){
@@ -1015,8 +1015,7 @@ void TPinterface::processGUI(GLUI_Control *ctrl)
 			sendMessage(toSend.c_str());
 			readMessage();
 			octi->undoPlay(((XMLScene*)scene)->getScenePointer());	
-
-			if(octi->dificuldade == -1) octi->rotateCamera(((XMLScene*) scene)->getScenePointer(),octi->turn);
+			if(octi->dificuldade == -1) octi->rotateCamera(((XMLScene*) scene)->getScenePointer(),octi->turn,octi->lastturn);
 
 
 		}

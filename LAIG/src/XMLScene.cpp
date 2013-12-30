@@ -975,6 +975,7 @@ XMLScene::XMLScene(char *filename,CGFapplication* app, Game* game, int connectin
 void XMLScene::init()
 {
 
+
 	scene->initGlobals();
 	scene->initCameras();
 	scene->switchTheme();
@@ -994,42 +995,15 @@ void XMLScene::init()
 	//octi = new Game();
 	octi->createBoard();
 	//octi->displayBoard();
+	marcador = new TextObject();
+
 	
 }
 	
 
 void XMLScene::update(unsigned long	tempo)
 {
-	if(octi->dificuldade < 0){
-		if(ultimoTempo == -1 && octi->gameStarted == true){
-			ultimoTempo = tempo;
-			numeroJogadas = octi->jogadas.size();
-		}
-		else if(numeroJogadas == octi->jogadas.size() && (tempo-ultimoTempo)/1000 > tempoJogada && octi->gameStarted == true){
-			cout << "ACABOU O TEMPO! TROCA DE TURNO!" << endl;
-			if(octi->turn == 1){
-				octi->turn = 2;
-				octi->lastturn=1;
-			}
-			else if(octi->turn == 2){
-				octi->turn = 1;
-				octi->lastturn=2;
-			}
-			
-			octi->unhighlightAll();
-			octi->idsReceived.clear();
-			octi->idLastPick = -1;
-			octi->pickedAnything = false;
-			ultimoTempo = tempo;
-		}
-		else if(octi->gameStarted == true){
-			if(numeroJogadas < octi->jogadas.size()){
-				ultimoTempo = tempo;
-			}
-			numeroJogadas = octi->jogadas.size();
-			
-		}
-	}
+
 
 	bool doingcenas=false;
 	vector<Appearance*> appearancesStack;
@@ -1063,6 +1037,7 @@ void XMLScene::update(unsigned long	tempo)
 		if(octi->dificuldade == -1){
 			octi->rotateCamera(getScenePointer(), octi->turn);
 			octi->lastturn=octi->turn;
+			doingcenas=true;
 		}
 
 	}
@@ -1072,9 +1047,14 @@ void XMLScene::update(unsigned long	tempo)
 				//cout << octi->turn << endl;
 				((Perspective *)scene->camerasComp[i])->update(octi->turn);
 				scene->itActiveCamera = i;
-				
+				doingcenas=true;
+				if(((Perspective *)scene->camerasComp[i])->toanimate == false)
+				{
+					ultimoTempo=tempo;
+				}
 				//cout << "Encontrei! " << endl;
 			}
+
 		}
 	}
 	
@@ -1092,6 +1072,44 @@ void XMLScene::update(unsigned long	tempo)
 			}
 		}
 	}
+
+
+	if(octi->dificuldade < 0 && !doingcenas){
+
+		marcador->text=to_string(tempoJogada-(tempo-ultimoTempo)/1000);
+
+		if(ultimoTempo == -1 && octi->gameStarted == true){
+			ultimoTempo = tempo;
+			numeroJogadas = octi->jogadas.size();
+			
+		}
+		else if(numeroJogadas == octi->jogadas.size() && (tempo-ultimoTempo)/1000 > tempoJogada && octi->gameStarted == true){
+			cout << "ACABOU O TEMPO! TROCA DE TURNO!" << endl;
+			if(octi->turn == 1){
+				octi->turn = 2;
+				octi->lastturn=1;
+			}
+			else if(octi->turn == 2){
+				octi->turn = 1;
+				octi->lastturn=2;
+			}
+			
+			octi->unhighlightAll();
+			octi->idsReceived.clear();
+			octi->idLastPick = -1;
+			octi->pickedAnything = false;
+			ultimoTempo = tempo;
+		}
+		else if(octi->gameStarted == true){
+			if(numeroJogadas < octi->jogadas.size()){
+				ultimoTempo = tempo;
+			}
+			numeroJogadas = octi->jogadas.size();
+			
+		}
+	}
+
+	
 
 
 
@@ -1175,7 +1193,9 @@ void XMLScene::display(){
 	
 	vector<Appearance*> appearancesStack;
 
+	
 
+	marcador->draw();
 
 	scene->draw(scene->rootid,appearancesStack);
 

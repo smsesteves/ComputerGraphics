@@ -7,7 +7,7 @@
 #include "Game.h"
 #include "socket.h"
 #include "TPinterface.h"
-
+#include "TextObject.h"
 
 class XMLScene: public CGFscene
 {
@@ -30,6 +30,7 @@ public:
 	int tempoJogada;
 	int ultimoTempo; 
 	int numeroJogadas;
+	TextObject* marcador;
 	
 protected:
 	
