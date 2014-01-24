@@ -11,7 +11,7 @@ using namespace std;
   
   
 void f1(){
-	system("\\Octi.exe");
+	system(".\\Octi.exe");
 }
 
 int main(int argc, char* argv[]) {

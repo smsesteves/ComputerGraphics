@@ -1,4 +1,0 @@
-ComputerGraphics
-================
-
-OpenGL SocketsWin32
